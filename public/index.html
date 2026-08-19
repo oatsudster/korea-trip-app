@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ทริปโซล–ปูซาน ก.ย. 69</title>
+<meta name="description" content="แผนเที่ยวโซลและปูซาน 4 วัน 12-15 ก.ย. 2569 พร้อมวิธีเดินทางละเอียดและช่องบันทึกค่าใช้จ่ายร่วมกัน">
+<meta name="theme-color" content="#FFF6F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1C1828" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="โซล–ปูซาน">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&amp;family=IBM+Plex+Sans+Thai:wght@400;500;600&amp;family=Gaegu:wght@700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap">
+<style>
+:root{
+  --paper:#FFF6F2; --card:#FFFFFF; --card2:#FFFBF8;
+  --ink:#2E2340; --ink-soft:#6E6382; --ink-faint:#9C93AE;
+  --line:#EEDFD8; --line-2:#E2D2CB;
+  --seoul:#E4635A; --busan:#2E9AC4; --gold:#E09A2B; --leaf:#5E9F5F; --plum:#9B6BA8;
+  --seoul-bg:#FDECEA; --busan-bg:#E6F3F9; --gold-bg:#FCF1DD; --leaf-bg:#E9F3E9; --plum-bg:#F3EAF6;
+  --shadow:rgba(70,45,60,.13); --shadow-2:rgba(70,45,60,.07);
+  --on-accent:#FFFFFF;
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1C1828; --card:#272134; --card2:#2E2740;
+    --ink:#F5EFF7; --ink-soft:#B0A5C4; --ink-faint:#8A7FA0;
+    --line:#3A3350; --line-2:#463D5F;
+    --seoul:#FF8B84; --busan:#63C4E8; --gold:#F2BE60; --leaf:#8FCE8F; --plum:#C79AD3;
+    --seoul-bg:#3B2831; --busan-bg:#1F3542; --gold-bg:#3A3021; --leaf-bg:#243527; --plum-bg:#33263B;
+    --shadow:rgba(0,0,0,.45); --shadow-2:rgba(0,0,0,.25);
+    --on-accent:#1C1828;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1C1828; --card:#272134; --card2:#2E2740;
+  --ink:#F5EFF7; --ink-soft:#B0A5C4; --ink-faint:#8A7FA0;
+  --line:#3A3350; --line-2:#463D5F;
+  --seoul:#FF8B84; --busan:#63C4E8; --gold:#F2BE60; --leaf:#8FCE8F; --plum:#C79AD3;
+  --seoul-bg:#3B2831; --busan-bg:#1F3542; --gold-bg:#3A3021; --leaf-bg:#243527; --plum-bg:#33263B;
+  --shadow:rgba(0,0,0,.45); --shadow-2:rgba(0,0,0,.25);
+  --on-accent:#1C1828;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'IBM Plex Sans Thai','Mali',system-ui,-apple-system,sans-serif;
+  font-size:15px; line-height:1.65; -webkit-text-size-adjust:100%;
+  overflow-x:hidden;
+}
+#root{max-width:520px;margin:0 auto;padding:0 14px calc(96px + env(safe-area-inset-bottom))}
+h1,h2,h3{font-family:'Mali','IBM Plex Sans Thai',cursive;margin:0;text-wrap:balance;line-height:1.35}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select{font:inherit;color:inherit}
+:focus-visible{outline:2.5px solid var(--busan);outline-offset:2px;border-radius:8px}
+svg{display:block}
+.tnum{font-family:'IBM Plex Mono','IBM Plex Sans Thai',monospace;font-variant-numeric:tabular-nums}
+
+/* ---------- hero ---------- */
+.hero{padding:18px 4px 6px;position:relative}
+.hero-art{width:100%;height:auto;overflow:visible}
+.hero h1{font-size:27px;font-weight:700;letter-spacing:-.2px;margin-top:10px}
+.hero .sub{color:var(--ink-soft);font-size:13.5px;margin-top:3px}
+.hero .stamp{
+  position:absolute;right:2px;top:16px;transform:rotate(9deg);
+  font-family:'Gaegu','Mali',cursive;font-size:13px;letter-spacing:.5px;
+  color:var(--seoul);border:2.5px dashed var(--seoul);border-radius:12px;
+  padding:5px 11px 3px;opacity:.85;background:var(--card);
+}
+
+/* ---------- day pills ---------- */
+.pills{display:flex;gap:8px;overflow-x:auto;padding:14px 2px 12px;scrollbar-width:none;-ms-overflow-style:none}
+.pills::-webkit-scrollbar{display:none}
+.pill{
+  flex:0 0 auto;border:2px solid var(--line-2);background:var(--card);
+  border-radius:14px;padding:7px 13px 6px;display:flex;flex-direction:column;
+  align-items:flex-start;min-width:78px;transition:transform .14s,border-color .14s;
+}
+.pill b{font-family:'Mali',cursive;font-size:15px;font-weight:700;line-height:1.2}
+.pill span{font-size:11px;color:var(--ink-faint);letter-spacing:.2px}
+.pill[aria-pressed="true"]{border-color:currentColor;transform:translateY(-2px) rotate(-1.2deg);box-shadow:0 5px 0 -1px var(--shadow-2)}
+.pill.c-seoul[aria-pressed="true"]{color:var(--seoul);background:var(--seoul-bg)}
+.pill.c-busan[aria-pressed="true"]{color:var(--busan);background:var(--busan-bg)}
+.pill[aria-pressed="true"] span{color:inherit;opacity:.8}
+
+/* ---------- ticket ---------- */
+.ticket{
+  background:var(--card);border:2px solid var(--line-2);border-radius:var(--r);
+  box-shadow:0 6px 0 -2px var(--shadow-2);overflow:hidden;margin-bottom:16px;
+}
+.tk-head{padding:14px 16px 13px;position:relative;color:var(--on-accent)}
+.tk-head.seoul{background:var(--seoul)}
+.tk-head.busan{background:var(--busan)}
+.tk-head .eyebrow{font-family:'Gaegu',cursive;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;opacity:.85}
+.tk-head h2{font-size:20px;font-weight:700;margin-top:1px}
+.tk-head .meta{font-size:12.5px;opacity:.9;margin-top:3px}
+.perf{height:14px;background:var(--card);position:relative}
+.perf::before,.perf::after{content:"";position:absolute;top:-7px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:2px solid var(--line-2)}
+.perf::before{left:-8px}
+.perf::after{right:-8px}
+.perf .dash{position:absolute;left:14px;right:14px;top:6px;border-top:2px dashed var(--line)}
+
+/* ---------- timeline ---------- */
+.tl{padding:4px 16px 18px;position:relative}
+.tl::before{content:"";position:absolute;left:29px;top:6px;bottom:22px;border-left:2px dotted var(--line-2)}
+.ev{position:relative;padding:11px 0 11px 34px}
+.ev .dot{
+  position:absolute;left:-4px;top:15px;width:26px;height:26px;border-radius:50%;
+  display:grid;place-items:center;background:var(--card2);border:2px solid var(--line-2);
+  color:var(--ink-soft);
+}
+.ev.k-spot .dot{background:var(--plum-bg);border-color:var(--plum);color:var(--plum)}
+.ev.k-food .dot{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+.ev.k-move .dot{background:var(--busan-bg);border-color:var(--busan);color:var(--busan)}
+.ev.k-stay .dot{background:var(--leaf-bg);border-color:var(--leaf);color:var(--leaf)}
+.ev .time{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;color:var(--ink-faint);letter-spacing:.4px}
+.ev h3{font-size:16px;font-weight:600;margin-top:1px}
+.ev .kr{font-family:'Gaegu',cursive;font-size:14px;color:var(--ink-faint);margin-left:5px;font-weight:400}
+.ev .body{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+.ev .body b{color:var(--ink);font-weight:600}
+
+/* how-to-get-there box */
+.route{
+  margin-top:9px;border:2px dashed var(--line-2);border-radius:14px;
+  background:var(--card2);padding:10px 12px 11px;
+}
+.route .rt{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;
+  color:var(--busan);letter-spacing:.3px;margin-bottom:6px}
+.route ol{margin:0;padding-left:19px;font-size:13px;color:var(--ink-soft);display:flex;flex-direction:column;gap:5px}
+.route ol::marker{color:var(--ink-faint)}
+.route li b{color:var(--ink);font-weight:600}
+.route .rmeta{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tag{
+  font-size:11.5px;font-weight:500;padding:2.5px 9px 1.5px;border-radius:999px;
+  background:var(--busan-bg);color:var(--busan);white-space:nowrap;
+}
+.tag.w{background:var(--gold-bg);color:var(--gold)}
+.tag.g{background:var(--leaf-bg);color:var(--leaf)}
+
+.note{
+  margin-top:9px;border-radius:13px;padding:9px 12px;font-size:12.8px;
+  background:var(--gold-bg);color:var(--ink);border-left:4px solid var(--gold);
+}
+.note.warn{background:var(--seoul-bg);border-left-color:var(--seoul)}
+.note b{font-weight:600}
+
+/* ---------- generic card ---------- */
+.card{
+  background:var(--card);border:2px solid var(--line-2);border-radius:var(--r);
+  box-shadow:0 6px 0 -2px var(--shadow-2);padding:15px 16px 16px;margin-bottom:14px;
+}
+.card > h2{font-size:18px;font-weight:700;display:flex;align-items:center;gap:9px;margin-bottom:4px}
+.card > h2 .ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;flex:0 0 auto}
+.card .lead{font-size:13.5px;color:var(--ink-soft);margin-bottom:11px}
+.rows{display:flex;flex-direction:column;gap:11px}
+.row{display:flex;gap:11px;align-items:flex-start;font-size:13.5px}
+.row .k{flex:0 0 76px;font-weight:600;font-size:12.5px;color:var(--ink)}
+.row .v{color:var(--ink-soft);flex:1}
+.row .v b{color:var(--ink);font-weight:600}
+.sect-title{
+  font-family:'Mali',cursive;font-weight:700;font-size:14px;margin:16px 2px 9px;
+  display:flex;align-items:center;gap:8px;color:var(--ink-soft);
+}
+.sect-title::after{content:"";flex:1;border-top:2px dotted var(--line-2)}
+
+/* ---------- expenses ---------- */
+.money{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;font-weight:500}
+.mates{display:flex;gap:10px;margin-bottom:13px}
+.mate{
+  flex:1;border:2px solid var(--line-2);border-radius:15px;background:var(--card2);
+  padding:11px 11px 12px;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;
+}
+.mate.a{border-color:var(--seoul);background:var(--seoul-bg)}
+.mate.b{border-color:var(--busan);background:var(--busan-bg)}
+.mate input{
+  width:100%;text-align:center;background:transparent;border:0;border-bottom:2px dotted var(--line-2);
+  font-family:'Mali',cursive;font-weight:700;font-size:15px;padding:1px 0 2px;
+}
+.mate .amt{font-size:16px}
+.mate .lbl{font-size:11px;color:var(--ink-faint)}
+
+.settle{
+  border-radius:16px;padding:14px 15px;background:var(--leaf-bg);
+  border:2px solid var(--leaf);text-align:center;margin-bottom:14px;
+}
+.settle .big{font-family:'Mali',cursive;font-weight:700;font-size:19px;line-height:1.45;color:var(--ink)}
+.settle .sm{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+.settle .big em{font-style:normal;color:var(--leaf)}
+
+.form{display:flex;flex-direction:column;gap:10px}
+.fld{display:flex;flex-direction:column;gap:5px}
+.fld > label{font-size:11.5px;font-weight:600;letter-spacing:.3px;color:var(--ink-faint)}
+.inp{
+  width:100%;background:var(--card2);border:2px solid var(--line-2);border-radius:12px;
+  padding:9px 12px;font-size:15px;
+}
+.inp::placeholder{color:var(--ink-faint)}
+.amtrow{display:flex;gap:8px}
+.amtrow .inp{flex:1}
+.cur{display:flex;border:2px solid var(--line-2);border-radius:12px;overflow:hidden;flex:0 0 auto}
+.cur button{padding:0 13px;font-weight:600;font-size:14px;color:var(--ink-faint);background:var(--card2)}
+.cur button[aria-pressed="true"]{background:var(--gold);color:#2E2340}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{
+  border:2px solid var(--line-2);background:var(--card2);border-radius:999px;
+  padding:5px 12px 4px;font-size:13px;font-weight:500;color:var(--ink-soft);
+  transition:transform .12s;
+}
+.chip[aria-pressed="true"]{color:var(--ink);border-color:currentColor;transform:translateY(-1px)}
+.chip.a[aria-pressed="true"]{background:var(--seoul-bg);border-color:var(--seoul);color:var(--seoul)}
+.chip.b[aria-pressed="true"]{background:var(--busan-bg);border-color:var(--busan);color:var(--busan)}
+.chip.n[aria-pressed="true"]{background:var(--plum-bg);border-color:var(--plum);color:var(--plum)}
+.btn{
+  border-radius:14px;padding:11px 16px;font-family:'Mali',cursive;font-weight:700;font-size:15.5px;
+  background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 0 -1px var(--shadow);transition:transform .1s,box-shadow .1s;
+}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 -1px var(--shadow)}
+.btn.ghost{background:var(--card2);color:var(--ink-soft);border:2px solid var(--line-2);box-shadow:none;font-size:14px;padding:9px 14px}
+.btn[disabled]{opacity:.5;pointer-events:none}
+
+.items{display:flex;flex-direction:column;gap:8px}
+.item{
+  display:flex;align-items:center;gap:10px;background:var(--card2);
+  border:2px solid var(--line);border-radius:14px;padding:9px 11px;
+}
+.item .cdot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.item .txt{flex:1;min-width:0}
+.item .txt .t1{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .txt .t2{font-size:11.5px;color:var(--ink-faint)}
+.item .val{text-align:right;font-size:14px}
+.item .val .sub{font-size:11px;color:var(--ink-faint)}
+.item .del{padding:4px;color:var(--ink-faint);border-radius:8px;flex:0 0 auto}
+.item .del:hover{color:var(--seoul)}
+.empty{text-align:center;color:var(--ink-faint);font-size:13.5px;padding:22px 10px}
+
+.bars{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.bar{display:flex;align-items:center;gap:9px;font-size:12.5px}
+.bar .bn{flex:0 0 62px;color:var(--ink-soft)}
+.bar .track{flex:1;height:9px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar .fill{height:100%;border-radius:99px}
+.bar .bv{flex:0 0 auto;font-size:12px;color:var(--ink-soft)}
+
+.syncbar{
+  display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft);
+  background:var(--card2);border:2px dashed var(--line-2);border-radius:12px;
+  padding:8px 11px;margin-bottom:12px;
+}
+.syncbar .led{width:8px;height:8px;border-radius:50%;background:var(--leaf);flex:0 0 auto}
+.syncbar.off .led{background:var(--gold)}
+.syncbar.busy .led{background:var(--busan);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.25}}
+
+/* ---------- bottom nav ---------- */
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  background:var(--card);border-top:2px solid var(--line-2);
+  padding:7px 8px calc(7px + env(safe-area-inset-bottom));
+  box-shadow:0 -6px 22px var(--shadow-2);
+}
+.nav .inner{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.nav button{
+  display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 2px 3px;
+  border-radius:13px;color:var(--ink-faint);font-size:10.5px;font-weight:600;letter-spacing:.2px;
+}
+.nav button[aria-current="true"]{color:var(--seoul);background:var(--seoul-bg)}
+
+/* place actions */
+.acts{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.act{
+  display:inline-flex;align-items:center;gap:5px;border:2px solid var(--line-2);
+  background:var(--card2);border-radius:999px;padding:5px 11px 4px;
+  font-size:12.5px;font-weight:600;color:var(--ink-soft);transition:transform .12s;
+}
+.act:active{transform:translateY(1px)}
+.act.go{color:var(--busan);border-color:var(--busan);background:var(--busan-bg)}
+.act.say{color:var(--plum);border-color:var(--plum);background:var(--plum-bg)}
+
+/* now marker */
+.ev.now{background:var(--gold-bg);border-radius:14px;margin-left:-8px;padding-left:42px;padding-right:10px}
+.ev.now .dot{left:4px}
+.ev.now .time::after{content:" ← ตอนนี้";color:var(--gold);font-weight:700}
+.pill .today{
+  display:inline-block;margin-left:5px;font-size:9.5px;font-weight:700;
+  background:var(--gold);color:#2E2340;border-radius:99px;padding:1px 6px 0;vertical-align:1px;
+}
+.countdown{
+  display:inline-flex;align-items:center;gap:6px;margin-top:8px;
+  background:var(--leaf-bg);color:var(--leaf);border:2px solid var(--leaf);
+  border-radius:999px;padding:4px 13px 3px;font-size:12.5px;font-weight:600;
+}
+
+/* taxi card */
+.sheet{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:20px;
+  background:rgba(24,18,34,.62);backdrop-filter:blur(3px)}
+.sheet[hidden]{display:none}
+.sheet-in{
+  background:var(--card);border:3px solid var(--ink);border-radius:22px;
+  padding:22px 20px 18px;max-width:420px;width:100%;text-align:center;
+  box-shadow:0 12px 0 -4px var(--shadow);
+}
+.sheet-cap{font-size:12.5px;color:var(--ink-faint);letter-spacing:.3px}
+.sheet-kr{
+  font-family:'Gaegu','Mali',cursive;font-weight:700;line-height:1.15;
+  font-size:clamp(38px,13vw,62px);margin:10px 0 6px;color:var(--ink);word-break:keep-all;
+}
+.sheet-th{font-size:14.5px;color:var(--ink-soft);margin-bottom:16px}
+.sheet-btns{display:flex;gap:9px}
+.sheet-btns .btn{flex:1}
+
+/* checklist */
+.chk{display:flex;flex-direction:column;gap:7px}
+.chk-g{font-size:12px;font-weight:700;color:var(--ink-faint);letter-spacing:.4px;margin:12px 2px 2px}
+.chk-g:first-child{margin-top:2px}
+.chkitem{
+  display:flex;align-items:flex-start;gap:10px;background:var(--card2);
+  border:2px solid var(--line);border-radius:13px;padding:9px 11px;text-align:left;width:100%;
+}
+.chkitem .box{
+  flex:0 0 auto;width:22px;height:22px;border-radius:7px;border:2.5px solid var(--line-2);
+  display:grid;place-items:center;color:transparent;margin-top:1px;
+}
+.chkitem[aria-pressed="true"]{border-color:var(--leaf);background:var(--leaf-bg)}
+.chkitem[aria-pressed="true"] .box{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.chkitem[aria-pressed="true"] .lab{color:var(--ink-faint);text-decoration:line-through}
+.chkitem .lab{font-size:13.5px;line-height:1.5}
+.chk-bar{display:flex;align-items:center;gap:9px;margin:2px 0 6px;font-size:12.5px;color:var(--ink-soft)}
+.chk-bar .track{flex:1;height:9px;border-radius:99px;background:var(--line);overflow:hidden}
+.chk-bar .fill{height:100%;background:var(--leaf);border-radius:99px;transition:width .25s}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function(){
+'use strict';
+
+var FONT='https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&amp;family=IBM+Plex+Sans+Thai:wght@400;500;600&amp;family=Gaegu:wght@700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap';
+var TITLE='ทริปโซล–ปูซาน ก.ย. 69';
+
+/* ================= icons ================= */
+var P='stroke="currentColor" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
+var ICONS={
+ plane:'<path '+P+' d="M3 13l18-7-5 8 2 7-4-5-4 3-1-4-6-2z"/>',
+ train:'<rect '+P+' x="5" y="3" width="14" height="14" rx="4"/><path '+P+' d="M5 11h14M9 20l-2 2M15 20l2 2"/><circle cx="8.5" cy="14.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="14.5" r="1.1" fill="currentColor" stroke="none"/>',
+ metro:'<circle '+P+' cx="12" cy="12" r="9"/><path '+P+' d="M7 15l4-7 2 4 1-2 3 5"/>',
+ bus:'<rect '+P+' x="4" y="4" width="16" height="13" rx="3"/><path '+P+' d="M4 11h16M8 20l-1 2M16 20l1 2"/><circle cx="8" cy="14.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="16" cy="14.5" r="1.1" fill="currentColor" stroke="none"/>',
+ taxi:'<path '+P+' d="M3 16v-3l2-5h14l2 5v3"/><path '+P+' d="M3 16h18M6 16v2H4v-2M20 16v2h-2v-2M9 5h6"/><circle cx="7.5" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="16.5" cy="13" r="1" fill="currentColor" stroke="none"/>',
+ walk:'<circle '+P+' cx="13" cy="4.5" r="2"/><path '+P+' d="M11 21l1.5-6-2.5-2 1-5 3 2 2.5 1M10 12l-2 4"/>',
+ cable:'<path '+P+' d="M3 5l18 3"/><path '+P+' d="M12 6.5v3"/><rect '+P+' x="8" y="9.5" width="8" height="8" rx="2.5"/>',
+ spot:'<path '+P+' d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle '+P+' cx="12" cy="10" r="2.4"/>',
+ food:'<path '+P+' d="M4 3v7a3 3 0 0 0 6 0V3M7 10v11"/><path '+P+' d="M17 3c-2 2-2 6 0 8v10"/>',
+ stay:'<path '+P+' d="M4 20V9l8-5 8 5v11"/><path '+P+' d="M9 20v-6h6v6"/>',
+ wallet:'<rect '+P+' x="3" y="6" width="18" height="13" rx="3.5"/><path '+P+' d="M3 10h18"/><circle cx="17" cy="14" r="1.3" fill="currentColor" stroke="none"/>',
+ map:'<path '+P+' d="M9 4L3 6.5v14L9 18l6 2.5 6-2.5v-14L15 6.5 9 4z"/><path '+P+' d="M9 4v14M15 6.5v14"/>',
+ info:'<circle '+P+' cx="12" cy="12" r="9"/><path '+P+' d="M12 11v5"/><circle cx="12" cy="7.8" r="1.2" fill="currentColor" stroke="none"/>',
+ cal:'<rect '+P+' x="3" y="5" width="18" height="16" rx="3.5"/><path '+P+' d="M3 10h18M8 3v4M16 3v4"/>',
+ plus:'<path '+P+' d="M12 5v14M5 12h14"/>',
+ trash:'<path '+P+' d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/>',
+ copy:'<rect '+P+' x="8" y="8" width="12" height="12" rx="3"/><path '+P+' d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+ nav:'<path '+P+' d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><path '+P+' d="M14.5 7.5l-1.6 4-4 1.6 1.6-4 4-1.6z"/>',
+ say:'<path '+P+' d="M4 5h16v10H9l-4 4V5z"/><path '+P+' d="M8 9h8M8 12h5"/>',
+ check:'<path '+P+' d="M5 12.5l4.5 4.5L19 7.5" stroke-width="3"/>',
+ tip:'<path '+P+' d="M12 3a6 6 0 0 0-3.5 10.9V17h7v-3.1A6 6 0 0 0 12 3z"/><path '+P+' d="M10 20h4"/>'
+};
+function ic(n,s){return '<svg viewBox="0 0 24 24" width="'+(s||18)+'" height="'+(s||18)+'" aria-hidden="true">'+(ICONS[n]||'')+'</svg>';}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+/* ================= itinerary ================= */
+var DAYS=[
+{n:1,dow:'เสาร์',date:'12 ก.ย.',city:'seoul',cityName:'โซล',title:'ถึงโซล — ค่อยๆ ปรับตัว',meta:'อินชอน → เมียงดง → อิกซอนดง → ควังจัง',ev:[
+ {t:'08:15',k:'move',ic:'plane',h:'ถึงสนามบินอินชอน (ICN)',kr:'인천공항',b:'เผื่อเวลาผ่าน ตม. + รอกระเป๋าประมาณ <b>1 ชั่วโมง</b> ระหว่างรอ แวะเข้าห้องน้ำล้างหน้าแปรงฟันก่อน — ไฟลท์กลางคืนมาจะงัวเงีย'},
+ {t:'09:30',k:'move',ic:'metro',h:'อินชอน → ใจกลางโซล',kr:'AREX',b:'ทางเลือกหลัก 2 แบบ เลือกตามปริมาณกระเป๋า',
+  route:{label:'วิธีเดินทางละเอียด',steps:[
+   'ก่อนอื่น <b>ซื้อบัตร T-money</b> ที่ร้าน CU / GS25 / 7-Eleven ในอาคารผู้โดยสาร (ชั้น 1 ฝั่งขาเข้า) บอกพนักงานว่า “T-money card, please” — ค่าบัตร <b>₩4,000</b> แล้วเติมเงินที่ตู้ <b>₩40,000/คน</b> พอใช้ทั้งทริป (ใช้ได้ทั้งโซลและปูซาน)',
+   'ลงชั้น <b>B1</b> ตามป้าย <b>“AREX / Airport Railroad”</b> (ป้ายสีฟ้ามีรูปเครื่องบิน+รถไฟ)',
+   '<b>แบบประหยัด:</b> ขึ้น AREX ขบวนธรรมดา (All-stop, สีน้ำเงิน) แตะ T-money เข้าได้เลย ไม่ต้องจอง — ถึง <b>Seoul Station (서울역)</b> ประมาณ 59 นาที',
+   '<b>แบบสบาย:</b> AREX Express ตู้มีที่นั่งจองล่วงหน้า ซื้อที่เคาน์เตอร์หน้าชานชาลา — <b>43 นาที</b> ถึงสถานีโซล เหมาะถ้ากระเป๋าใหญ่',
+   'จาก Seoul Station ต่อ <b>สาย 4 (สีฟ้า)</b> ไป <b>Myeongdong (명동)</b> แค่ 1 สถานี ออก <b>Exit 8</b> แล้วเดินเข้าโรงแรม'
+  ],meta:[{t:'All-stop ₩4,750 / 59 นาที'},{t:'Express ₩11,000 / 43 นาที',c:'w'},{t:'T-money ₩4,000 + เติม ₩40,000',c:'g'}]},
+  note:{txt:'<b>ทางเลือกที่สบายที่สุดถ้ากระเป๋าใหญ่:</b> Airport Limousine Bus สาย <b>6015</b> ขึ้นที่ประตู 5B/11B ชั้น 1 จอดหน้าโรงแรมย่านเมียงดงเลย ₩18,000/คน ใช้เวลา ~80 นาที ไม่ต้องลากกระเป๋าขึ้นลงบันได'}},
+ {t:'11:00',k:'stay',ic:'stay',h:'ฝากกระเป๋าที่โรงแรม',b:'เช็คอินจริงบ่าย 3 แต่ทุกโรงแรมรับฝากกระเป๋าฟรี พูดว่า “Can I leave my luggage?” <br>แนะนำพักย่าน <b>เมียงดง / อึลจีโร</b> — เดินไปสถานีโซลขึ้น KTX วันที่ 3 ได้สบาย'},
+ {t:'11:30',k:'food',ic:'food',h:'มยองดงเคียวจา',map:'명동교자',kr:'명동교자',b:'ร้านในตำนานอายุ 50+ ปี <b>คัลกุกซุ</b> (เส้นตัดมือน้ำซุปข้นเข้ม) + <b>มันดู</b> เกี๊ยวลูกโต กิมจิผักกาดขาวเผ็ดจัดเติมได้ไม่อั้น<br>~₩11,000/คน • คิวเร็ว นั่งไม่นาน'},
+ {t:'13:00',k:'spot',ic:'spot',h:'อิกซอนดง ฮันอกวิลเลจ',map:'익선동',kr:'익선동',b:'ตรอกบ้านไม้เกาหลีเก่าอายุร้อยปีที่ถูกแปลงเป็นคาเฟ่-ร้านเล็กๆ ตรอกแคบมาก เดินไม่ถึง 20 นาทีก็ทั่ว แต่เหมาะนั่งจิบกาแฟยาวๆ ถ่ายรูปสวย — เป็นย่านที่ “ไม่ต้องรีบ” ที่สุดในโซล',
+  route:{label:'เมียงดง → อิกซอนดง',steps:[
+   'สาย 4 <b>Myeongdong</b> → <b>Chungmuro (충무로)</b> 1 สถานี',
+   'เปลี่ยนเป็น <b>สาย 3 (สีส้ม)</b> → <b>Jongno 3-ga (종로3가)</b> 2 สถานี',
+   'ออก <b>Exit 4</b> เดินย้อนกลับ 3 นาที เจอปากตรอกฝั่งซ้าย'
+  ],meta:[{t:'~15 นาที'},{t:'₩1,550',c:'w'}]}},
+ {t:'15:00',k:'stay',ic:'stay',h:'กลับโรงแรม เช็คอิน อาบน้ำ นอน',b:'<b>อย่าข้ามข้อนี้</b> — นอนสัก 1–2 ชม. แล้วออกไปกินข้าวเย็นอย่างมีความสุข ดีกว่าฝืนเที่ยวทั้งวันแล้วหมดแรงตั้งแต่วันแรก'},
+ {t:'18:00',k:'food',ic:'food',h:'ตลาดควังจัง',map:'광장시장',kr:'광장시장',b:'ตลาดสตรีทฟู้ดเก่าแก่ที่สุดของโซล ต้องลอง: <b>บินแดต็อก</b> (แป้งถั่วเขียวทอดกรอบ), <b>มายัคคิมบับ</b> (คิมบับจิ๋วจิ้มมัสตาร์ด), <b>ซุนแด</b>, <b>ต๊อกพกกี</b><br>💡 นั่งเก้าอี้ที่แผงเลย ชี้เอาได้ ราคาป้ายชัด ~₩5,000–12,000/จาน',
+  route:{label:'ไปควังจัง',steps:['<b>สาย 1 (สีน้ำเงินเข้ม)</b> ลง <b>Jongno 5-ga (종로5가)</b> ออก <b>Exit 7</b> เดิน 1 นาทีถึงปากตลาด'],meta:[{t:'₩1,550'}]}},
+ {t:'20:00',k:'spot',ic:'walk',h:'เดินคลองชองกเยชอน กลับเมียงดง',map:'청계천',kr:'청계천',b:'คลองกลางเมืองที่มีทางเดินลงไปริมน้ำ ไฟสวย ลมเย็น เดินเรื่อยๆ ~25 นาทีถึงเมียงดง แล้วเดินตลาดกลางคืน ช้อปเครื่องสำอาง (Olive Young เปิดถึง 22:30)'},
+ {t:'21:30',k:'stay',ic:'stay',h:'กลับที่พัก',b:'วันแรกจบเบาๆ พรุ่งนี้เป็นวันหลักของโซล'}
+]},
+
+{n:2,dow:'อาทิตย์',date:'13 ก.ย.',city:'seoul',cityName:'โซล',title:'ฮันบก + พระราชวัง',meta:'เคียงบกกุง → บุกชอน → ซัมชองดง → นัมซาน',ev:[
+ {t:'08:30',k:'food',ic:'food',h:'อาหารเช้าสบายๆ',b:'ถ้าโรงแรมมีอาหารเช้าก็กินให้อิ่ม ถ้าไม่มี — ร้าน <b>Isaac Toast</b> หรือ <b>Paris Baguette</b> มีทุกหัวมุมถนน ~₩5,000'},
+ {t:'09:30',k:'spot',ic:'spot',h:'เช่าฮันบก',kr:'한복',b:'ร้านเช่าอยู่รอบสถานี Gyeongbokgung และ Anguk เพียบ (เช่น Hanboknam, Oneday Hanbok) <br>~<b>₩20,000–30,000/คน ต่อ 4 ชม.</b> รวมทำผม+ฝากกระเป๋า<br>💡 <b>ใส่ฮันบกเข้าพระราชวังฟรี</b> ทุกวัง คุ้มมาก — จองล่วงหน้าทาง Klook/Naver ได้ราคาดีกว่า walk-in',
+  route:{label:'เมียงดง → เคียงบกกุง',steps:[
+   'สาย 4 <b>Myeongdong</b> → <b>Chungmuro</b> → เปลี่ยน <b>สาย 3</b> → <b>Gyeongbokgung (경복궁)</b>',
+   'ออก <b>Exit 5</b> — ทางออกนี้ทะลุขึ้นมาในเขตพระราชวังเลย ไม่ต้องเดินอ้อม'
+  ],meta:[{t:'~20 นาที'},{t:'₩1,550',c:'w'}]}},
+ {t:'10:30',k:'spot',ic:'spot',h:'พระราชวังเคียงบกกุง',map:'경복궁',kr:'경복궁',b:'วังหลวงที่ใหญ่และสวยที่สุด ฉากหลังเป็นภูเขาพูกักซาน ไฮไลต์คือ <b>ศาลาคยองฮเวรู</b> กลางสระน้ำ<br><b>ค่าเข้า ₩3,000</b> (ฟรีถ้าใส่ฮันบก)<br><b>พิธีเปลี่ยนเวรทหาร</b> 10:00 และ 14:00 หน้าประตูควังฮวามุน ~20 นาที',
+  note:{warn:true,txt:'พระราชวังเคียงบกกุง <b>ปิดทุกวันอังคาร</b> — วันที่ 13 ก.ย. เป็นวันอาทิตย์ เปิดปกติ แต่คนเยอะกว่าวันธรรมดา ไปเช้าหน่อยจะสบายกว่า'}},
+ {t:'12:00',k:'spot',ic:'walk',h:'หมู่บ้านบุกชอนฮันอก',map:'북촌한옥마을',kr:'북촌한옥마을',b:'เดินจากประตูฝั่งตะวันออกของวังไป 10 นาที เป็นซอยบ้านไม้เกาหลีบนเนิน จุดถ่ายรูปคลาสสิกอยู่ที่ <b>북촌로 11길</b> มองลงไปเห็นหลังคาเรียงกับตึกโซลเป็นฉากหลัง',
+  note:{warn:true,txt:'ที่นี่ <b>เป็นบ้านที่มีคนอาศัยอยู่จริง</b> — มีเจ้าหน้าที่ถือป้ายเตือนเรื่องเสียงดัง และถนนบุกชอนโร 11 กิล <b>ห้ามนักท่องเที่ยวเข้า 17:00–10:00 น.</b> กรุณาพูดเบาๆ ไม่เคาะประตูบ้านคน'}},
+ {t:'13:00',k:'food',ic:'food',h:'ข้าวเที่ยงย่านซัมชองดง',map:'삼청동',kr:'삼청동',b:'ถนนเลียบกำแพงวังฝั่งเหนือ ร้านน่ารักเยอะ แนะนำ <b>ซัมกเยทัง</b> (ไก่ตุ๋นโสม) ที่ Tosokchon สาขาแถวนี้ หรือ <b>บิบิมบับหม้อหิน</b> ~₩13,000–18,000/คน'},
+ {t:'14:30',k:'spot',ic:'food',h:'คาเฟ่ + คืนฮันบก',b:'ซัมชองดงเป็นย่านคาเฟ่ที่มีวิวดีที่สุดย่านหนึ่ง หลายร้านมีระเบียงมองเห็นหลังคาฮันอก นั่งยาวได้ 1–2 ชม. แล้วค่อยเดินกลับไปคืนชุด'},
+ {t:'16:00',k:'stay',ic:'stay',h:'กลับโรงแรม พักขา',b:'พักสัก 1 ชั่วโมงก่อนไปดูพระอาทิตย์ตก'},
+ {t:'18:00',k:'spot',ic:'cable',h:'N Seoul Tower (นัมซาน)',map:'N서울타워',kr:'남산서울타워',b:'กลางเดือน ก.ย. <b>พระอาทิตย์ตกประมาณ 18:50</b> — ขึ้นไปก่อน 18:15 จะได้เห็นทั้งแสงเย็นและไฟเมืองติด<br>ไม่ต้องซื้อบัตรขึ้นชั้นสังเกตการณ์ก็ได้ — ลานระเบียงด้านล่าง (ที่มีแม่กุญแจคู่รัก) วิวสวยและฟรี',
+  route:{label:'เมียงดง → นัมซาน',steps:[
+   'เดินจากเมียงดงไปทาง <b>Hoehyeon (회현)</b> Exit 4 แล้วเดินขึ้นเนิน ~10 นาที ถึงสถานีกระเช้า',
+   'หรือขึ้น <b>ลิฟต์แก้ว Namsan Orukas</b> ฟรี ที่อยู่ข้างสถานีกระเช้า เพื่อขึ้นเนินช่วงชัน',
+   'นั่ง <b>กระเช้านัมซาน</b> ขึ้นยอดเขา 3 นาที แล้วเดินต่ออีก 5 นาทีถึงตัวหอคอย'
+  ],meta:[{t:'กระเช้าไป-กลับ ₩14,000/คน'},{t:'เที่ยวเดียว ₩11,000',c:'w'}]},
+  note:{txt:'<b>ทางเลือกชิลกว่าเยอะ (แนะนำถ้าขาล้า):</b> ปิกนิกริม <b>แม่น้ำฮัน — สวนยออีโด (여의도한강공원)</b> นั่งสาย 5 ลง <b>Yeouinaru (여의나루)</b> Exit 2 ซื้อไก่ทอด+เบียร์+ราเมงจาก CU ในสวน นั่งบนเสื่อริมน้ำดูสะพานไฟเปลี่ยนสี — เป็นกิจกรรมคู่รักที่คนเกาหลีทำจริง'}},
+ {t:'20:30',k:'food',ic:'food',h:'ดินเนอร์เมียงดง',b:'<b>ไก่ทอดเกาหลี + เบียร์</b> (ร้าน Kyochon / BHC / Pelicana) หรือ <b>ปิ้งย่างหมูสามชั้น</b> ~₩20,000–28,000/คน'},
+ {t:'22:00',k:'stay',ic:'stay',h:'เก็บกระเป๋า',b:'พรุ่งนี้ต้องเช็คเอาท์เช้าไปขึ้น KTX — จัดกระเป๋าคืนนี้เลยจะได้ไม่รีบ'}
+]},
+
+{n:3,dow:'จันทร์',date:'14 ก.ย.',city:'busan',cityName:'โซล → ปูซาน',title:'นั่ง KTX ลงทะเลใต้',meta:'KTX → กวางอันลี → แฮอุนแด → Sky Capsule',ev:[
+ {t:'08:00',k:'food',ic:'food',h:'อาหารเช้า + เช็คเอาท์',b:'เดินไปสถานีโซลจากเมียงดง ~10 นาทีโดยรถไฟฟ้า 1 สถานี'},
+ {t:'09:30',k:'move',ic:'train',h:'KTX สถานีโซล → สถานีปูซาน',map:'서울역',kr:'KTX 서울 → 부산',b:'ช่วงที่สนุกที่สุดช่วงหนึ่งของทริป — วิ่ง 300 กม./ชม. ผ่านนาข้าวและภูเขาลงไปทะเลใต้',
+  route:{label:'ขั้นตอนตั้งแต่จองยันขึ้นขบวน',steps:[
+   '<b>จองล่วงหน้า</b> ในแอป <b>Korail Talk</b> (หรือเว็บ letskorail.com) — เปิดจองล่วงหน้า <b>1 เดือน</b> แนะนำจองทันทีที่เปิด เพราะเช้าวันจันทร์คนเยอะ',
+   'ขบวนแนะนำ: ออก <b>09:30</b> ถึงปูซาน <b>~12:10</b> (ใช้เวลา 2 ชม. 40 นาที) — เลือกขบวนที่จอดน้อยสถานี',
+   'ถึง <b>สถานีโซล (서울역)</b> ก่อนเวลาออก 20 นาที ขึ้น <b>ชั้น 2</b> ดูจอใหญ่ว่าขบวนเข้าชานชาลา (승강장) เบอร์อะไร',
+   'ยืนรอตรงป้ายเลขตู้ของตัวเอง (ตั๋วบอกเลขตู้ 호차 + เลขที่นั่ง 석) — ขบวนจอดแค่ ~2 นาที ต้องขึ้นเร็ว',
+   'ที่นั่ง <b>ฝั่ง A/B ริมหน้าต่าง</b> วิวดีกว่า • มีที่วางกระเป๋าใหญ่ตรงหัวตู้',
+   'ซื้อข้าวกล่อง/กาแฟจาก <b>CU ในสถานี</b> ก่อนขึ้น ถูกกว่าซื้อบนขบวนเยอะ'
+  ],meta:[{t:'₩59,800/คน ชั้นธรรมดา'},{t:'2 ชม. 40 นาที',c:'w'},{t:'จองในแอป Korail Talk',c:'g'}]},
+  note:{warn:true,txt:'<b>ถ้าตั๋ว KTX เต็ม:</b> ใช้ <b>SRT</b> แทนได้ (₩52,600 ถูกกว่า) แต่ออกจาก <b>สถานีซูซอ (수서)</b> ทางใต้ของเมือง ต้องเผื่อเวลานั่งสาย 3 ไปอีก ~40 นาทีจากเมียงดง'}},
+ {t:'12:10',k:'move',ic:'taxi',h:'สถานีปูซาน → กวางอันลี',map:'광안리해수욕장',kr:'광안리',b:'',
+  route:{label:'ลากกระเป๋าให้น้อยที่สุด',steps:[
+   'ออกจากสถานีปูซานทางประตูหลัก มีคิวแท็กซี่ตรงหน้าเลย',
+   'แนะนำเรียกผ่านแอป <b>Kakao T</b> (พิมพ์ปลายทางเป็นชื่อโรงแรม) — จ่ายด้วยบัตรได้ ไม่ต้องคุยเกาหลี',
+   'ถ้าจะประหยัด: <b>สาย 1</b> Busan Station → <b>Seomyeon (서면)</b> → เปลี่ยน <b>สาย 2</b> → <b>Gwangan (광안)</b> ~40 นาที แต่ต้องลากกระเป๋าเปลี่ยนสาย'
+  ],meta:[{t:'แท็กซี่ ~25 นาที ₩13,000–16,000'},{t:'รถไฟฟ้า ₩1,650 / 40 นาที',c:'w'}]},
+  note:{txt:'<b>ทำไมพักกวางอันลี:</b> เงียบกว่าแฮอุนแด ราคาถูกกว่า เดินออกจากโรงแรมก็ถึงหาด และวิวสะพานควังอันตอนกลางคืนคือภาพจำของปูซาน — พรุ่งนี้เช้าก็นั่งสาย 2 ตรงไปสถานีซาซังต่อรถไปสนามบินได้เลยไม่ต้องเปลี่ยนสาย'}},
+ {t:'12:45',k:'stay',ic:'stay',h:'เช็คอิน/ฝากกระเป๋า',b:'โรงแรมริมหาดกวางอันลีส่วนใหญ่เช็คอินบ่าย 3 แต่ฝากกระเป๋าได้'},
+ {t:'13:15',k:'food',ic:'food',h:'ข้าวเที่ยงแบบปูซานแท้ๆ',b:'<b>มิลมยอน (밀면)</b> — เส้นแป้งสาลีเย็นในน้ำซุปเนื้อใส่น้ำแข็ง เปรี้ยวหวานเผ็ดนิดๆ เป็นอาหารที่เกิดในปูซานโดยเฉพาะ ~₩9,000<br>หรือ <b>แทจีกุกบับ (돼지국밥)</b> — ซุปกระดูกหมูขาวขุ่นใส่ข้าว ใส่กุ้ยช่ายดองเอง ~₩10,000'},
+ {t:'14:30',k:'move',ic:'metro',h:'กวางอันลี → แฮอุนแด',map:'해운대해수욕장',kr:'해운대',b:'',
+  route:{label:'นั่งสาย 2 สายเดียวจบ',steps:[
+   'เดินไปสถานี <b>Gwangan (광안)</b> สาย 2 (สีเขียว)',
+   'นั่งทิศ <b>Jangsan (장산)</b> ไป 5 สถานี ลง <b>Haeundae (해운대)</b>',
+   'ออก <b>Exit 3 หรือ 5</b> เดินตรงลงไป ~7 นาที ถึงหาดแฮอุนแด'
+  ],meta:[{t:'~12 นาที'},{t:'₩1,550',c:'w'}]}},
+ {t:'15:00',k:'spot',ic:'cable',h:'Blueline Park — Sky Capsule',map:'해운대블루라인파크 미포정거장',kr:'스카이캡슐',b:'แคปซูลสีพาสเทล (แดง/เหลือง/ฟ้า/เขียวมิ้นต์) วิ่งบนรางรถไฟเก่าเลียบหน้าผาริมทะเล นั่งได้ 2–4 คนต่อแคปซูล เป็นภาพที่คนถ่ายกลับมามากที่สุดจากปูซาน',
+  route:{label:'ขึ้นตรงไหน ลงตรงไหน',steps:[
+   'เดินจากหาดแฮอุนแดไปทางตะวันออกสุดหาด ~15 นาที ถึงสถานี <b>มีโพ (미포)</b>',
+   'นั่ง Sky Capsule จากมีโพ → <b>ชองซาโพ (청사포)</b> ใช้เวลา ~20 นาที วิวทะเลตลอดทาง',
+   'ขากลับแนะนำนั่ง <b>Beach Train</b> (ขบวนเปิดข้าง) แทน จะได้วิวยาวกว่าและถูกกว่า'
+  ],meta:[{t:'Sky Capsule 2 คน เที่ยวเดียว ~₩44,000'},{t:'ไป-กลับ ~₩55,000',c:'w'},{t:'Beach Train ~₩7,000/คน',c:'g'}]},
+  note:{warn:true,txt:'<b>ต้องจองออนไลน์ล่วงหน้า!</b> ที่ skycapsulebusan.com หรือ Klook — บัตรรอบสวยๆ หมดล่วงหน้าเป็นสัปดาห์ ถ้าไป walk-in มักได้คิวรอ 2–3 ชั่วโมง'}},
+ {t:'17:00',k:'spot',ic:'spot',h:'จุดชมวิวชองซาโพ ดาริดตล',map:'청사포다릿돌전망대',kr:'청사포 다릿돌전망대',b:'สะพานเหล็กยื่นออกไปในทะเล 72 เมตร ปลายสุดเป็นพื้นกระจกใส มองลงไปเห็นคลื่นซัดหิน — อยู่ห่างจากสถานีชองซาโพเดินแค่ 5 นาที และ <b>เข้าฟรี</b>'},
+ {t:'18:00',k:'move',ic:'metro',h:'กลับกวางอันลี',b:'สาย 2 <b>Haeundae → Gwangan</b> ย้อนกลับทางเดิม ~12 นาที ₩1,550'},
+ {t:'18:45',k:'food',ic:'food',h:'ดินเนอร์ริมหาดกวางอันลี',b:'ถนนเลียบหาดเต็มไปด้วยร้านอาหาร ชั้น 2–3 มักมีหน้าต่างมองเห็นสะพาน<br>แนะนำ <b>โจเกกุอี (조개구이)</b> หอยย่างรวมมิตรบนเตาถ่าน หรือร้าน <b>ฮเว (회)</b> ปลาดิบสดๆ ~₩30,000–45,000 สำหรับ 2 คน'},
+ {t:'20:00',k:'spot',ic:'spot',h:'หาดกวางอันลียามค่ำ',map:'광안리해수욕장',kr:'광안대교',b:'<b>ช่วงที่ดีที่สุดของทริป</b> — สะพานควังอันเปิดไฟเต็มยาว 7 กม. ซื้อเบียร์+ไก่ทอดจาก CU ริมหาด นั่งบนทรายฟังคลื่น กลางเดือน ก.ย. ลมทะเลเย็นสบายกำลังดี',
+  note:{txt:'<b>โดรนโชว์กวางอันลี</b> จัดคืน <b>วันเสาร์ 20:00</b> (~15 นาที) — วันที่ 14 เป็นวันจันทร์เลยไม่มีนะครับ แต่ไฟสะพานเปิดทุกคืนอยู่แล้ว'}}
+]},
+
+{n:4,dow:'อังคาร',date:'15 ก.ย.',city:'busan',cityName:'ปูซาน → กลับบ้าน',title:'หมู่บ้านสีลูกกวาด แล้วบินกลับ',meta:'คัมชอน → จากัลชี → สนามบินกิมแฮ',ev:[
+ {t:'08:30',k:'spot',ic:'walk',h:'เดินเล่นหาดตอนเช้า',b:'หาดกวางอันลีตอนเช้าเงียบมาก มีแต่คนท้องถิ่นเดินออกกำลัง หาคาเฟ่ริมหาดนั่งจิบกาแฟมองทะเลสัก 1 ชม. — ปิดทริปแบบไม่รีบ'},
+ {t:'10:00',k:'move',ic:'metro',h:'เช็คเอาท์ → สถานีซาซัง',map:'사상역',kr:'사상',b:'',
+  route:{label:'ลากกระเป๋าครั้งเดียวจบ',steps:[
+   'สาย 2 จาก <b>Gwangan (광안)</b> นั่งทิศ <b>Yangsan</b> ยาวไปเลย ไม่ต้องเปลี่ยนสาย',
+   'ลง <b>Sasang (사상)</b> ~30 นาที'
+  ],meta:[{t:'~30 นาที'},{t:'₩1,650',c:'w'}]}},
+ {t:'10:40',k:'move',ic:'stay',h:'ฝากกระเป๋าที่ล็อกเกอร์สถานีซาซัง',b:'<b>ขั้นตอนสำคัญ!</b> ในสถานีมีตู้ล็อกเกอร์หยอดเหรียญ/แตะบัตร (물품보관함) ค่าฝาก <b>₩3,000–5,000/ใบ</b> ตามขนาด<br>ฝากที่นี่เพราะเดี๋ยวบ่ายเราจะกลับมาที่สถานีนี้เพื่อต่อรถไฟไปสนามบินพอดี — ไม่ต้องลากกระเป๋าขึ้นเขาคัมชอน'},
+ {t:'10:50',k:'move',ic:'taxi',h:'ซาซัง → หมู่บ้านคัมชอน',kr:'감천문화마을',b:'',
+  route:{label:'2 ทางเลือก',steps:[
+   '<b>แนะนำ:</b> แท็กซี่ Kakao T จากหน้าสถานีซาซัง ~20 นาที ถึงประตูหมู่บ้านเลย (หาร 2 คนแล้วถูกมาก)',
+   '<b>ประหยัด:</b> สาย 2 → <b>Seomyeon</b> เปลี่ยน <b>สาย 1</b> → <b>Toseong (토성)</b> ออก <b>Exit 6</b> แล้วต่อรถเมล์เล็กขึ้นเขา <b>สาย Saha 1-1 / Seo-gu 2 / Seo-gu 2-2</b> อีก ~10 นาที'
+  ],meta:[{t:'แท็กซี่ ~₩12,000–15,000 / 20 นาที'},{t:'รถไฟฟ้า+เมล์ ₩1,550 / 50 นาที',c:'w'}]}},
+ {t:'11:15',k:'spot',ic:'spot',h:'หมู่บ้านวัฒนธรรมคัมชอน',map:'감천문화마을',kr:'감천문화마을',b:'บ้านลูกบาศก์สีพาสเทลเรียงซ้อนกันไต่ไหล่เขา เดิมเป็นชุมชนผู้ลี้ภัยสงครามเกาหลี ต่อมาศิลปินเข้ามาทาสีและวางงานศิลปะจนกลายเป็นย่านที่สวยที่สุดของปูซาน<br>• ซื้อ <b>แผนที่แสตมป์ ₩2,000</b> ที่ศูนย์บริการ เดินตามเส้นทางเก็บแสตมป์ได้โปสการ์ด<br>• จุดถ่ายรูปฮิต: <b>รูปปั้นเจ้าชายน้อยกับสุนัขจิ้งจอก</b> นั่งมองวิวหมู่บ้าน (คิวยาว ไปเช้าดีกว่า)<br>• เดินทั้งหมู่บ้าน ~1.5 ชม. มีคาเฟ่วิวสวยเยอะ ค่อยๆ เดิน ไม่ต้องรีบ',
+  note:{txt:'ทางเป็นเนินและบันไดเยอะพอสมควร <b>ใส่รองเท้าผ้าใบ</b> และมีคนอาศัยอยู่จริงเหมือนบุกชอน — พูดเบาๆ ไม่เข้าไปในบริเวณบ้านคน'}},
+ {t:'13:00',k:'move',ic:'metro',h:'ลงเขา → จากัลชี/นัมโพดง',kr:'자갈치',b:'',
+  route:{label:'คัมชอน → BIFF Square',steps:[
+   'ขึ้นรถเมล์เล็กคันเดิม (หรือแท็กซี่ ~₩7,000) ลงมาที่สถานี <b>Toseong (토성)</b>',
+   '<b>สาย 1</b> นั่งแค่ 1 สถานี ลง <b>Jagalchi (자갈치)</b> ออก <b>Exit 7</b> เดิน 3 นาทีถึง BIFF Square'
+  ],meta:[{t:'~20 นาที'},{t:'₩1,550',c:'w'}]}},
+ {t:'13:15',k:'food',ic:'food',h:'BIFF Square + ตลาดปลาจากัลชี',map:'비프광장',kr:'BIFF 광장',b:'มื้อสุดท้ายแบบกินยืนริมถนน<br>• <b>ซีอัตโฮต็อก (씨앗호떡)</b> — แพนเค้กทอดไส้น้ำตาลไหม้ยัดธัญพืช เป็นของขึ้นชื่อ BIFF โดยเฉพาะ ₩2,000<br>• <b>ออมุก (어묵)</b> — ลูกชิ้นปลาเสียบไม้ในน้ำซุปร้อน ปูซานคือต้นตำรับ ₩1,000/ไม้<br>• <b>ตลาดปลาจากัลชี</b> เดินอีก 5 นาที ชั้น 1 เลือกปลาสด ชั้น 2 ให้เขาทำให้กินเลย'},
+ {t:'14:30',k:'move',ic:'metro',h:'กลับซาซัง รับกระเป๋า',b:'<b>สาย 1</b> จาก <b>Jagalchi</b> → <b>Sasang</b> นั่งตรงไม่ต้องเปลี่ยนสาย ~20 นาที ₩1,550'},
+ {t:'15:15',k:'move',ic:'train',h:'ซาซัง → สนามบินกิมแฮ (PUS)',map:'김해국제공항',kr:'김해공항',b:'',
+  route:{label:'ต่อรถไฟลอยฟ้าสายสนามบิน',steps:[
+   'อยู่ในสถานีซาซังเดิม เดินตามป้าย <b>“Busan–Gimhae Light Rail (부산김해경전철)”</b> — เป็นคนละบริษัทกับรถไฟฟ้าปูซาน ต้องแตะบัตรออกแล้วแตะเข้าใหม่',
+   'นั่งทิศ <b>Kaya University</b> ไป 6 สถานี ลง <b>Airport (공항역)</b>',
+   'ออกจากสถานีมีทางเดินเชื่อมเข้า <b>อาคารผู้โดยสารระหว่างประเทศ</b> ~5 นาที'
+  ],meta:[{t:'~15 นาที'},{t:'₩1,700 (แตะ T-money ได้)',c:'w'}]}},
+ {t:'15:45',k:'move',ic:'plane',h:'ถึงสนามบิน — เช็คอิน + คืนภาษี',b:'<b>ลำดับที่ควรทำ:</b><br>1. ถ้ามีของขอคืนภาษี ให้ไปเคาน์เตอร์ <b>Tax Refund ก่อนเช็คอิน</b> (ต้องมีของอยู่ในกระเป๋าถือให้เจ้าหน้าที่ดูได้)<br>2. เช็คอิน โหลดกระเป๋า<br>3. ผ่าน ตม. แล้วรับเงินคืนที่ตู้ Kiosk ด้านใน<br>4. ช้อปดิวตี้ฟรี / ซื้อของฝากนาทีสุดท้าย',
+  note:{txt:'<b>เงื่อนไขคืนภาษี:</b> ซื้อจากร้านที่มีป้าย Tax Free ยอด <b>≥ ₩30,000 ต่อใบเสร็จ</b> ต้องใช้พาสปอร์ตตอนซื้อ • หลายร้าน (เช่น Olive Young) หักคืนให้ที่แคชเชียร์เลย ไม่ต้องมาทำที่สนามบิน'}},
+ {t:'18:00',k:'move',ic:'plane',h:'บินกลับกรุงเทพฯ',b:'ถึงสนามบินก่อนเวลาบิน ~2.5 ชม. สำหรับไฟลท์ระหว่างประเทศ<br>สมมติไฟลท์เย็น ~18:00–19:00 น. — ถ้าไฟลท์ของจริงเป็นช่วงเช้า ให้ตัดคัมชอนออกแล้วไปสนามบินตั้งแต่เช้าแทน'}
+]}
+];
+
+/* ================= transport reference ================= */
+var TRANSPORT=[
+ {ic:'wallet',c:'gold',h:'บัตร T-money — ซื้อใบเดียวใช้ได้ทั้งประเทศ',lead:'สิ่งแรกที่ต้องทำเมื่อถึงเกาหลี',rows:[
+  ['ซื้อที่ไหน','ร้านสะดวกซื้อ <b>CU / GS25 / 7-Eleven</b> ทุกสาขา รวมถึงในสนามบิน — บอกว่า “T-money card, please”'],
+  ['ราคา','ค่าบัตร <b>₩4,000</b> (ไม่คืน) + เติมเงินขั้นต่ำ ₩1,000 • แนะนำเติม <b>₩40,000–50,000/คน</b> ทั้งทริป'],
+  ['เติมเงิน','ที่ตู้สีเหลืองในสถานีรถไฟฟ้า หรือบอกพนักงานร้านสะดวกซื้อ — <b>เติมได้เฉพาะเงินสด</b>'],
+  ['ใช้ได้กับ','รถไฟฟ้าโซล + ปูซาน, รถเมล์, แท็กซี่ (ส่วนใหญ่), รถไฟลอยฟ้าสนามบินกิมแฮ, ร้านสะดวกซื้อ, ตู้ล็อกเกอร์'],
+  ['ส่วนลด','เปลี่ยนรถไฟฟ้า↔รถเมล์ภายใน 30 นาที <b>ไม่เสียค่าโดยสารเพิ่ม</b> (ต้องแตะออกทุกครั้ง)'],
+  ['ทางเลือก','<b>WOWPASS</b> — บัตรที่รวม T-money + บัตรเดบิตเติมเงิน แลกเงินบาทเป็นวอนที่ตู้ได้เรทดี มีตู้ที่สนามบินและสถานีหลัก']
+ ]},
+ {ic:'metro',c:'busan',h:'รถไฟฟ้า — ใช้ยังไงให้ไม่หลง',rows:[
+  ['ค่าโดยสาร','โซลเริ่ม ~<b>₩1,550</b> / ปูซานเริ่ม ~<b>₩1,550</b> (เกิน 10 กม. บวกเพิ่มทีละ ₩100–200)'],
+  ['วิธีขึ้น','แตะบัตรเข้า → ดู<b>ชื่อสถานีปลายทางของสาย</b> เพื่อเลือกฝั่งชานชาลา → ขึ้นรถ → แตะบัตรออก (<b>ต้องแตะออกเสมอ</b> ไม่งั้นโดนค่าปรับรอบหน้า)'],
+  ['อ่านป้าย','ทุกสถานีมี<b>เลขประจำสถานี</b> เช่น 424 = สาย 4 สถานีที่ 24 — จำเลขง่ายกว่าจำชื่อเกาหลี'],
+  ['ทางออก','ทางออก (출구/Exit) มีเลขกำกับ บางสถานีมี 15 ทางออกและห่างกันเป็น 500 เมตร — <b>เช็คเลข Exit ให้ชัวร์ก่อนขึ้น</b>'],
+  ['เวลาเดินรถ','ประมาณ <b>05:30 – 24:00</b> เที่ยวสุดท้ายเร็วกว่าที่คิด ถ้ากลับดึกให้เผื่อค่าแท็กซี่']
+ ]},
+ {ic:'taxi',c:'seoul',h:'แท็กซี่ — คุ้มมากเมื่อไปกัน 2 คน',rows:[
+  ['เรียกยังไง','แอป <b>Kakao T</b> (ตั้งภาษาอังกฤษได้ ผูกบัตรเครดิตได้) — ดีกว่าโบกข้างถนนมากเพราะไม่ต้องพูดเกาหลี'],
+  ['ค่าเริ่มต้น','โซล ~<b>₩4,800</b> / ปูซาน ~<b>₩4,800</b> แล้วขึ้นตามมิเตอร์'],
+  ['ควรใช้ตอน','ขนกระเป๋าเข้าโรงแรม • ขึ้นเขาคัมชอน • กลับดึกหลังรถไฟฟ้าหมด • ฝนตก'],
+  ['ระวัง','ช่วง 22:00–04:00 มี<b>ค่าธรรมเนียมกลางคืน +20%</b> และรถหายากมากคืนวันศุกร์-เสาร์']
+ ]},
+ {ic:'train',c:'plum',h:'KTX โซล ↔ ปูซาน',rows:[
+  ['จองที่ไหน','แอป <b>Korail Talk</b> (iOS/Android, มีภาษาอังกฤษ) หรือ <b>letskorail.com</b> — เปิดจองล่วงหน้า <b>1 เดือน</b>'],
+  ['ราคา','ชั้นธรรมดา <b>₩59,800</b> • ชั้นหนึ่ง ~₩83,700 (กว้างกว่า 2+1 ที่นั่ง)'],
+  ['เวลา','เร็วสุด ~2 ชม. 15 นาที • ทั่วไป <b>2 ชม. 40 นาที</b> • ออกทุก ~20–30 นาทีตลอดวัน'],
+  ['ทางเลือก','<b>SRT</b> จากสถานีซูซอ ₩52,600 ถูกกว่า แต่สถานีอยู่ไกลใจกลางเมือง'],
+  ['เคล็ดลับ','ตั๋วเป็น QR ในแอป ไม่ต้องพิมพ์ • ไม่มีการตรวจตั๋วก่อนขึ้น เดินขึ้นได้เลย • มีที่วางกระเป๋าใหญ่ตรงหัวและท้ายตู้']
+ ]},
+ {ic:'map',c:'leaf',h:'แอปที่ต้องโหลดก่อนไป',rows:[
+  ['แผนที่','⚠️ <b>Google Maps นำทางในเกาหลีไม่ได้</b> (กฎหมายห้ามส่งออกข้อมูลแผนที่) — ต้องใช้ <b>Naver Map</b> หรือ <b>KakaoMap</b> ทั้งคู่มีภาษาอังกฤษและบอกทางรถไฟฟ้า/รถเมล์แม่นมาก'],
+  ['เรียกรถ','<b>Kakao T</b> — เรียกแท็กซี่'],
+  ['รถไฟ','<b>Korail Talk</b> — จอง KTX'],
+  ['แปลภาษา','<b>Papago</b> — แปลไทย↔เกาหลีดีกว่า Google มาก มีโหมดถ่ายรูปเมนูแล้วแปลทันที'],
+  ['เน็ต','<b>eSIM</b> (Airalo/Klook) ~300–500 บาท 5 วันไม่จำกัด — ติดตั้งจากเมืองไทยก่อนบินได้เลย สะดวกกว่า pocket wifi ที่ต้องคืนเครื่อง']
+ ]}
+];
+
+/* ================= prep ================= */
+var PREP=[
+ {ic:'info',c:'seoul',h:'K-ETA — ต้องขอก่อนบิน',lead:'สำคัญที่สุด อย่าลืม',rows:[
+  ['ต้องขอไหม','<b>ต้องขอ</b> — คนไทยเข้าเกาหลีไม่ต้องขอวีซ่า (อยู่ได้ 90 วัน) แต่ <b>ต้องมี K-ETA</b> ก่อนขึ้นเครื่อง'],
+  ['ขอที่ไหน','<b>k-eta.go.kr</b> หรือแอป K-ETA เท่านั้น — <b>ระวังเว็บปลอมที่คิดค่าบริการแพง</b>'],
+  ['ค่าธรรมเนียม','~<b>₩10,300</b> (~260 บาท) จ่ายด้วยบัตรเครดิต'],
+  ['ยื่นเมื่อไหร่','อย่างน้อย <b>72 ชั่วโมงก่อนบิน</b> — แนะนำยื่นล่วงหน้า 2–3 สัปดาห์ อนุมัติแล้วใช้ได้ <b>3 ปี</b>'],
+  ['เตรียม','รูปถ่ายหน้าตรงพื้นหลังขาว, พาสปอร์ตเหลืออายุ >6 เดือน, ที่อยู่โรงแรมคืนแรก'],
+  ['⚠️ ตม.','เกาหลีเข้มกับนักท่องเที่ยวไทยพอสมควร — <b>เตรียมพิมพ์เอกสารติดตัว</b>: ตั๋วเครื่องบินขากลับ, ใบจองโรงแรมทุกคืน, แผนเที่ยว (เปิดเว็บนี้ให้ดูได้), เงินสด/statement บัญชี และแต่งตัวสุภาพ ตอบคำถามให้ตรงประเด็น']
+ ]},
+ {ic:'cal',c:'busan',h:'สภาพอากาศ + จะเจอคนเยอะไหม',rows:[
+  ['อากาศโซล','กลางวัน <b>24–28°C</b> กลางคืน <b>17–20°C</b> — ต้นฤดูใบไม้ร่วง แดดดี ลมเย็น เป็นช่วงที่อากาศดีที่สุดช่วงหนึ่งของปี'],
+  ['อากาศปูซาน','อุ่นกว่าโซล ~2–3°C กลางวัน <b>26–29°C</b> ทะเลยังอุ่น ลงเล่นน้ำได้'],
+  ['ฝน/ไต้ฝุ่น','กันยายนยังอยู่ปลายฤดูไต้ฝุ่น <b>เช็คพยากรณ์ 3–5 วันก่อนบิน</b> และพกร่มพับติดกระเป๋า'],
+  ['วันหยุดเกาหลี','🎉 ข่าวดี — <b>ชูซอก (วันไหว้พระจันทร์) ปี 2026 ตรงกับ 25 ก.ย.</b> ทริปเราจบก่อนพอดี เลยไม่เจอช่วงคนเดินทางกลับบ้านที่รถไฟเต็มและร้านปิด'],
+  ['ใส่อะไรดี','เสื้อแขนสั้น/บาง + <b>แจ็คเก็ตบางหรือคาร์ดิแกน</b> ไว้ใส่ตอนเย็น • รองเท้าผ้าใบที่เดินได้ทั้งวัน (ทริปนี้เดินเยอะ ทั้งบุกชอนและคัมชอนเป็นเนิน)']
+ ]},
+ {ic:'wallet',c:'gold',h:'เรื่องเงิน',rows:[
+  ['เรทประมาณ','<b>₩1,000 ≈ 25 บาท</b> (₩10,000 ≈ 250 บาท) — เช็คเรทจริงวันเดินทางอีกที'],
+  ['แลกที่ไหน','แลกในไทยเรทดีกว่าแลกที่สนามบินอินชอน • หรือใช้ตู้ <b>WOWPASS</b> ที่สถานีหลักในโซลก็เรทดี'],
+  ['บัตรเครดิต','เกาหลีรูดบัตรได้เกือบทุกที่รวมถึงร้านเล็ก — พก<b>เงินสดสัก ₩150,000–200,000/คน</b> พอสำหรับตลาด สตรีทฟู้ด และเติม T-money'],
+  ['ทิป','<b>ไม่มีวัฒนธรรมทิป</b> ในเกาหลี ไม่ต้องทิ้งเงินไว้บนโต๊ะ']
+ ]},
+ {ic:'tip',c:'plum',h:'ประโยคเกาหลีที่ได้ใช้จริง',rows:[
+  ['สวัสดี','안녕하세요 — <b>อันนยองฮาเซโย</b>'],
+  ['ขอบคุณ','감사합니다 — <b>คัมซาฮัมนีดา</b>'],
+  ['เท่าไหร่ครับ','얼마예요? — <b>ออลมาเยโย?</b>'],
+  ['ขอเมนูอังกฤษ','영어 메뉴 있어요? — <b>ยองออ เมนู อิสซอโย?</b>'],
+  ['อันนี้ครับ','이거 주세요 — <b>อีกอ จูเซโย</b> (ชี้แล้วพูด ใช้ได้ทุกร้าน)'],
+  ['ไม่เผ็ดนะ','안 맵게 해주세요 — <b>อัน แมบเก แฮจูเซโย</b>'],
+  ['ห้องน้ำอยู่ไหน','화장실 어디예요? — <b>ฮวาจังชิล ออดีเยโย?</b>']
+ ]},
+ {ic:'info',c:'leaf',h:'เบอร์ฉุกเฉิน',rows:[
+  ['ตำรวจ','<b>112</b>'],
+  ['รถพยาบาล/ดับเพลิง','<b>119</b>'],
+  ['สายด่วนท่องเที่ยว','<b>1330</b> — มีล่ามภาษาอังกฤษ 24 ชม. ช่วยได้ตั้งแต่ถามทางยันเรื่องร้องเรียนแท็กซี่'],
+  ['สถานทูตไทย โซล','<b>+82-2-795-3098</b> (ฉุกเฉินนอกเวลา +82-10-2789-5058)'],
+  ['ก่อนบิน','ถ่ายรูปพาสปอร์ต + K-ETA + ตั๋วเครื่องบิน เก็บไว้ในมือถือและอีเมลตัวเอง']
+ ]}
+];
+
+var BUDGET=[
+ ['ที่พัก 3 คืน','₩360,000','~9,000 ฿','(หาร 2 = 4,500 ฿/คน)'],
+ ['KTX โซล→ปูซาน','₩119,600','~3,000 ฿','2 คน'],
+ ['อาหาร 4 วัน','₩320,000','~8,000 ฿','2 คน ~₩40,000/คน/วัน'],
+ ['เดินทางในเมือง','₩60,000','~1,500 ฿','รวมแท็กซี่'],
+ ['รถเข้าเมือง/สนามบิน','₩45,000','~1,150 ฿','AREX + Light Rail'],
+ ['ค่าเข้า/กิจกรรม','₩130,000','~3,250 ฿','ฮันบก, Sky Capsule, กระเช้า'],
+ ['เผื่อช้อป/ของฝาก','₩150,000','~3,750 ฿','ปรับตามใจ']
+];
+
+var CHECKS=[
+ {g:'ต้องทำก่อนบิน',items:[
+  ['keta','ขอ K-ETA ที่ k-eta.go.kr (ยื่นก่อนบิน ≥72 ชม.)'],
+  ['passport','เช็คพาสปอร์ตเหลืออายุเกิน 6 เดือน'],
+  ['docs','พิมพ์ตั๋วขากลับ + ใบจองโรงแรม ไว้โชว์ ตม.']
+ ]},
+ {g:'จองล่วงหน้า',items:[
+  ['hotel','จองที่พัก 3 คืน (โซล 2 / ปูซาน 1)'],
+  ['ktx','จองตั๋ว KTX โซล→ปูซาน ในแอป Korail Talk'],
+  ['sky','จอง Sky Capsule (บัตรหมดเร็วมาก)'],
+  ['hanbok','จองเช่าฮันบกแถวเคียงบกกุง']
+ ]},
+ {g:'เตรียมของ',items:[
+  ['esim','ซื้อ eSIM หรือ pocket wifi'],
+  ['money','แลกเงินวอนจากไทย (เรทดีกว่าแลกที่สนามบิน)'],
+  ['apps','โหลด Naver Map / Papago / Kakao T / Korail Talk'],
+  ['plug','ปลั๊กแปลง — เกาหลีใช้ Type C/F 220V (ขากลม 2 ขา)'],
+  ['jacket','แจ็คเก็ตบาง + ร่มพับ'],
+  ['shoes','รองเท้าผ้าใบที่เดินได้ทั้งวัน']
+ ]}
+];
+
+var CATS=[
+ {id:'food',n:'อาหาร',c:'var(--gold)'},
+ {id:'move',n:'เดินทาง',c:'var(--busan)'},
+ {id:'stay',n:'ที่พัก',c:'var(--leaf)'},
+ {id:'shop',n:'ช้อปปิ้ง',c:'var(--seoul)'},
+ {id:'fun',n:'เที่ยว/ตั๋ว',c:'var(--plum)'},
+ {id:'etc',n:'อื่นๆ',c:'var(--ink-faint)'}
+];
+function catOf(id){for(var i=0;i<CATS.length;i++){if(CATS[i].id===id)return CATS[i];}return CATS[5];}
+
+/* ================= trip clock =================
+   Korea runs 2 hours ahead of Thailand, so "today" has to be decided in
+   Seoul time or the app flips a day early every evening. */
+var TRIP_DATES=['2026-09-12','2026-09-13','2026-09-14','2026-09-15'];
+function kstNow(){
+  var p={},f=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Seoul',year:'numeric',
+    month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
+  f.formatToParts(new Date()).forEach(function(x){p[x.type]=x.value;});
+  return {date:p.year+'-'+p.month+'-'+p.day,mins:(+p.hour)*60+(+p.minute)};
+}
+function tripDayIndex(){var i=TRIP_DATES.indexOf(kstNow().date);return i<0?null:i+1;}
+function daysUntilTrip(){
+  var a=new Date(kstNow().date+'T00:00:00Z'),b=new Date(TRIP_DATES[0]+'T00:00:00Z');
+  return Math.round((b-a)/86400000);
+}
+function nowSlot(day){
+  if(tripDayIndex()!==day)return -1;
+  var m=kstNow().mins,ev=DAYS[day-1].ev,at=-1;
+  for(var i=0;i<ev.length;i++){
+    var p=ev[i].t.split(':');
+    if((+p[0])*60+(+p[1])<=m)at=i;
+  }
+  return at;
+}
+
+/* ================= view state ================= */
+var view={tab:'plan',day:tripDayIndex()||1,
+  f:{label:'',amt:'',cur:'KRW',payer:0,split:'both',cat:'food'}};
+
+/* ================= state + sync =================
+   Cloudflare build: the shared document lives in D1 behind /api/state.
+   Writes carry the version we last read (optimistic concurrency); a poll
+   picks up the other person's changes. If /api/state is not deployed the
+   whole thing degrades to this-device-only storage. */
+var API='/api/state';
+var LS='sb-trip-2026';
+var PEND='sb-trip-pending';
+var POLL_MS=4000;
+
+var state={names:['\u0e40\u0e23\u0e32','\u0e41\u0e1f\u0e19'],rate:40,items:[],checks:{}};
+var version=0;
+var mode='local';       /* local | sync */
+var syncState='init';   /* init | ok | busy | slow | error | local */
+var inFlight=false;
+
+function stash(op){try{sessionStorage.setItem(PEND,JSON.stringify(op));}catch(e){}}
+function dropStash(){try{sessionStorage.removeItem(PEND);}catch(e){}}
+function unstash(){var v=null;try{v=JSON.parse(sessionStorage.getItem(PEND)||'null');}catch(e){}dropStash();return v;}
+
+/* Ops are id-based and idempotent, so replaying one that already landed is a
+   no-op. That is what makes the conflict retry below safe. */
+function applyOp(op,target){
+  if(!op)return false;
+  var t=target||state,changed=false;
+  if(op.add){
+    var seen={};t.items.forEach(function(i){seen[i.id]=1;});
+    if(!seen[op.add.id]){t.items.push(op.add);changed=true;}
+  }
+  if(op.del){
+    var kept=t.items.filter(function(i){return i.id!==op.del;});
+    if(kept.length!==t.items.length){t.items=kept;changed=true;}
+  }
+  if(op.clear&&t.items.length){t.items=[];changed=true;}
+  if(op.check){
+    t.checks=t.checks||{};
+    var want=!!op.check.on;
+    if(!!t.checks[op.check.id]!==want){t.checks[op.check.id]=want;changed=true;}
+  }
+  if(op.meta){
+    if(op.meta.names&&(op.meta.names[0]!==t.names[0]||op.meta.names[1]!==t.names[1])){
+      t.names=op.meta.names.slice();changed=true;}
+    if(op.meta.rate&&op.meta.rate!==t.rate){t.rate=op.meta.rate;changed=true;}
+  }
+  return changed;
+}
+
+function normalise(d){
+  if(!d||typeof d!=='object')d={};
+  if(!Array.isArray(d.items))d.items=[];
+  if(!Array.isArray(d.names)||d.names.length<2)d.names=['\u0e40\u0e23\u0e32','\u0e41\u0e1f\u0e19'];
+  if(typeof d.rate!=='number'||!isFinite(d.rate)||d.rate<=0)d.rate=40;
+  if(!d.checks||typeof d.checks!=='object')d.checks={};
+  return d;
+}
+function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
+function loadLocal(){
+  try{var raw=localStorage.getItem(LS);if(raw)return normalise(JSON.parse(raw));}catch(e){}
+  return null;
+}
+function sameDoc(a,b){return JSON.stringify(a)===JSON.stringify(b);}
+function goLocal(){mode='local';syncState='local';var l=loadLocal();if(l)state=l;}
+
+async function api(method,body){
+  var r=await fetch(API,{method:method,
+    headers:{'content-type':'application/json'},
+    cache:'no-store',
+    body:body?JSON.stringify(body):undefined});
+  var data=null;
+  try{data=await r.json();}catch(e){}
+  return {status:r.status,data:data};
+}
+
+var ready=(async function(){
+  var pend=unstash();
+  try{
+    var res=await api('GET');
+    if(res.status===200&&res.data&&res.data.ok){
+      state=normalise(res.data.doc);version=res.data.version|0;
+      mode='sync';syncState='ok';
+      if(applyOp(pend)){render();await push(pend);return;}
+      return;
+    }
+    goLocal();
+  }catch(e){goLocal();}
+  if(applyOp(pend))saveLocal();
+})();
+
+ready.then(function(){render();if(mode==='sync')startPolling();});
+
+/* Send the whole document guarded by the version we last read. 409 means the
+   other person wrote first: take their document, replay our op on top, retry. */
+async function push(op,depth){
+  depth=depth||0;
+  if(mode!=='sync'){saveLocal();render();return;}
+  inFlight=true;syncState='busy';render();
+  if(op)stash(op);
+  try{
+    var res=await api('PUT',{doc:state,version:version});
+    if(res.status===409&&res.data&&res.data.doc){
+      state=normalise(res.data.doc);version=res.data.version|0;
+      if(applyOp(op)&&depth<4){inFlight=false;return push(op,depth+1);}
+      dropStash();syncState='ok';inFlight=false;render();return;
+    }
+    if(res.status===200&&res.data&&res.data.ok){
+      state=normalise(res.data.doc);version=res.data.version|0;
+      dropStash();syncState='ok';inFlight=false;render();return;
+    }
+    if(res.status===404||res.status===501){
+      goLocal();saveLocal();dropStash();inFlight=false;render();return;
+    }
+    syncState=(res.status===429)?'slow':'error';saveLocal();inFlight=false;render();
+  }catch(e){
+    syncState='error';saveLocal();inFlight=false;render();
+  }
+}
+function persist(op){return push(op);}
+
+var pollTimer=null;
+async function poll(){
+  if(mode!=='sync'||inFlight||document.hidden)return;
+  try{
+    var res=await api('GET');
+    if(res.status===200&&res.data&&res.data.ok){
+      var v=res.data.version|0;
+      if(v!==version){
+        var incoming=normalise(res.data.doc);
+        version=v;
+        if(!sameDoc(incoming,state)){state=incoming;render();}
+      }
+      if(syncState==='error'||syncState==='slow'){syncState='ok';render();}
+    }
+  }catch(e){/* offline - keep showing what we have and retry next tick */}
+}
+function startPolling(){
+  if(pollTimer)return;
+  pollTimer=setInterval(poll,POLL_MS);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)poll();});
+  window.addEventListener('online',poll);
+}
+
+/* ================= renderers ================= */
+function heroArt(){
+ return '<svg class="hero-art" viewBox="0 0 340 96" role="img" aria-label="ภาพวาดโซลและปูซาน">'
+ +'<g stroke="var(--line-2)" stroke-width="2" fill="none" stroke-linecap="round"><path d="M4 84h332"/></g>'
+ // hanok roof
+ +'<g><path d="M18 60 L44 46 L70 60" fill="var(--seoul)" opacity=".85"/><path d="M14 60h60" stroke="var(--seoul)" stroke-width="3.5" stroke-linecap="round" fill="none"/><rect x="26" y="62" width="36" height="22" rx="3" fill="var(--seoul-bg)" stroke="var(--seoul)" stroke-width="2"/><path d="M44 62v22" stroke="var(--seoul)" stroke-width="2"/></g>'
+ // n seoul tower
+ +'<g stroke="var(--plum)" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M96 84 L102 52 M114 84 L108 52"/><path d="M99 66h12"/><rect x="98" y="38" width="14" height="14" rx="4" fill="var(--plum-bg)"/><path d="M105 38V24"/><circle cx="105" cy="21" r="2.6" fill="var(--plum)" stroke="none"/></g>'
+ // ktx
+ +'<g><rect x="134" y="58" width="56" height="26" rx="11" fill="var(--gold-bg)" stroke="var(--gold)" stroke-width="2.4"/><path d="M134 71h56" stroke="var(--gold)" stroke-width="2.2"/><circle cx="146" cy="78" r="3.4" fill="var(--gold)"/><circle cx="178" cy="78" r="3.4" fill="var(--gold)"/><path d="M126 64c4-2 7-3 10-3" stroke="var(--gold)" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>'
+ // gwangan bridge
+ +'<g stroke="var(--busan)" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M206 72h116"/><path d="M228 72V48 M300 72V48"/><path d="M206 66c14-16 36-20 22-18 M228 48c22 6 50 6 72 0"/><path d="M206 64q36-20 22 8 M322 64q-36-20-22 8"/></g>'
+ +'<g fill="var(--busan)" opacity=".5"><path d="M206 80q10-5 20 0t20 0 20 0 20 0 20 0 16 0" stroke="var(--busan)" stroke-width="2" fill="none" stroke-linecap="round"/></g>'
+ // mascots
+ +'<g><circle cx="248" cy="30" r="13" fill="var(--seoul-bg)" stroke="var(--seoul)" stroke-width="2.4"/><circle cx="244" cy="29" r="1.6" fill="var(--seoul)"/><circle cx="252" cy="29" r="1.6" fill="var(--seoul)"/><path d="M245 34q3 3 6 0" stroke="var(--seoul)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M238 22q10-9 20 0" stroke="var(--seoul)" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>'
+ +'<g><circle cx="278" cy="30" r="13" fill="var(--busan-bg)" stroke="var(--busan)" stroke-width="2.4"/><circle cx="274" cy="29" r="1.6" fill="var(--busan)"/><circle cx="282" cy="29" r="1.6" fill="var(--busan)"/><path d="M275 34q3 3 6 0" stroke="var(--busan)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M268 24q10-11 20 0" stroke="var(--busan)" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>'
+ +'<g fill="var(--leaf)" opacity=".7"><circle cx="60" cy="24" r="2.4"/><circle cx="80" cy="16" r="1.8"/><circle cx="180" cy="22" r="2.2"/><circle cx="320" cy="28" r="2"/></g>'
+ +'</svg>';
+}
+
+function evHTML(e,isNow){
+ var h='<div class="ev k-'+e.k+(isNow?' now':'')+'">'
+  +'<span class="dot">'+ic(e.ic||'spot',15)+'</span>'
+  +'<div class="time">'+esc(e.t)+'</div>'
+  +'<h3>'+esc(e.h)+(e.kr?'<span class="kr">'+esc(e.kr)+'</span>':'')+'</h3>';
+ if(e.b)h+='<div class="body">'+e.b+'</div>';
+ if(e.route){
+  h+='<div class="route"><div class="rt">'+ic('map',14)+esc(e.route.label)+'</div><ol>';
+  for(var i=0;i<e.route.steps.length;i++)h+='<li>'+e.route.steps[i]+'</li>';
+  h+='</ol>';
+  if(e.route.meta&&e.route.meta.length){
+   h+='<div class="rmeta">';
+   for(var j=0;j<e.route.meta.length;j++)h+='<span class="tag '+(e.route.meta[j].c||'')+'">'+esc(e.route.meta[j].t)+'</span>';
+   h+='</div>';
+  }
+  h+='</div>';
+ }
+ if(e.note)h+='<div class="note'+(e.note.warn?' warn':'')+'">'+e.note.txt+'</div>';
+ if(e.map){
+  h+='<div class="acts">'
+   +'<button class="act go" data-nav="'+esc(e.map)+'">'+ic('nav',14)+'นำทาง</button>'
+   +'<button class="act say" data-say="'+esc(e.map)+'" data-sayth="'+esc(e.h)+'">'+ic('say',14)+'โชว์คนขับ</button>'
+   +'</div>';
+ }
+ return h+'</div>';
+}
+
+function planHTML(){
+ var h='<div class="pills" role="tablist">';
+ for(var i=0;i<DAYS.length;i++){
+  var d=DAYS[i];
+  h+='<button class="pill c-'+d.city+'" data-day="'+d.n+'" aria-pressed="'+(view.day===d.n)+'">'
+   +'<b>วัน '+d.n+'</b>'+(tripDayIndex()===d.n?'<span class="today">วันนี้</span>':'')
+   +'<span>'+esc(d.dow)+' '+esc(d.date)+'</span></button>';
+ }
+ h+='</div>';
+ var d=DAYS[view.day-1];
+ h+='<div class="ticket"><div class="tk-head '+d.city+'">'
+  +'<div class="eyebrow">DAY '+d.n+' · '+esc(d.cityName)+'</div>'
+  +'<h2>'+esc(d.title)+'</h2>'
+  +'<div class="meta">'+esc(d.dow)+' '+esc(d.date)+' 2569 · '+esc(d.meta)+'</div>'
+  +'</div><div class="perf"><span class="dash"></span></div><div class="tl">';
+ var nw=nowSlot(view.day);
+ for(var k=0;k<d.ev.length;k++)h+=evHTML(d.ev[k],k===nw);
+ h+='</div></div>';
+ h+='<div class="card"><h2><span class="ic" style="background:var(--gold-bg);color:var(--gold)">'+ic('tip',17)+'</span>ทำไมจัดแบบนี้</h2>'
+  +'<div class="lead">4 วันกับ 2 เมืองถือว่าสั้น แผนนี้เลยยึด 3 หลัก</div><div class="rows">'
+  +'<div class="row"><span class="k">1 ย่าน/ครึ่งวัน</span><span class="v">แต่ละช่วงอยู่ในย่านเดียว เดินถึงกันหมด ไม่ต้องนั่งรถไฟฟ้าข้ามเมืองไปมา</span></div>'
+  +'<div class="row"><span class="k">มีเวลานอน</span><span class="v">วันแรกกลับโรงแรมนอนกลางวัน วันที่ 2 กลับพักก่อนออกไปดูพระอาทิตย์ตก</span></div>'
+  +'<div class="row"><span class="k">ลากกระเป๋าน้อย</span><span class="v">ปูซานพักที่เดียว วันสุดท้ายฝากกระเป๋าที่ซาซังซึ่งเป็นทางผ่านไปสนามบินพอดี</span></div>'
+  +'</div></div>';
+ return h;
+}
+
+function refHTML(list){
+ var h='';
+ for(var i=0;i<list.length;i++){
+  var s=list[i];
+  h+='<div class="card"><h2><span class="ic" style="background:var(--'+s.c+'-bg);color:var(--'+s.c+')">'+ic(s.ic,17)+'</span>'+esc(s.h)+'</h2>';
+  if(s.lead)h+='<div class="lead">'+esc(s.lead)+'</div>';
+  h+='<div class="rows">';
+  for(var j=0;j<s.rows.length;j++)h+='<div class="row"><span class="k">'+s.rows[j][0]+'</span><span class="v">'+s.rows[j][1]+'</span></div>';
+  h+='</div></div>';
+ }
+ return h;
+}
+
+function checkCount(){
+ var done=0,total=0,ck=state.checks||{};
+ CHECKS.forEach(function(g){g.items.forEach(function(it){total++;if(ck[it[0]])done++;});});
+ return {done:done,total:total};
+}
+function checklistHTML(){
+ var c=checkCount(),ck=state.checks||{};
+ var h='<div class="card"><h2><span class="ic" style="background:var(--leaf-bg);color:var(--leaf)">'+ic('check',17)+'</span>เช็คลิสต์ก่อนไป</h2>'
+  +'<div class="lead">ติ๊กแล้วอีกเครื่องเห็นด้วย จะได้ไม่ต้องถามกันซ้ำว่าใครทำอะไรไปแล้ว</div>'
+  +'<div class="chk-bar"><span class="money">'+c.done+'/'+c.total+'</span>'
+  +'<span class="track"><span class="fill" style="width:'+(c.total?(c.done/c.total*100):0)+'%"></span></span></div>'
+  +'<div class="chk">';
+ for(var i=0;i<CHECKS.length;i++){
+  h+='<div class="chk-g">'+esc(CHECKS[i].g)+'</div>';
+  for(var j=0;j<CHECKS[i].items.length;j++){
+   var it=CHECKS[i].items[j],on=!!ck[it[0]];
+   h+='<button class="chkitem" data-chk="'+esc(it[0])+'" aria-pressed="'+on+'">'
+    +'<span class="box">'+ic('check',13)+'</span><span class="lab">'+esc(it[1])+'</span></button>';
+  }
+ }
+ return h+'</div></div>';
+}
+
+function sheetHTML(){
+ return '<div class="sheet" id="sheet" hidden><div class="sheet-in">'
+  +'<div class="sheet-cap">ยื่นให้คนขับดูได้เลย · 기사님께 보여주세요</div>'
+  +'<div class="sheet-kr" id="sheetKr"></div>'
+  +'<div class="sheet-th" id="sheetTh"></div>'
+  +'<div class="sheet-btns">'
+  +'<button class="btn ghost" id="sheetCopy">'+ic('copy',15)+'คัดลอก</button>'
+  +'<button class="btn" id="sheetClose">ปิด</button>'
+  +'</div></div></div>';
+}
+
+function budgetHTML(){
+ var h='<div class="card"><h2><span class="ic" style="background:var(--leaf-bg);color:var(--leaf)">'+ic('wallet',17)+'</span>งบประมาณคร่าวๆ (2 คน)</h2>'
+  +'<div class="lead">ไม่รวมตั๋วเครื่องบิน · เรท ₩1,000 ≈ 25 บาท</div><div class="rows">';
+ for(var i=0;i<BUDGET.length;i++){
+  h+='<div class="row"><span class="k">'+esc(BUDGET[i][0])+'</span><span class="v"><b class="tnum">'+esc(BUDGET[i][2])+'</b> <span style="opacity:.7">('+esc(BUDGET[i][1])+')</span><br><span style="font-size:12px">'+esc(BUDGET[i][3])+'</span></span></div>';
+ }
+ h+='</div><div class="note"><b>รวมประมาณ 29,650 บาท สำหรับ 2 คน</b> ≈ <b>14,800 บาท/คน</b> (ไม่รวมตั๋วเครื่องบิน) — ใช้เป็นตัวตั้ง แล้วบันทึกของจริงในแท็บ “ค่าใช้จ่าย”</div></div>';
+ return h;
+}
+
+/* ---- expenses ---- */
+function toTHB(it){return it.cur==='THB'?it.amt:it.amt/state.rate;}
+function fmt(n){return n.toLocaleString('th-TH',{maximumFractionDigits:0});}
+
+function calc(){
+ var paid=[0,0],owe=[0,0],total=0,bycat={};
+ for(var i=0;i<state.items.length;i++){
+  var it=state.items[i],v=toTHB(it);
+  total+=v;paid[it.payer]+=v;
+  bycat[it.cat]=(bycat[it.cat]||0)+v;
+  if(it.split==='both'){owe[0]+=v/2;owe[1]+=v/2;}
+  else if(it.split==='a')owe[0]+=v;
+  else owe[1]+=v;
+ }
+ return {paid:paid,owe:owe,total:total,bycat:bycat,net:paid[0]-owe[0]};
+}
+
+function expenseHTML(){
+ var c=calc(),f=view.f;
+ var sc=syncState==='busy'?'busy':((mode==='local'||syncState==='local'||syncState==='error'||syncState==='slow')?'off':'');
+ var smsg=syncState==='init'?'กำลังเชื่อมต่อ…'
+   :syncState==='busy'?'กำลังบันทึก…'
+   :syncState==='slow'?'บันทึกถี่เกินไป — เก็บไว้ในเครื่องนี้ก่อน เดี๋ยวลองส่งใหม่ให้เอง'
+   :syncState==='error'?'เน็ตมีปัญหา เก็บไว้ในเครื่องนี้แล้ว กลับมาแล้วจะซิงค์ให้เอง'
+   :mode==='sync'?'ซิงค์สดอยู่ — อีกเครื่องจะเห็นเองใน ~4 วินาที ไม่ต้องรีเฟรช'
+   :'โหมดเครื่องนี้เท่านั้น — ยังไม่ได้ต่อฐานข้อมูล D1 (ดูวิธีใน README)';
+
+ var h='<div class="syncbar '+sc+'"><span class="led"></span><span>'+esc(smsg)+'</span></div>';
+
+ h+='<div class="mates">'
+  +'<div class="mate a"><input id="n0" value="'+esc(state.names[0])+'" aria-label="ชื่อคนที่ 1" maxlength="14"><div class="amt money">฿'+fmt(c.paid[0])+'</div><div class="lbl">จ่ายไปแล้ว</div></div>'
+  +'<div class="mate b"><input id="n1" value="'+esc(state.names[1])+'" aria-label="ชื่อคนที่ 2" maxlength="14"><div class="amt money">฿'+fmt(c.paid[1])+'</div><div class="lbl">จ่ายไปแล้ว</div></div>'
+  +'</div>';
+
+ var settle;
+ if(state.items.length===0)settle='<div class="big">ยังไม่มีรายการ<br><em>เริ่มบันทึกกันเลย</em></div><div class="sm">ใส่ทุกครั้งที่จ่าย แล้วค่อยเคลียร์ทีเดียวตอนกลับ</div>';
+ else if(Math.abs(c.net)<1)settle='<div class="big">เท่ากันพอดี <em>ไม่ต้องโอน</em> 🎉</div><div class="sm">ใช้ไปทั้งหมด ฿'+fmt(c.total)+'</div>';
+ else{
+  var from=c.net>0?1:0,to=c.net>0?0:1;
+  settle='<div class="big">'+esc(state.names[from])+' โอนให้ '+esc(state.names[to])+'<br><em class="money">฿'+fmt(Math.abs(c.net))+'</em></div>'
+   +'<div class="sm">ใช้ไปทั้งหมด ฿'+fmt(c.total)+' · '+esc(state.names[0])+' ควรจ่าย ฿'+fmt(c.owe[0])+' · '+esc(state.names[1])+' ควรจ่าย ฿'+fmt(c.owe[1])+'</div>';
+ }
+ h+='<div class="settle">'+settle+'</div>';
+
+ // form
+ h+='<div class="card"><h2><span class="ic" style="background:var(--seoul-bg);color:var(--seoul)">'+ic('plus',17)+'</span>เพิ่มรายการ</h2><div class="form">'
+  +'<div class="fld"><label for="fl">จ่ายอะไร</label><input class="inp" id="fl" placeholder="เช่น ข้าวเที่ยงมยองดงเคียวจา" value="'+esc(f.label)+'"></div>'
+  +'<div class="fld"><label for="fa">จำนวนเงิน</label><div class="amtrow">'
+   +'<input class="inp" id="fa" type="number" inputmode="decimal" min="0" step="any" placeholder="0" value="'+esc(f.amt)+'">'
+   +'<div class="cur"><button data-cur="KRW" aria-pressed="'+(f.cur==='KRW')+'">₩</button><button data-cur="THB" aria-pressed="'+(f.cur==='THB')+'">฿</button></div>'
+  +'</div></div>'
+  +'<div class="fld"><label>ใครจ่าย</label><div class="chips">'
+   +'<button class="chip a" data-payer="0" aria-pressed="'+(f.payer===0)+'">'+esc(state.names[0])+'</button>'
+   +'<button class="chip b" data-payer="1" aria-pressed="'+(f.payer===1)+'">'+esc(state.names[1])+'</button>'
+  +'</div></div>'
+  +'<div class="fld"><label>หารยังไง</label><div class="chips">'
+   +'<button class="chip n" data-split="both" aria-pressed="'+(f.split==='both')+'">หาร 50/50</button>'
+   +'<button class="chip a" data-split="a" aria-pressed="'+(f.split==='a')+'">ของ '+esc(state.names[0])+'</button>'
+   +'<button class="chip b" data-split="b" aria-pressed="'+(f.split==='b')+'">ของ '+esc(state.names[1])+'</button>'
+  +'</div></div>'
+  +'<div class="fld"><label>หมวด</label><div class="chips">';
+ for(var i=0;i<CATS.length;i++)h+='<button class="chip n" data-cat="'+CATS[i].id+'" aria-pressed="'+(f.cat===CATS[i].id)+'">'+esc(CATS[i].n)+'</button>';
+ h+='</div></div>'
+  +'<button class="btn" id="add">'+ic('plus',18)+'บันทึกรายการ</button>'
+  +'</div></div>';
+
+ // list
+ h+='<div class="card"><h2><span class="ic" style="background:var(--busan-bg);color:var(--busan)">'+ic('wallet',17)+'</span>รายการทั้งหมด <span style="font-size:13px;font-weight:400;color:var(--ink-faint)">('+state.items.length+')</span></h2>';
+ if(!state.items.length)h+='<div class="empty">ยังไม่มีรายการ<br>รายการที่บันทึกจะขึ้นที่นี่ เรียงจากใหม่ไปเก่า</div>';
+ else{
+  h+='<div class="items">';
+  for(var m=state.items.length-1;m>=0;m--){
+   var it=state.items[m],ca=catOf(it.cat),thb=toTHB(it);
+   var splitTxt=it.split==='both'?'หาร 50/50':('ของ '+state.names[it.split==='a'?0:1]);
+   h+='<div class="item"><span class="cdot" style="background:'+ca.c+'"></span>'
+    +'<div class="txt"><div class="t1">'+esc(it.label||'(ไม่มีชื่อ)')+'</div>'
+    +'<div class="t2">'+esc(state.names[it.payer])+' จ่าย · '+esc(splitTxt)+' · '+esc(ca.n)+'</div></div>'
+    +'<div class="val"><div class="money">฿'+fmt(thb)+'</div>'
+    +(it.cur==='KRW'?'<div class="sub money">₩'+fmt(it.amt)+'</div>':'')+'</div>'
+    +'<button class="del" data-del="'+esc(it.id)+'" aria-label="ลบรายการ">'+ic('trash',16)+'</button></div>';
+  }
+  h+='</div>';
+  // category bars
+  var maxv=0;for(var q in c.bycat){if(c.bycat[q]>maxv)maxv=c.bycat[q];}
+  h+='<div class="sect-title">แยกตามหมวด</div><div class="bars">';
+  for(var z=0;z<CATS.length;z++){
+   var v=c.bycat[CATS[z].id]||0;if(!v)continue;
+   h+='<div class="bar"><span class="bn">'+esc(CATS[z].n)+'</span><span class="track"><span class="fill" style="width:'+(maxv?Math.max(6,v/maxv*100):0)+'%;background:'+CATS[z].c+'"></span></span><span class="bv money">฿'+fmt(v)+'</span></div>';
+  }
+  h+='</div>';
+  h+='<div style="display:flex;gap:8px;margin-top:14px"><button class="btn ghost" id="copy" style="flex:1">'+ic('copy',16)+'คัดลอกสรุป</button><button class="btn ghost" id="clear">ล้างทั้งหมด</button></div>';
+ }
+ h+='</div>';
+
+ h+='<div class="card"><h2><span class="ic" style="background:var(--gold-bg);color:var(--gold)">'+ic('info',17)+'</span>ตั้งค่า</h2>'
+  +'<div class="fld"><label for="rate">เรทแลกเงิน — ₩1,000 เท่ากับกี่บาท</label>'
+  +'<div class="amtrow"><input class="inp" id="rate" type="number" inputmode="decimal" min="1" step="0.5" value="'+(1000/state.rate).toFixed(1)+'">'
+  +'<button class="btn ghost" id="saveset" style="flex:0 0 auto">บันทึก</button></div></div>'
+  +'<div class="lead" style="margin:9px 0 0">ตอนนี้ ₩1,000 = '+ (1000/state.rate).toFixed(1) +' บาท · เปลี่ยนแล้วยอดทุกรายการจะคำนวณใหม่ทันที</div></div>';
+
+ return h;
+}
+
+function countdownHTML(){
+ var d=tripDayIndex();
+ if(d)return '<div class="countdown">'+ic('cal',14)+'วันนี้คือวันที่ '+d+' ของทริป</div>';
+ var left=daysUntilTrip();
+ if(left>0)return '<div class="countdown">'+ic('cal',14)+'อีก '+left+' วันจะได้ไป</div>';
+ return '<div class="countdown">'+ic('cal',14)+'จบทริปแล้ว — เก็บไว้ดูตอนคิดถึง</div>';
+}
+
+function render(){
+ var body;
+ if(view.tab==='plan')body=planHTML();
+ else if(view.tab==='move')body=refHTML(TRANSPORT);
+ else if(view.tab==='money')body=expenseHTML();
+ else body=checklistHTML()+refHTML(PREP)+budgetHTML();
+
+ var hero='';
+ if(view.tab==='plan'){
+  hero='<div class="hero"><div class="stamp">12–15 SEP 2026</div>'+heroArt()
+   +'<h1>โซล · ปูซาน 4 วัน</h1>'
+   +'<div class="sub">12–15 กันยายน 2569 · เที่ยวกัน 2 คน แบบไม่รีบ</div>'
+   +countdownHTML()+'</div>';
+ }else{
+  var t={move:['เดินทางยังไง','คู่มือรถไฟฟ้า บัตร แอป และการจองทุกอย่าง'],
+         money:['ค่าใช้จ่ายร่วมกัน','ใส่ทุกครั้งที่จ่าย เคลียร์ทีเดียวตอนกลับ'],
+         prep:['เตรียมตัวก่อนไป','K-ETA อากาศ เงิน และภาษาที่ได้ใช้จริง']}[view.tab];
+  hero='<div class="hero" style="padding-bottom:2px"><h1 style="font-size:23px">'+t[0]+'</h1><div class="sub">'+t[1]+'</div></div>';
+ }
+
+ var nav='<nav class="nav"><div class="inner">'
+  +navBtn('plan','cal','แผนเที่ยว')
+  +navBtn('move','metro','เดินทาง')
+  +navBtn('money','wallet','ค่าใช้จ่าย')
+  +navBtn('prep','info','เตรียมตัว')
+  +'</div></nav>';
+
+ document.getElementById('root').innerHTML=hero+body;
+ var old=document.querySelector('nav.nav');if(old)old.remove();
+ var oldSheet=document.querySelector('.sheet');if(oldSheet)oldSheet.remove();
+ document.body.insertAdjacentHTML('beforeend',nav+sheetHTML());
+ wire();
+}
+function navBtn(id,i,label){
+ return '<button data-tab="'+id+'" aria-current="'+(view.tab===id)+'">'+ic(i,21)+'<span>'+label+'</span></button>';
+}
+
+/* ================= events ================= */
+function wire(){
+ document.querySelectorAll('[data-tab]').forEach(function(b){
+  b.onclick=function(){view.tab=b.dataset.tab;window.scrollTo(0,0);render();};
+ });
+ document.querySelectorAll('[data-day]').forEach(function(b){
+  b.onclick=function(){view.day=+b.dataset.day;render();
+   var p=document.querySelector('.pills');if(p)p.scrollLeft=b.offsetLeft-60;};
+ });
+ /* open Naver Map - Google Maps cannot give directions inside Korea */
+ document.querySelectorAll('[data-nav]').forEach(function(b){
+  b.onclick=function(){
+   window.open('https://map.naver.com/p/search/'+encodeURIComponent(b.dataset.nav),'_blank','noopener');
+  };
+ });
+
+ var sheet=document.getElementById('sheet');
+ function closeSheet(){if(sheet)sheet.hidden=true;}
+ document.querySelectorAll('[data-say]').forEach(function(b){
+  b.onclick=function(){
+   document.getElementById('sheetKr').textContent=b.dataset.say;
+   document.getElementById('sheetTh').textContent=b.dataset.sayth;
+   sheet.hidden=false;
+   var cp=document.getElementById('sheetCopy');
+   cp.innerHTML=ic('copy',15)+'คัดลอก';
+   cp.onclick=function(){
+    var t=b.dataset.say;
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+     navigator.clipboard.writeText(t).then(function(){cp.innerHTML=ic('copy',15)+'คัดลอกแล้ว!';},
+       function(){window.prompt('คัดลอกข้อความนี้',t);});
+    }else window.prompt('คัดลอกข้อความนี้',t);
+   };
+  };
+ });
+ if(sheet){
+  document.getElementById('sheetClose').onclick=closeSheet;
+  sheet.onclick=function(e){if(e.target===sheet)closeSheet();};
+ }
+ document.onkeydown=function(e){if(e.key==='Escape')closeSheet();};
+
+ document.querySelectorAll('[data-chk]').forEach(function(b){
+  b.onclick=function(){
+   var id=b.dataset.chk;
+   state.checks=state.checks||{};
+   var on=!state.checks[id];
+   state.checks[id]=on;
+   persist({check:{id:id,on:on}});
+  };
+ });
+
+ if(view.tab!=='money')return;
+
+ var f=view.f;
+ var fl=document.getElementById('fl'),fa=document.getElementById('fa');
+ if(fl)fl.oninput=function(){f.label=fl.value;};
+ if(fa)fa.oninput=function(){f.amt=fa.value;};
+ document.querySelectorAll('[data-cur]').forEach(function(b){b.onclick=function(){f.cur=b.dataset.cur;render();};});
+ document.querySelectorAll('[data-payer]').forEach(function(b){b.onclick=function(){f.payer=+b.dataset.payer;render();};});
+ document.querySelectorAll('[data-split]').forEach(function(b){b.onclick=function(){f.split=b.dataset.split;render();};});
+ document.querySelectorAll('[data-cat]').forEach(function(b){b.onclick=function(){f.cat=b.dataset.cat;render();};});
+
+ var n0=document.getElementById('n0'),n1=document.getElementById('n1');
+ if(n0)n0.onchange=function(){state.names[0]=n0.value.trim()||'เรา';persist({meta:{names:state.names.slice(),rate:state.rate}});};
+ if(n1)n1.onchange=function(){state.names[1]=n1.value.trim()||'แฟน';persist({meta:{names:state.names.slice(),rate:state.rate}});};
+
+ var add=document.getElementById('add');
+ if(add)add.onclick=function(){
+  var v=parseFloat(f.amt);
+  if(!isFinite(v)||v<=0){if(fa){fa.focus();fa.style.borderColor='var(--seoul)';}return;}
+  var item={id:'e'+Date.now()+Math.random().toString(36).slice(2,6),
+   label:f.label.trim(),amt:v,cur:f.cur,payer:f.payer,split:f.split,cat:f.cat};
+  state.items.push(item);
+  view.f={label:'',amt:'',cur:f.cur,payer:f.payer,split:'both',cat:f.cat};
+  persist({add:item});
+ };
+ document.querySelectorAll('[data-del]').forEach(function(b){
+  b.onclick=function(){
+   var id=b.dataset.del;
+   state.items=state.items.filter(function(x){return x.id!==id;});
+   persist({del:id});
+  };
+ });
+ var cl=document.getElementById('clear');
+ if(cl)cl.onclick=function(){
+  if(!window.confirm('ลบรายการทั้งหมด? กู้คืนไม่ได้นะ'))return;
+  state.items=[];persist({clear:1});
+ };
+ var cp=document.getElementById('copy');
+ if(cp)cp.onclick=function(){
+  var c=calc(),lines=['สรุปค่าใช้จ่ายทริปโซล–ปูซาน 12–15 ก.ย. 69',''];
+  for(var i=0;i<state.items.length;i++){
+   var it=state.items[i];
+   lines.push('• '+(it.label||'(ไม่มีชื่อ)')+' — ฿'+fmt(toTHB(it))+' ('+state.names[it.payer]+'จ่าย, '+(it.split==='both'?'หาร':'เดี่ยว')+')');
+  }
+  lines.push('','รวม ฿'+fmt(c.total));
+  lines.push(state.names[0]+' จ่ายไป ฿'+fmt(c.paid[0])+' / ควรจ่าย ฿'+fmt(c.owe[0]));
+  lines.push(state.names[1]+' จ่ายไป ฿'+fmt(c.paid[1])+' / ควรจ่าย ฿'+fmt(c.owe[1]));
+  if(Math.abs(c.net)>=1){var from=c.net>0?1:0,to=c.net>0?0:1;
+   lines.push('→ '+state.names[from]+' โอนให้ '+state.names[to]+' ฿'+fmt(Math.abs(c.net)));}
+  else lines.push('→ เท่ากันพอดี ไม่ต้องโอน');
+  var txt=lines.join('\n');
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+   navigator.clipboard.writeText(txt).then(function(){cp.innerHTML=ic('copy',16)+'คัดลอกแล้ว!';setTimeout(render,1400);},function(){window.prompt('คัดลอกข้อความนี้',txt);});
+  }else window.prompt('คัดลอกข้อความนี้',txt);
+ };
+ var ss=document.getElementById('saveset');
+ if(ss)ss.onclick=function(){
+  var r=parseFloat(document.getElementById('rate').value);
+  if(isFinite(r)&&r>0){state.rate=1000/r;persist({meta:{names:state.names.slice(),rate:state.rate}});}
+ };
+}
+
+})();
+</script>
+<script>
+if('serviceWorker' in navigator){addEventListener('load',function(){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+});}
+</script>
+</body>
+</html>
