@@ -238,6 +238,25 @@ svg{display:block}
 .daygrp .dcount{font-weight:400;color:var(--ink-faint)}
 .daygrp .dsum{margin-left:auto;color:var(--ink-soft)}
 .tzhint{margin-top:10px;font-size:11.5px;color:var(--ink-faint);text-align:center}
+.sumsheet{margin-top:11px;border:2px dashed var(--line-2);border-radius:16px;background:var(--card2);padding:15px 14px 14px}
+.sum-h{font-family:'Mali','IBM Plex Sans Thai',cursive;font-weight:700;font-size:17px;text-align:center;line-height:1.3}
+.sum-sub{font-size:11.5px;color:var(--ink-faint);text-align:center;margin-bottom:6px}
+.sum-day{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12px;
+  font-weight:700;color:var(--ink);border-top:2px dotted var(--line-2);padding-top:9px;margin-top:11px}
+.sum-row{display:flex;gap:9px;align-items:baseline;padding:5px 0;font-size:13px}
+.sum-row .sr-t{flex:0 0 38px;font-size:11.5px;color:var(--ink-faint)}
+.sum-row .sr-l{flex:1;min-width:0;line-height:1.4}
+.sum-row .sr-l em{display:block;font-style:normal;font-size:11px;color:var(--ink-faint)}
+.sum-row .sr-v{flex:0 0 auto}
+.sum-tot{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:14.5px;
+  border-top:2px solid var(--line-2);margin-top:13px;padding-top:10px}
+.sum-p{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;color:var(--ink-soft);margin-top:5px}
+.sum-p span:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+.sum-p span:last-child{text-align:right}
+.sum-net{margin-top:12px;padding:11px 10px;border-radius:13px;background:var(--leaf-bg);
+  border:2px solid var(--leaf);color:var(--ink);text-align:center;
+  font-family:'Mali','IBM Plex Sans Thai',cursive;font-weight:700;font-size:15px;line-height:1.4}
+.sum-net b{color:var(--leaf);font-size:19px}
 .item{
   display:flex;align-items:center;gap:10px;background:var(--card2);
   border:2px solid var(--line);border-radius:14px;padding:9px 11px;
@@ -384,6 +403,7 @@ var ICONS={
  nav:'<path '+P+' d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><path '+P+' d="M14.5 7.5l-1.6 4-4 1.6 1.6-4 4-1.6z"/>',
  say:'<path '+P+' d="M4 5h16v10H9l-4 4V5z"/><path '+P+' d="M8 9h8M8 12h5"/>',
  check:'<path '+P+' d="M5 12.5l4.5 4.5L19 7.5" stroke-width="3"/>',
+ doc:'<path '+P+' d="M6 3h8l4 4v14H6z"/><path '+P+' d="M14 3v4h4M9 12.5h6M9 16.5h4"/>',
  tip:'<path '+P+' d="M12 3a6 6 0 0 0-3.5 10.9V17h7v-3.1A6 6 0 0 0 12 3z"/><path '+P+' d="M10 20h4"/>'
 };
 function ic(n,s){return '<svg viewBox="0 0 24 24" width="'+(s||18)+'" height="'+(s||18)+'" aria-hidden="true">'+(ICONS[n]||'')+'</svg>';}
@@ -645,7 +665,7 @@ function nowSlot(day){
 }
 
 /* ================= view state ================= */
-var view={tab:'plan',day:tripDayIndex()||1,
+var view={tab:'plan',day:tripDayIndex()||1,showSummary:false,
   f:{label:'',amt:'',cur:'KRW',payer:0,split:'both',cat:'food'}};
 
 /* ================= state + sync =================
@@ -877,6 +897,62 @@ function refHTML(list){
  return h;
 }
 
+/* One source for the summary: the on-screen receipt and the clipboard text
+   are two renderings of this, so they cannot disagree. */
+function summaryGroups(){
+ var byTime=state.items.slice().sort(function(a,b){return itemTime(a)-itemTime(b);});
+ var gs=[],cur=null;
+ byTime.forEach(function(it){
+  var k=kstKey(itemTime(it));
+  if(!cur||cur.k!==k){cur={k:k,ms:itemTime(it),list:[]};gs.push(cur);}
+  cur.list.push(it);
+ });
+ return gs;
+}
+function splitLabel(it){return it.split==='both'?'หาร 50/50':('ของ '+state.names[it.split==='a'?0:1]);}
+function groupSum(g){var t=0;g.list.forEach(function(i){t+=toTHB(i);});return t;}
+
+function summaryText(){
+ var c=calc(),lines=['สรุปค่าใช้จ่ายทริปโซล 12–15 ก.ย. 69',''];
+ summaryGroups().forEach(function(g){
+  lines.push('['+kstDay(g.ms)+']');
+  g.list.forEach(function(it){
+   lines.push('  '+kstClock(itemTime(it))+'  '+(it.label||'(ไม่มีชื่อ)')+' — ฿'+fmt(toTHB(it))
+    +' ('+state.names[it.payer]+' จ่าย, '+(it.split==='both'?'หาร 50/50':'เดี่ยว')+')');
+  });
+ });
+ lines.push('','รวม ฿'+fmt(c.total));
+ lines.push(state.names[0]+' จ่ายไป ฿'+fmt(c.paid[0])+' / ควรจ่าย ฿'+fmt(c.owe[0]));
+ lines.push(state.names[1]+' จ่ายไป ฿'+fmt(c.paid[1])+' / ควรจ่าย ฿'+fmt(c.owe[1]));
+ if(Math.abs(c.net)>=1){var from=c.net>0?1:0,to=c.net>0?0:1;
+  lines.push('→ '+state.names[from]+' โอนให้ '+state.names[to]+' ฿'+fmt(Math.abs(c.net)));}
+ else lines.push('→ เท่ากันพอดี ไม่ต้องโอน');
+ return lines.join('\n');
+}
+
+function summaryHTML(){
+ var c=calc(),gs=summaryGroups();
+ var h='<div class="sumsheet"><div class="sum-h">สรุปค่าใช้จ่าย</div>'
+  +'<div class="sum-sub">ทริปโซล · 12–15 ก.ย. 2569 · เวลาเกาหลี</div>';
+ gs.forEach(function(g){
+  h+='<div class="sum-day"><span>'+esc(kstDay(g.ms))+'</span><span class="money">฿'+fmt(groupSum(g))+'</span></div>';
+  g.list.forEach(function(it){
+   h+='<div class="sum-row"><span class="sr-t money">'+esc(kstClock(itemTime(it)))+'</span>'
+    +'<span class="sr-l">'+esc(it.label||'(ไม่มีชื่อ)')
+    +'<em>'+esc(state.names[it.payer])+' จ่าย · '+esc(splitLabel(it))+'</em></span>'
+    +'<span class="sr-v money">฿'+fmt(toTHB(it))+'</span></div>';
+  });
+ });
+ h+='<div class="sum-tot"><span>รวมทั้งหมด</span><span class="money">฿'+fmt(c.total)+'</span></div>'
+  +'<div class="sum-p"><span>'+esc(state.names[0])+'</span><span class="money">จ่ายไป ฿'+fmt(c.paid[0])+' · ควรจ่าย ฿'+fmt(c.owe[0])+'</span></div>'
+  +'<div class="sum-p"><span>'+esc(state.names[1])+'</span><span class="money">จ่ายไป ฿'+fmt(c.paid[1])+' · ควรจ่าย ฿'+fmt(c.owe[1])+'</span></div>';
+ if(Math.abs(c.net)<1)h+='<div class="sum-net">เท่ากันพอดี ไม่ต้องโอน 🎉</div>';
+ else{var from=c.net>0?1:0,to=c.net>0?0:1;
+  h+='<div class="sum-net">'+esc(state.names[from])+' โอนให้ '+esc(state.names[to])
+   +'<br><b class="money">฿'+fmt(Math.abs(c.net))+'</b></div>';}
+ return h+'</div>';
+}
+
 function checkCount(){
  var done=0,total=0,ck=state.checks||{};
  CHECKS.forEach(function(g){g.items.forEach(function(it){total++;if(ck[it[0]])done++;});});
@@ -1046,7 +1122,11 @@ function expenseHTML(){
    h+='<div class="bar"><span class="bn">'+esc(CATS[z].n)+'</span><span class="track"><span class="fill" style="width:'+(maxv?Math.max(6,v/maxv*100):0)+'%;background:'+CATS[z].c+'"></span></span><span class="bv money">฿'+fmt(v)+'</span></div>';
   }
   h+='</div>';
-  h+='<div style="display:flex;gap:8px;margin-top:14px"><button class="btn ghost" id="copy" style="flex:1">'+ic('copy',16)+'คัดลอกสรุป</button><button class="btn ghost" id="clear">ล้างทั้งหมด</button></div>';
+  h+='<div style="display:flex;gap:8px;margin-top:14px">'
+   +'<button class="btn ghost" id="showsum" style="flex:1">'+ic('doc',16)+(view.showSummary?'ซ่อนสรุป':'ดูสรุป')+'</button>'
+   +'<button class="btn ghost" id="copy" style="flex:1">'+ic('copy',16)+'คัดลอกสรุป</button></div>';
+  if(view.showSummary)h+=summaryHTML();
+  h+='<div style="display:flex;margin-top:10px"><button class="btn ghost" id="clear" style="flex:1;font-size:13px">ล้างรายการทั้งหมด</button></div>';
  }
  h+='</div>';
 
@@ -1193,26 +1273,16 @@ function wire(){
  };
  var cp=document.getElementById('copy');
  if(cp)cp.onclick=function(){
-  var c=calc(),lines=['สรุปค่าใช้จ่ายทริปโซล 12–15 ก.ย. 69',''];
-  var byTime=state.items.slice().sort(function(a,b){return itemTime(a)-itemTime(b);});
-  var lastDay='';
-  byTime.forEach(function(it){
-   var k=kstKey(itemTime(it));
-   if(k!==lastDay){lastDay=k;lines.push('['+kstDay(itemTime(it))+']');}
-   lines.push('  '+kstClock(itemTime(it))+'  '+(it.label||'(ไม่มีชื่อ)')+' — ฿'+fmt(toTHB(it))
-    +' ('+state.names[it.payer]+' จ่าย, '+(it.split==='both'?'หาร 50/50':'เดี่ยว')+')');
-  });
-  lines.push('','รวม ฿'+fmt(c.total));
-  lines.push(state.names[0]+' จ่ายไป ฿'+fmt(c.paid[0])+' / ควรจ่าย ฿'+fmt(c.owe[0]));
-  lines.push(state.names[1]+' จ่ายไป ฿'+fmt(c.paid[1])+' / ควรจ่าย ฿'+fmt(c.owe[1]));
-  if(Math.abs(c.net)>=1){var from=c.net>0?1:0,to=c.net>0?0:1;
-   lines.push('→ '+state.names[from]+' โอนให้ '+state.names[to]+' ฿'+fmt(Math.abs(c.net)));}
-  else lines.push('→ เท่ากันพอดี ไม่ต้องโอน');
-  var txt=lines.join('\n');
+  var txt=summaryText();
   if(navigator.clipboard&&navigator.clipboard.writeText){
    navigator.clipboard.writeText(txt).then(function(){cp.innerHTML=ic('copy',16)+'คัดลอกแล้ว!';setTimeout(render,1400);},function(){window.prompt('คัดลอกข้อความนี้',txt);});
   }else window.prompt('คัดลอกข้อความนี้',txt);
  };
+ var sumBtn=document.getElementById('showsum');
+ if(sumBtn)sumBtn.onclick=function(){view.showSummary=!view.showSummary;render();
+  if(view.showSummary){var el=document.querySelector('.sumsheet');
+   if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});}};
+
  var ss=document.getElementById('saveset');
  if(ss)ss.onclick=function(){
   var r=parseFloat(document.getElementById('rate').value);
