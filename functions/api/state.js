@@ -13,7 +13,7 @@
  * back to this-device-only storage instead of breaking.
  */
 
-const EMPTY = { names: ['เรา', 'แฟน'], rate: 40, items: [] };
+const EMPTY = { names: ['OATT', 'POPP'], rate: 40, items: [], checks: {} };
 const MAX_BYTES = 256 * 1024;
 
 const json = (body, status = 200) =>
