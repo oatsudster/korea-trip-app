@@ -191,6 +191,7 @@ svg{display:block}
 }
 .mate .amt{font-size:16px}
 .mate .lbl{font-size:11px;color:var(--ink-faint)}
+.mate .need{font-size:11px;color:var(--ink-soft);margin-top:1px}
 
 .settle{
   border-radius:16px;padding:14px 15px;background:var(--leaf-bg);
@@ -233,6 +234,10 @@ svg{display:block}
 .btn[disabled]{opacity:.5;pointer-events:none}
 
 .items{display:flex;flex-direction:column;gap:8px}
+.daygrp{display:flex;align-items:center;gap:8px;margin:15px 2px 7px;font-size:12px;font-weight:700;color:var(--ink)}
+.daygrp .dcount{font-weight:400;color:var(--ink-faint)}
+.daygrp .dsum{margin-left:auto;color:var(--ink-soft)}
+.tzhint{margin-top:10px;font-size:11.5px;color:var(--ink-faint);text-align:center}
 .item{
   display:flex;align-items:center;gap:10px;background:var(--card2);
   border:2px solid var(--line);border-radius:14px;padding:9px 11px;
@@ -241,6 +246,7 @@ svg{display:block}
 .item .txt{flex:1;min-width:0}
 .item .txt .t1{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .item .txt .t2{font-size:11.5px;color:var(--ink-faint)}
+.item .txt .t2 b{color:var(--ink-soft);font-weight:600}
 .item .val{text-align:right;font-size:14px}
 .item .val .sub{font-size:11px;color:var(--ink-faint)}
 .item .del{padding:4px;color:var(--ink-faint);border-radius:8px;flex:0 0 auto}
@@ -916,6 +922,26 @@ function budgetHTML(){
 }
 
 /* ---- expenses ---- */
+/* Times are shown in Seoul time: the money is spent there, and the app
+   already decides "today" that way. Entries saved before timestamps existed
+   fall back to the millisecond baked into their id. */
+function itemTime(it){
+ if(typeof it.ts==='number'&&isFinite(it.ts))return it.ts;
+ var n=parseInt(String(it.id||'').slice(1,14),10);
+ return isFinite(n)?n:0;
+}
+var _kf={};
+function kstFmt(opts,key){
+ if(!_kf[key]){
+  opts.timeZone='Asia/Seoul';
+  _kf[key]=new Intl.DateTimeFormat(key==='key'?'en-CA':'th-TH',opts);
+ }
+ return _kf[key];
+}
+function kstKey(ms){return kstFmt({year:'numeric',month:'2-digit',day:'2-digit'},'key').format(new Date(ms));}
+function kstDay(ms){return kstFmt({weekday:'short',day:'numeric',month:'short'},'day').format(new Date(ms));}
+function kstClock(ms){return kstFmt({hour:'2-digit',minute:'2-digit',hour12:false},'clock').format(new Date(ms));}
+
 function toTHB(it){return it.cur==='THB'?it.amt:it.amt/state.rate;}
 function fmt(n){return n.toLocaleString('th-TH',{maximumFractionDigits:0});}
 
@@ -945,8 +971,8 @@ function expenseHTML(){
  var h='<div class="syncbar '+sc+'"><span class="led"></span><span>'+esc(smsg)+'</span></div>';
 
  h+='<div class="mates">'
-  +'<div class="mate a"><input id="n0" value="'+esc(state.names[0])+'" aria-label="ชื่อคนที่ 1" maxlength="14"><div class="amt money">฿'+fmt(c.paid[0])+'</div><div class="lbl">จ่ายไปแล้ว</div></div>'
-  +'<div class="mate b"><input id="n1" value="'+esc(state.names[1])+'" aria-label="ชื่อคนที่ 2" maxlength="14"><div class="amt money">฿'+fmt(c.paid[1])+'</div><div class="lbl">จ่ายไปแล้ว</div></div>'
+  +'<div class="mate a"><input id="n0" value="'+esc(state.names[0])+'" aria-label="ชื่อคนที่ 1" maxlength="14"><div class="amt money">฿'+fmt(c.paid[0])+'</div><div class="lbl">จ่ายไปแล้ว</div><div class="need money">ควรจ่าย ฿'+fmt(c.owe[0])+'</div></div>'
+  +'<div class="mate b"><input id="n1" value="'+esc(state.names[1])+'" aria-label="ชื่อคนที่ 2" maxlength="14"><div class="amt money">฿'+fmt(c.paid[1])+'</div><div class="lbl">จ่ายไปแล้ว</div><div class="need money">ควรจ่าย ฿'+fmt(c.owe[1])+'</div></div>'
   +'</div>';
 
  var settle;
@@ -955,7 +981,8 @@ function expenseHTML(){
  else{
   var from=c.net>0?1:0,to=c.net>0?0:1;
   settle='<div class="big">'+esc(state.names[from])+' โอนให้ '+esc(state.names[to])+'<br><em class="money">฿'+fmt(Math.abs(c.net))+'</em></div>'
-   +'<div class="sm">ใช้ไปทั้งหมด ฿'+fmt(c.total)+' · '+esc(state.names[0])+' ควรจ่าย ฿'+fmt(c.owe[0])+' · '+esc(state.names[1])+' ควรจ่าย ฿'+fmt(c.owe[1])+'</div>';
+   +'<div class="sm">ใช้ไปทั้งหมด ฿'+fmt(c.total)+' จาก '+state.items.length+' รายการ<br>'
+   +esc(state.names[from])+' จ่ายไปแล้ว ฿'+fmt(c.paid[from])+' แต่ควรจ่าย ฿'+fmt(c.owe[from])+'</div>';
  }
  h+='<div class="settle">'+settle+'</div>';
 
@@ -983,20 +1010,34 @@ function expenseHTML(){
 
  // list
  h+='<div class="card"><h2><span class="ic" style="background:var(--busan-bg);color:var(--busan)">'+ic('wallet',17)+'</span>รายการทั้งหมด <span style="font-size:13px;font-weight:400;color:var(--ink-faint)">('+state.items.length+')</span></h2>';
- if(!state.items.length)h+='<div class="empty">ยังไม่มีรายการ<br>รายการที่บันทึกจะขึ้นที่นี่ เรียงจากใหม่ไปเก่า</div>';
+ if(!state.items.length)h+='<div class="empty">ยังไม่มีรายการ<br>รายการที่บันทึกจะขึ้นที่นี่ แยกตามวัน เรียงจากใหม่ไปเก่า</div>';
  else{
-  h+='<div class="items">';
-  for(var m=state.items.length-1;m>=0;m--){
-   var it=state.items[m],ca=catOf(it.cat),thb=toTHB(it);
-   var splitTxt=it.split==='both'?'หาร 50/50':('ของ '+state.names[it.split==='a'?0:1]);
-   h+='<div class="item"><span class="cdot" style="background:'+ca.c+'"></span>'
-    +'<div class="txt"><div class="t1">'+esc(it.label||'(ไม่มีชื่อ)')+'</div>'
-    +'<div class="t2">'+esc(state.names[it.payer])+' จ่าย · '+esc(splitTxt)+' · '+esc(ca.n)+'</div></div>'
-    +'<div class="val"><div class="money">฿'+fmt(thb)+'</div>'
-    +(it.cur==='KRW'?'<div class="sub money">₩'+fmt(it.amt)+'</div>':'')+'</div>'
-    +'<button class="del" data-del="'+esc(it.id)+'" aria-label="ลบรายการ">'+ic('trash',16)+'</button></div>';
-  }
-  h+='</div>';
+  var ordered=state.items.slice().sort(function(a,b){return itemTime(b)-itemTime(a);});
+  var groups=[],cur=null;
+  ordered.forEach(function(it){
+   var k=kstKey(itemTime(it));
+   if(!cur||cur.k!==k){cur={k:k,ms:itemTime(it),list:[]};groups.push(cur);}
+   cur.list.push(it);
+  });
+  groups.forEach(function(g){
+   var daySum=0;g.list.forEach(function(i){daySum+=toTHB(i);});
+   h+='<div class="daygrp"><span>'+esc(kstDay(g.ms))+'</span>'
+    +'<span class="dcount">'+g.list.length+' รายการ</span>'
+    +'<span class="dsum money">฿'+fmt(daySum)+'</span></div><div class="items">';
+   g.list.forEach(function(it){
+    var ca=catOf(it.cat),thb=toTHB(it);
+    var splitTxt=it.split==='both'?'หาร 50/50':('ของ '+state.names[it.split==='a'?0:1]);
+    h+='<div class="item"><span class="cdot" style="background:'+ca.c+'"></span>'
+     +'<div class="txt"><div class="t1">'+esc(it.label||'(ไม่มีชื่อ)')+'</div>'
+     +'<div class="t2"><b class="money">'+esc(kstClock(itemTime(it)))+'</b> · '
+     +esc(state.names[it.payer])+' จ่าย · '+esc(splitTxt)+'</div></div>'
+     +'<div class="val"><div class="money">฿'+fmt(thb)+'</div>'
+     +(it.cur==='KRW'?'<div class="sub money">₩'+fmt(it.amt)+'</div>':'')+'</div>'
+     +'<button class="del" data-del="'+esc(it.id)+'" aria-label="ลบรายการ">'+ic('trash',16)+'</button></div>';
+   });
+   h+='</div>';
+  });
+  h+='<div class="tzhint">เวลาที่แสดงเป็นเวลาเกาหลี (เร็วกว่าไทย 2 ชม.)</div>';
   // category bars
   var maxv=0;for(var q in c.bycat){if(c.bycat[q]>maxv)maxv=c.bycat[q];}
   h+='<div class="sect-title">แยกตามหมวด</div><div class="bars">';
@@ -1132,7 +1173,7 @@ function wire(){
  if(add)add.onclick=function(){
   var v=parseFloat(f.amt);
   if(!isFinite(v)||v<=0){if(fa){fa.focus();fa.style.borderColor='var(--seoul)';}return;}
-  var item={id:'e'+Date.now()+Math.random().toString(36).slice(2,6),
+  var item={id:'e'+Date.now()+Math.random().toString(36).slice(2,6),ts:Date.now(),
    label:f.label.trim(),amt:v,cur:f.cur,payer:f.payer,split:f.split,cat:f.cat};
   state.items.push(item);
   view.f={label:'',amt:'',cur:f.cur,payer:f.payer,split:'both',cat:f.cat};
@@ -1153,10 +1194,14 @@ function wire(){
  var cp=document.getElementById('copy');
  if(cp)cp.onclick=function(){
   var c=calc(),lines=['สรุปค่าใช้จ่ายทริปโซล 12–15 ก.ย. 69',''];
-  for(var i=0;i<state.items.length;i++){
-   var it=state.items[i];
-   lines.push('• '+(it.label||'(ไม่มีชื่อ)')+' — ฿'+fmt(toTHB(it))+' ('+state.names[it.payer]+'จ่าย, '+(it.split==='both'?'หาร':'เดี่ยว')+')');
-  }
+  var byTime=state.items.slice().sort(function(a,b){return itemTime(a)-itemTime(b);});
+  var lastDay='';
+  byTime.forEach(function(it){
+   var k=kstKey(itemTime(it));
+   if(k!==lastDay){lastDay=k;lines.push('['+kstDay(itemTime(it))+']');}
+   lines.push('  '+kstClock(itemTime(it))+'  '+(it.label||'(ไม่มีชื่อ)')+' — ฿'+fmt(toTHB(it))
+    +' ('+state.names[it.payer]+' จ่าย, '+(it.split==='both'?'หาร 50/50':'เดี่ยว')+')');
+  });
   lines.push('','รวม ฿'+fmt(c.total));
   lines.push(state.names[0]+' จ่ายไป ฿'+fmt(c.paid[0])+' / ควรจ่าย ฿'+fmt(c.owe[0]));
   lines.push(state.names[1]+' จ่ายไป ฿'+fmt(c.paid[1])+' / ควรจ่าย ฿'+fmt(c.owe[1]));
