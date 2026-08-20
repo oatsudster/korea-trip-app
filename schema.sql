@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS trip (
   version INTEGER NOT NULL DEFAULT 0
 );
 INSERT OR IGNORE INTO trip (id, doc, version)
-VALUES (1, '{"names":["เรา","แฟน"],"rate":40,"items":[]}', 0);
+VALUES (1, '{"names":["OATT","POPP"],"rate":40,"items":[],"checks":{}}', 0);
