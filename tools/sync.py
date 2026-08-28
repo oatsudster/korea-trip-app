@@ -35,8 +35,44 @@ def count(rev):
     return int(out) if out.isdigit() else 0
 
 
+def check():
+    """Read-only: answer 'is anything stranded on this machine?' and change nothing."""
+    git("fetch", "--quiet", "origin", check=False)
+    dirty = git("status", "--porcelain").splitlines()
+    behind = count("HEAD..origin/main")
+    ahead = count("origin/main..HEAD")
+
+    print("เครื่องนี้: " + git("log", "--oneline", "-1"))
+    print("บน GitHub: " + git("log", "--oneline", "-1", "origin/main"))
+    print("")
+
+    if not dirty and not behind and not ahead:
+        print("✅ ตรงกันแล้ว — ปิดเครื่องหรือสลับไปอีกเครื่องได้เลย")
+        return 0
+
+    if dirty:
+        print("⚠️  มีไฟล์แก้แล้วยังไม่ commit %d ไฟล์:" % len(dirty))
+        for line in dirty[:10]:
+            print("     " + line)
+    if ahead:
+        print("⚠️  commit แล้วแต่ยังไม่ push %d commit — อีกเครื่องจะไม่เห็นงานนี้" % ahead)
+    if behind:
+        print("⬇️  อีกเครื่อง push ของใหม่มา %d commit — ต้องดึงลงก่อนเริ่มแก้" % behind)
+
+    print("")
+    if dirty or ahead:
+        print("   แก้ด้วย:  python3 tools/sync.py \"ข้อความ\"")
+    else:
+        print("   แก้ด้วย:  python3 tools/sync.py")
+    return 1
+
+
 def main():
-    msg = sys.argv[1] if len(sys.argv) > 1 else None
+    args = [a for a in sys.argv[1:]]
+    if args and args[0] in ("--check", "-c", "check"):
+        sys.exit(check())
+
+    msg = args[0] if args else None
     dirty = bool(git("status", "--porcelain"))
 
     # Commit first when finishing, so the rebase has something to replay and
