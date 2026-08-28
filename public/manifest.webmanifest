@@ -1,5 +1,5 @@
 {
-  "name": "ทริปโซล–ซองซู–อินชอน",
+  "name": "ทริปโซล–ซองซู–อิแทวอน",
   "short_name": "โซลและรอบๆ",
   "description": "แผนเที่ยวโซล 4 วัน สลับย่านเก่ากับย่านดีไซน์ พร้อมวิธีเดินทางและช่องบันทึกค่าใช้จ่ายร่วมกัน",
   "lang": "th",
@@ -11,8 +11,23 @@
   "background_color": "#FFF6F2",
   "theme_color": "#FFF6F2",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

@@ -6,7 +6,7 @@ window.claude, the web app talks to /api/state (D1) and polls for changes.
 Everything else - itinerary content, CSS, renderers - is reused verbatim so
 the two builds cannot drift apart.
 """
-import io, os, sys
+import io, os, re, sys
 
 # Paths resolve from this file, so the build runs the same on Windows and macOS
 # from any working directory:  python3 tools/build.py
@@ -190,12 +190,13 @@ assert app.count("\nrender();\n})();") == 1
 app = app.replace("\nrender();\n})();", "\n})();")
 assert app.count("ready.then(function(){render();") == 1
 
-TITLE = "\u0e17\u0e23\u0e34\u0e1b\u0e42\u0e0b\u0e25\u2013\u0e0b\u0e2d\u0e07\u0e0b\u0e39\u2013\u0e2d\u0e34\u0e19\u0e0a\u0e2d\u0e19"
+# Title comes from the source too, so the tab name cannot drift from the app
+TITLE = re.search(r"var TITLE='([^']*)'", s).group(1)
 FONT = ("https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&amp;"
         "family=IBM+Plex+Sans+Thai:wght@400;500;600&amp;family=Gaegu:wght@700&amp;"
         "family=IBM+Plex+Mono:wght@500&amp;display=swap")
-DESC = ("\u0e41\u0e1c\u0e19\u0e40\u0e17\u0e35\u0e48\u0e22\u0e27\u0e42\u0e0b\u0e25 \u0e0b\u0e2d\u0e07\u0e0b\u0e39 \u0e41\u0e25\u0e30\u0e2d\u0e34\u0e19\u0e0a\u0e2d\u0e19 4 \u0e27\u0e31\u0e19 "
-        "12-15 \u0e01.\u0e22. 2569 \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e27\u0e34\u0e18\u0e35\u0e40\u0e14\u0e34\u0e19\u0e17\u0e32\u0e07\u0e25\u0e30\u0e40\u0e2d\u0e35\u0e22\u0e14"
+DESC = ("\u0e41\u0e1c\u0e19\u0e40\u0e17\u0e35\u0e48\u0e22\u0e27\u0e42\u0e0b\u0e25 5 \u0e27\u0e31\u0e19 4 \u0e04\u0e37\u0e19 "
+        "12-16 \u0e01.\u0e22. 2569 \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e27\u0e34\u0e18\u0e35\u0e40\u0e14\u0e34\u0e19\u0e17\u0e32\u0e07\u0e25\u0e30\u0e40\u0e2d\u0e35\u0e22\u0e14"
         "\u0e41\u0e25\u0e30\u0e0a\u0e48\u0e2d\u0e07\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e04\u0e48\u0e32\u0e43\u0e0a\u0e49\u0e08\u0e48\u0e32\u0e22\u0e23\u0e48\u0e27\u0e21\u0e01\u0e31\u0e19")
 
 page = (
