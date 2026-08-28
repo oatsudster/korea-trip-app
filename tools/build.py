@@ -18,6 +18,19 @@ s = io.open(SRC, encoding="utf-8").read()
 css = s.split('<style id="css">')[1].split("</style>")[0]
 app = s.split('<script id="app">')[1].rsplit("</script>", 1)[0]
 
+# DAYS and TRIP_DATES describe the same trip in two places: DAYS drives the
+# itinerary, TRIP_DATES drives "today" mode and the countdown. Nothing at
+# runtime notices when they disagree - the app just quietly stops knowing what
+# day it is. Fail the build instead, while someone is still looking.
+_days = len(re.findall(r"\{n:\d+,dow:", app))
+_dates = re.findall(r"var TRIP_DATES=\[([^\]]*)\]", app)
+assert _dates, "TRIP_DATES not found in src/trip.html"
+_dates = len(re.findall(r"'\d{4}-\d{2}-\d{2}'", _dates[0]))
+assert _days == _dates, (
+    "DAYS has %d days but TRIP_DATES has %d. They must match or the app loses "
+    "track of which day it is - fix src/trip.html." % (_days, _dates)
+)
+
 start = app.index("/* ================= state ================= */")
 end = app.index("/* ================= renderers ================= */")
 old = app[start:end]

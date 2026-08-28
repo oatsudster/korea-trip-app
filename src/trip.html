@@ -614,15 +614,19 @@ var PREP=[
  ]}
 ];
 
+/* Won is the single source of truth here. Baht used to be typed in a second
+   column by hand and had already drifted (485,000 won was labelled 12,150 baht
+   when the rate makes it 12,125), so it is derived at render time now - from
+   the same rate the expense tab uses. */
 var BUDGET=[
- ['ที่พัก 4 คืน','₩485,000','~12,150 ฿','SeogyoHueStay ฮงแด · 3,034 ฿/คืน'],
- ['อาหาร + street food 5 วัน','₩400,000','~10,000 ฿','2 คน ~₩40,000/คน/วัน'],
- ['คาเฟ่ (2–3 ร้าน/วัน)','₩160,000','~4,000 ฿','ทริปนี้เน้นคาเฟ่ ตั้งเผื่อไว้เยอะหน่อย'],
- ['คราฟต์เบียร์ 3 คืน','₩120,000','~3,000 ฿','อึลจีโร · Amazing Brewing · ฮงแด'],
- ['เดินทางในเมือง','₩60,000','~1,500 ฿','รถไฟฟ้า + แท็กซี่'],
- ['รถเข้าเมือง/สนามบิน','₩30,000','~750 ฿','AREX ไป-กลับ 2 คน — ไม่ต้องนั่งแท็กซี่สนามบิน'],
- ['ค่าเข้า/กิจกรรม','₩70,000','~1,750 ฿','เคียงบกกุง ₩3,000, ลีอึม, ขึ้นนัมซาน'],
- ['เผื่อช้อป/ของฝาก','₩150,000','~3,750 ฿','ปรับตามใจ']
+ ['ที่พัก 4 คืน',485000,'SeogyoHueStay ฮงแด · 3,034 ฿/คืน'],
+ ['อาหาร + street food 5 วัน',400000,'2 คน ~₩40,000/คน/วัน'],
+ ['คาเฟ่ (2–3 ร้าน/วัน)',160000,'ทริปนี้เน้นคาเฟ่ ตั้งเผื่อไว้เยอะหน่อย'],
+ ['คราฟต์เบียร์ 3 คืน',120000,'อึลจีโร · Amazing Brewing · ฮงแด'],
+ ['เดินทางในเมือง',60000,'รถไฟฟ้า + แท็กซี่'],
+ ['รถเข้าเมือง/สนามบิน',30000,'AREX ไป-กลับ 2 คน — ไม่ต้องนั่งแท็กซี่สนามบิน'],
+ ['ค่าเข้า/กิจกรรม',70000,'เคียงบกกุง ₩3,000, ลีอึม, ขึ้นนัมซาน'],
+ ['เผื่อช้อป/ของฝาก',150000,'ปรับตามใจ']
 ];
 
 var CHECKS=[
@@ -686,6 +690,10 @@ function nowSlot(day){
 /* ================= view state ================= */
 var view={tab:'plan',day:tripDayIndex()||1,showSummary:false,
   f:{label:'',amt:'',cur:'KRW',payer:0,split:'both',cat:'food'}};
+/* Which view we last auto-jumped for. The 4s poll re-renders constantly, so
+   jumping on every render would yank the page out from under whoever is
+   reading it - only a real change of tab or day may move the scroll. */
+var lastJump=null;
 
 /* ================= state ================= */
 var seedEl=document.getElementById('data');
@@ -991,24 +999,21 @@ function sheetHTML(){
   +'</div></div></div>';
 }
 
-/* Sum the baht column instead of hardcoding a total - a hardcoded one went
-   stale the moment the rows changed, and silently disagreed with them. */
-function budgetTotal(){
+/* Won in, baht out - one rate, one place. */
+function wonToTHB(w){return Math.round(w/state.rate);}
+function budgetTotalWon(){
  var t=0;
- for(var i=0;i<BUDGET.length;i++){
-  var n=parseInt(String(BUDGET[i][2]).replace(/[^0-9]/g,''),10);
-  if(!isNaN(n))t+=n;
- }
+ for(var i=0;i<BUDGET.length;i++)t+=BUDGET[i][1];
  return t;
 }
 
 function budgetHTML(){
  var h='<div class="card"><h2><span class="ic" style="background:var(--leaf-bg);color:var(--leaf)">'+ic('wallet',17)+'</span>งบประมาณคร่าวๆ (2 คน)</h2>'
-  +'<div class="lead">ไม่รวมตั๋วเครื่องบิน · เรท ₩1,000 ≈ 25 บาท</div><div class="rows">';
+  +'<div class="lead">ไม่รวมตั๋วเครื่องบิน · เรท ₩1,000 ≈ '+fmt(Math.round(1000/state.rate))+' บาท (แก้เรทได้ในแท็บค่าใช้จ่าย)</div><div class="rows">';
  for(var i=0;i<BUDGET.length;i++){
-  h+='<div class="row"><span class="k">'+esc(BUDGET[i][0])+'</span><span class="v"><b class="tnum">'+esc(BUDGET[i][2])+'</b> <span style="opacity:.7">('+esc(BUDGET[i][1])+')</span><br><span style="font-size:12px">'+esc(BUDGET[i][3])+'</span></span></div>';
+  h+='<div class="row"><span class="k">'+esc(BUDGET[i][0])+'</span><span class="v"><b class="tnum">~'+fmt(wonToTHB(BUDGET[i][1]))+' ฿</b> <span style="opacity:.7">(₩'+fmt(BUDGET[i][1])+')</span><br><span style="font-size:12px">'+esc(BUDGET[i][2])+'</span></span></div>';
  }
- var tot=budgetTotal();
+ var tot=wonToTHB(budgetTotalWon());
  h+='</div><div class="note"><b>รวมประมาณ '+fmt(tot)+' บาท สำหรับ 2 คน</b> ≈ <b>'+fmt(Math.round(tot/2))+' บาท/คน</b> (ไม่รวมตั๋วเครื่องบิน) — ใช้เป็นตัวตั้ง แล้วบันทึกของจริงในแท็บ “ค่าใช้จ่าย”</div></div>';
  return h;
 }
@@ -1195,6 +1200,19 @@ function render(){
  var oldSheet=document.querySelector('.sheet');if(oldSheet)oldSheet.remove();
  document.body.insertAdjacentHTML('beforeend',nav+sheetHTML());
  wire();
+ jumpToNow();
+}
+
+/* During the trip the useful part of the day is whatever is happening now, not
+   08:00. Scroll to it when the view changes - outside the trip dates nowSlot()
+   finds nothing, so nothing moves. */
+function jumpToNow(){
+ var key=view.tab+':'+view.day;
+ if(key===lastJump)return;
+ lastJump=key;
+ if(view.tab!=='plan')return;
+ var el=document.querySelector('.ev.now');
+ if(el)el.scrollIntoView({block:'center'});
 }
 function navBtn(id,i,label){
  return '<button data-tab="'+id+'" aria-current="'+(view.tab===id)+'">'+ic(i,21)+'<span>'+label+'</span></button>';
