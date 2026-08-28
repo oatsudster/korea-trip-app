@@ -6,7 +6,7 @@
 | | |
 |---|---|
 | เว็บใช้งานจริง | https://korea-trip-app.pages.dev |
-| repo | `oatsudster/korea-trip-app` (private) |
+| repo | `oatsudster/korea-trip-app` (public — clone ได้เลยไม่ต้องล็อกอิน แต่ push ต้องยืนยันตัวตน) |
 | deploy | Cloudflare Pages — auto-deploy ทุกครั้งที่ push ขึ้น `main` |
 | ฐานข้อมูล | Cloudflare D1 ชื่อ `korea-trip` · binding `DB` |
 
