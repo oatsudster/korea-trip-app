@@ -315,6 +315,7 @@ svg{display:block}
 .act:active{transform:translateY(1px)}
 .act.go{color:var(--busan);border-color:var(--busan);background:var(--busan-bg)}
 .act.say{color:var(--plum);border-color:var(--plum);background:var(--plum-bg)}
+.act.pic{color:var(--gold);border-color:var(--gold);background:var(--gold-bg)}
 
 /* now marker */
 .ev.now{background:var(--gold-bg);border-radius:14px;margin-left:-8px;padding-left:42px;padding-right:10px}
@@ -406,7 +407,8 @@ var ICONS={
  say:'<path '+P+' d="M4 5h16v10H9l-4 4V5z"/><path '+P+' d="M8 9h8M8 12h5"/>',
  check:'<path '+P+' d="M5 12.5l4.5 4.5L19 7.5" stroke-width="3"/>',
  doc:'<path '+P+' d="M6 3h8l4 4v14H6z"/><path '+P+' d="M14 3v4h4M9 12.5h6M9 16.5h4"/>',
- tip:'<path '+P+' d="M12 3a6 6 0 0 0-3.5 10.9V17h7v-3.1A6 6 0 0 0 12 3z"/><path '+P+' d="M10 20h4"/>'
+ tip:'<path '+P+' d="M12 3a6 6 0 0 0-3.5 10.9V17h7v-3.1A6 6 0 0 0 12 3z"/><path '+P+' d="M10 20h4"/>',
+ cam:'<path '+P+' d="M3 9.6a2 2 0 0 1 2-2h2.3l1.4-2.1h6.6l1.4 2.1H19a2 2 0 0 1 2 2v7.8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle '+P+' cx="12" cy="13.4" r="3.3"/>'
 };
 function ic(n,s){return '<svg viewBox="0 0 24 24" width="'+(s||18)+'" height="'+(s||18)+'" aria-hidden="true">'+(ICONS[n]||'')+'</svg>';}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -924,6 +926,7 @@ function evHTML(e,isNow){
   h+='<div class="acts">'
    +'<button class="act go" data-nav="'+esc(e.map)+'">'+ic('nav',14)+'นำทาง</button>'
    +'<button class="act say" data-say="'+esc(e.map)+'" data-sayth="'+esc(e.h)+'">'+ic('say',14)+'โชว์คนขับ</button>'
+   +'<button class="act pic" data-pic="'+esc(e.map)+'">'+ic('cam',14)+'ดูรูป</button>'
    +'</div>';
  }
  return h+'</div>';
@@ -1293,6 +1296,15 @@ function wire(){
  document.querySelectorAll('[data-nav]').forEach(function(b){
   b.onclick=function(){
    window.open('https://map.naver.com/p/search/'+encodeURIComponent(b.dataset.nav),'_blank','noopener');
+  };
+ });
+ /* Photos live on Naver rather than in this file: bundling 24 places worth of
+    images would cost megabytes, break the offline-first goal, and go stale -
+    Seongsu pop-ups change weekly. Naver also indexes Korean places far better
+    than Google does. Needs a connection, same as the map button. */
+ document.querySelectorAll('[data-pic]').forEach(function(b){
+  b.onclick=function(){
+   window.open('https://search.naver.com/search.naver?where=image&query='+encodeURIComponent(b.dataset.pic),'_blank','noopener');
   };
  });
 
