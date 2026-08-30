@@ -349,6 +349,16 @@ svg{display:block}
 .sheet-btns{display:flex;gap:9px}
 .sheet-btns .btn{flex:1}
 
+/* immigration summary card */
+.imm-in{max-width:380px;text-align:left}
+.imm-title{font-family:'Mali','IBM Plex Sans Thai',cursive;font-weight:700;font-size:19px;text-align:center;margin:6px 0 15px;color:var(--ink)}
+.imm-rows{display:flex;flex-direction:column;gap:11px;margin-bottom:16px}
+.imm-row{display:flex;flex-direction:column;gap:2px;padding-bottom:10px;border-bottom:2px dotted var(--line-2)}
+.imm-row:last-child{border-bottom:0;padding-bottom:0}
+.imm-row span{font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-faint)}
+.imm-row b{font-size:15px;color:var(--ink);font-weight:600;line-height:1.3}
+.imm-row em{font-style:normal;font-size:12.5px;color:var(--ink-soft);margin-top:1px}
+
 /* checklist */
 .chk{display:flex;flex-direction:column;gap:7px}
 .chk-g{font-size:12px;font-weight:700;color:var(--ink-faint);letter-spacing:.4px;margin:12px 2px 2px}
@@ -412,6 +422,19 @@ var ICONS={
 };
 function ic(n,s){return '<svg viewBox="0 0 24 24" width="'+(s||18)+'" height="'+(s||18)+'" aria-hidden="true">'+(ICONS[n]||'')+'</svg>';}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+/* Facts an immigration officer actually asks for, shown as a full-screen
+   card (immSheetHTML) so nothing needs printing separately. Kept in one
+   place rather than typed again inside DAYS' HTML strings, so a hotel
+   address or flight number can never drift between the two. */
+var IMM_FACTS={
+ purpose:'Tourism / sightseeing',
+ stay:'4 nights, 12–16 September 2026',
+ hotel:'Comfort Inn Yeouido',
+ addr:'7, Gukhoe-daero 72-gil, Yeongdeungpo-gu, Seoul',
+ arrival:'Thai Airways TG656 · arrived 12 Sep, 06:55',
+ departure:'Thai Airways TG657 · 16 Sep, 10:20 → Bangkok (BKK)'
+};
 
 /* ================= itinerary ================= */
 var DAYS=[
@@ -599,13 +622,23 @@ var TRANSPORT=[
 
 /* ================= prep ================= */
 var PREP=[
- {ic:'info',c:'seoul',h:'K-ETA — ต้องขอก่อนบิน',lead:'สำคัญที่สุด อย่าลืม',rows:[
+ {ic:'info',c:'seoul',h:'K-ETA — ต้องขอก่อนบิน',lead:'สำคัญที่สุด อย่าลืม',btn:{id:'openImm',ic:'doc',label:'เปิดสรุปข้อมูลให้ ตม. ดู'},rows:[
   ['ต้องขอไหม','<b>ต้องขอ</b> — คนไทยเข้าเกาหลีไม่ต้องขอวีซ่า (อยู่ได้ 90 วัน) แต่ <b>ต้องมี K-ETA</b> ก่อนขึ้นเครื่อง'],
   ['ขอที่ไหน','<b>k-eta.go.kr</b> หรือแอป K-ETA เท่านั้น — <b>ระวังเว็บปลอมที่คิดค่าบริการแพง</b>'],
   ['ค่าธรรมเนียม','~<b>₩10,300</b> (~260 บาท) จ่ายด้วยบัตรเครดิต'],
   ['ยื่นเมื่อไหร่','อย่างน้อย <b>72 ชั่วโมงก่อนบิน</b> — แนะนำยื่นล่วงหน้า 2–3 สัปดาห์ อนุมัติแล้วใช้ได้ <b>3 ปี</b>'],
   ['เตรียม','รูปถ่ายหน้าตรงพื้นหลังขาว, พาสปอร์ตเหลืออายุ >6 เดือน, ที่อยู่โรงแรมคืนแรก'],
   ['⚠️ ตม.','เกาหลีเข้มกับนักท่องเที่ยวไทยพอสมควร — <b>เตรียมพิมพ์เอกสารติดตัว</b>: ตั๋วเครื่องบินขากลับ, ใบจองโรงแรมทุกคืน, แผนเที่ยว (เปิดเว็บนี้ให้ดูได้), เงินสด/statement บัญชี และแต่งตัวสุภาพ ตอบคำถามให้ตรงประเด็น']
+ ]},
+ {ic:'tip',c:'plum',h:'ตอบ ตม. ยังไง — English Q&A',lead:'ตม.เกาหลีถามเป็นภาษาอังกฤษ ไม่ใช่เกาหลี',rows:[
+  ['"What is the purpose of your visit?"','ตอบสั้นๆ <b>"Tourism"</b> หรือ <b>"Sightseeing"</b> พอ ไม่ต้องอธิบายยาว'],
+  ['"How long will you stay?"','<b>"4 nights, until September 16"</b>'],
+  ['"Where are you staying?"','<b>"'+esc(IMM_FACTS.hotel)+'"</b> — ถ้าเขาอยากดูที่อยู่เต็มๆ กดปุ่ม “เปิดสรุปข้อมูลให้ ตม. ดู” ในการ์ด K-ETA ด้านบนโชว์ได้เลย'],
+  ['"Do you have a return ticket?"','<b>"Yes"</b> แล้วโชว์ไฟลท์ขากลับจากการ์ดเดียวกัน'],
+  ['"What do you do for work?"','ตอบตามจริงสั้นๆ พอ — <b>ระวังอย่าให้ฟังดูเหมือนจะมาทำงานที่เกาหลี</b> แม้จะพูดถึงงานที่ไทยก็ตาม'],
+  ['"Is this your first time in Korea?"','ตอบตามจริง ไม่มีคำตอบที่ถูกหรือผิด'],
+  ['"How much cash do you have?"','บอกจำนวนคร่าวๆ ตามจริง (แนะนำพกสด ₩150,000–200,000/คน ตามการ์ด “เรื่องเงิน”)'],
+  ['💡 ภาพรวม','ตอบสั้น ตรงคำถาม ไม่อธิบายเกินจำเป็น แต่งตัวสุภาพ ยิ้มแย้ม ไม่ต้องเครียด — ส่วนใหญ่ผ่านเร็วถ้าคำตอบตรงกับเอกสารที่มี']
  ]},
  {ic:'plane',c:'busan',h:'กระเป๋า — เดินทาง 3 ขา คนละสายการบิน',lead:'อ่านก่อนแพ็ค คนละ booking กันด้วย',rows:[
   ['ขา 1 · URT → BKK (Thai Vietjet)','<b>ถือขึ้นเครื่อง 7 กก.</b> + <b>โหลด 15 กก.</b> (ซื้อเพิ่มแล้ว) = <b>22 กก./คน</b><br>booking แยกจากขาระหว่างประเทศ (PNR: RXUWZY)'],
@@ -976,7 +1009,9 @@ function refHTML(list){
   if(s.lead)h+='<div class="lead">'+esc(s.lead)+'</div>';
   h+='<div class="rows">';
   for(var j=0;j<s.rows.length;j++)h+='<div class="row"><span class="k">'+s.rows[j][0]+'</span><span class="v">'+s.rows[j][1]+'</span></div>';
-  h+='</div></div>';
+  h+='</div>';
+  if(s.btn)h+='<button class="btn ghost" id="'+esc(s.btn.id)+'" style="width:100%;margin-top:12px">'+ic(s.btn.ic||'doc',16)+esc(s.btn.label)+'</button>';
+  h+='</div>';
  }
  return h;
 }
@@ -1069,6 +1104,27 @@ function sheetHTML(){
   +'<button class="btn ghost" id="sheetCopy">'+ic('copy',15)+'คัดลอก</button>'
   +'<button class="btn" id="sheetClose">ปิด</button>'
   +'</div></div></div>';
+}
+
+/* English, not Korean - the officer asks in English, and IMM_FACTS above is
+   the single source both this card and the Q&A prep card read from. */
+function immSheetHTML(){
+ var f=IMM_FACTS;
+ var row=function(label,val,sub){
+  return '<div class="imm-row"><span>'+esc(label)+'</span><b>'+esc(val)+'</b>'+(sub?'<em>'+esc(sub)+'</em>':'')+'</div>';
+ };
+ return '<div class="sheet" id="immSheet" hidden><div class="sheet-in imm-in">'
+  +'<div class="sheet-cap">FOR IMMIGRATION OFFICER · 출입국 심사관님께</div>'
+  +'<div class="imm-title">🛂 Entry summary</div>'
+  +'<div class="imm-rows">'
+  +row('Purpose of visit',f.purpose)
+  +row('Length of stay',f.stay)
+  +row('Accommodation',f.hotel,f.addr)
+  +row('Arrival flight',f.arrival)
+  +row('Departure flight',f.departure)
+  +'</div>'
+  +'<div class="sheet-btns"><button class="btn" id="immClose">Close</button></div>'
+  +'</div></div>';
 }
 
 /* Won in, baht out - one rate, one place. */
@@ -1270,8 +1326,8 @@ function render(){
 
  document.getElementById('root').innerHTML=hero+body;
  var old=document.querySelector('nav.nav');if(old)old.remove();
- var oldSheet=document.querySelector('.sheet');if(oldSheet)oldSheet.remove();
- document.body.insertAdjacentHTML('beforeend',nav+sheetHTML());
+ document.querySelectorAll('.sheet').forEach(function(s){s.remove();});
+ document.body.insertAdjacentHTML('beforeend',nav+sheetHTML()+immSheetHTML());
  wire();
  jumpToNow();
 }
@@ -1317,7 +1373,15 @@ function wire(){
  });
 
  var sheet=document.getElementById('sheet');
- function closeSheet(){if(sheet)sheet.hidden=true;}
+ var immSheet=document.getElementById('immSheet');
+ function closeSheet(){if(sheet)sheet.hidden=true;if(immSheet)immSheet.hidden=true;}
+ var openImmBtn=document.getElementById('openImm');
+ if(openImmBtn)openImmBtn.onclick=function(){if(immSheet)immSheet.hidden=false;};
+ if(immSheet){
+  var immCloseBtn=document.getElementById('immClose');
+  if(immCloseBtn)immCloseBtn.onclick=closeSheet;
+  immSheet.onclick=function(e){if(e.target===immSheet)closeSheet();};
+ }
  document.querySelectorAll('[data-say]').forEach(function(b){
   b.onclick=function(){
    document.getElementById('sheetKr').textContent=b.dataset.say;
