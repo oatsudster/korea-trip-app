@@ -172,6 +172,11 @@ svg{display:block}
 .row .k{flex:0 0 76px;font-weight:600;font-size:12.5px;color:var(--ink)}
 .row .v{color:var(--ink-soft);flex:1}
 .row .v b{color:var(--ink);font-weight:600}
+.showbtn{
+  display:flex;align-items:center;gap:4px;margin-top:6px;width:fit-content;
+  border:2px solid var(--plum);border-radius:999px;background:var(--plum-bg);
+  color:var(--plum);font-size:11px;font-weight:700;padding:3px 10px 2px;
+}
 .sect-title{
   font-family:'Mali',cursive;font-weight:700;font-size:14px;margin:16px 2px 9px;
   display:flex;align-items:center;gap:8px;color:var(--ink-soft);
@@ -345,6 +350,7 @@ svg{display:block}
   font-family:'Gaegu','Mali',cursive;font-weight:700;line-height:1.15;
   font-size:clamp(38px,13vw,62px);margin:10px 0 6px;color:var(--ink);word-break:keep-all;
 }
+.sheet-kr.long{font-size:clamp(21px,6.8vw,29px);line-height:1.4}
 .sheet-th{font-size:14.5px;color:var(--ink-soft);margin-bottom:16px}
 .sheet-btns{display:flex;gap:9px}
 .sheet-btns .btn{flex:1}
@@ -662,15 +668,15 @@ var PREP=[
   ['บัตรเครดิต','เกาหลีรูดบัตรได้เกือบทุกที่รวมถึงร้านเล็ก — พก<b>เงินสดสัก ₩150,000–200,000/คน</b> พอสำหรับตลาด สตรีทฟู้ด และเติม T-money'],
   ['ทิป','<b>ไม่มีวัฒนธรรมทิป</b> ในเกาหลี ไม่ต้องทิ้งเงินไว้บนโต๊ะ']
  ]},
- {ic:'tip',c:'plum',h:'ประโยคเกาหลีที่ได้ใช้จริง',rows:[
-  ['สวัสดี','안녕하세요 — <b>อันนยองฮาเซโย</b>'],
-  ['ขอบคุณ','감사합니다 — <b>คัมซาฮัมนีดา</b>'],
-  ['เท่าไหร่ครับ','얼마예요? — <b>ออลมาเยโย?</b>'],
-  ['ขอเมนูอังกฤษ','영어 메뉴 있어요? — <b>ยองออ เมนู อิสซอโย?</b>'],
-  ['อันนี้ครับ','이거 주세요 — <b>อีกอ จูเซโย</b> (ชี้แล้วพูด ใช้ได้ทุกร้าน)'],
-  ['ไม่เผ็ดนะ','안 맵게 해주세요 — <b>อัน แมบเก แฮจูเซโย</b>'],
-  ['แพ้กระเทียม ไม่ใส่นะ','마늘 알레르기 있어요, 빼주세요 — <b>มานึล อัลเลอรือกี อิสซอโย, แพจูเซโย</b>'],
-  ['ห้องน้ำอยู่ไหน','화장실 어디예요? — <b>ฮวาจังชิล ออดีเยโย?</b>']
+ {ic:'tip',c:'plum',h:'ประโยคเกาหลีที่ได้ใช้จริง',lead:'พูดไม่ถนัดกดปุ่ม “โชว์” ยื่นจอให้ดูแทนได้เลย',rows:[
+  ['สวัสดี','안녕하세요 — <b>อันนยองฮาเซโย</b>','안녕하세요'],
+  ['ขอบคุณ','감사합니다 — <b>คัมซาฮัมนีดา</b>','감사합니다'],
+  ['เท่าไหร่ครับ','얼마예요? — <b>ออลมาเยโย?</b>','얼마예요?'],
+  ['ขอเมนูอังกฤษ','영어 메뉴 있어요? — <b>ยองออ เมนู อิสซอโย?</b>','영어 메뉴 있어요?'],
+  ['อันนี้ครับ','이거 주세요 — <b>อีกอ จูเซโย</b> (ชี้แล้วพูด ใช้ได้ทุกร้าน)','이거 주세요'],
+  ['ไม่เผ็ดนะ','안 맵게 해주세요 — <b>อัน แมบเก แฮจูเซโย</b>','안 맵게 해주세요'],
+  ['แพ้กระเทียม ไม่ใส่นะ','마늘 알레르기 있어요, 빼주세요 — <b>มานึล อัลเลอรือกี อิสซอโย, แพจูเซโย</b>','마늘 알레르기 있어요, 빼주세요'],
+  ['ห้องน้ำอยู่ไหน','화장실 어디예요? — <b>ฮวาจังชิล ออดีเยโย?</b>','화장실 어디예요?']
  ]},
  {ic:'info',c:'leaf',h:'เบอร์ฉุกเฉิน',rows:[
   ['ตำรวจ','<b>112</b>'],
@@ -1009,7 +1015,12 @@ function refHTML(list){
   h+='<div class="card"><h2><span class="ic" style="background:var(--'+s.c+'-bg);color:var(--'+s.c+')">'+ic(s.ic,17)+'</span>'+esc(s.h)+'</h2>';
   if(s.lead)h+='<div class="lead">'+esc(s.lead)+'</div>';
   h+='<div class="rows">';
-  for(var j=0;j<s.rows.length;j++)h+='<div class="row"><span class="k">'+s.rows[j][0]+'</span><span class="v">'+s.rows[j][1]+'</span></div>';
+  for(var j=0;j<s.rows.length;j++){
+   var row=s.rows[j];
+   h+='<div class="row"><span class="k">'+row[0]+'</span><span class="v">'+row[1]
+    +(row[2]?'<button class="showbtn" data-say="'+esc(row[2])+'" data-sayth="'+esc(row[0])+'">'+ic('cam',12)+'โชว์</button>':'')
+    +'</span></div>';
+  }
   h+='</div>';
   if(s.btn)h+='<button class="btn ghost" id="'+esc(s.btn.id)+'" style="width:100%;margin-top:12px">'+ic(s.btn.ic||'doc',16)+esc(s.btn.label)+'</button>';
   h+='</div>';
@@ -1385,7 +1396,11 @@ function wire(){
  }
  document.querySelectorAll('[data-say]').forEach(function(b){
   b.onclick=function(){
-   document.getElementById('sheetKr').textContent=b.dataset.say;
+   var txt=b.dataset.say, kr=document.getElementById('sheetKr');
+   kr.textContent=txt;
+   /* place names are short (5-10 chars); full sentences like the garlic
+      phrase run 3x longer and would overflow the sheet at the same size */
+   kr.classList.toggle('long',txt.length>14);
    document.getElementById('sheetTh').textContent=b.dataset.sayth;
    sheet.hidden=false;
    var cp=document.getElementById('sheetCopy');
