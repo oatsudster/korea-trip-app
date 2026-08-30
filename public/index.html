@@ -1018,7 +1018,7 @@ function refHTML(list){
   for(var j=0;j<s.rows.length;j++){
    var row=s.rows[j];
    h+='<div class="row"><span class="k">'+row[0]+'</span><span class="v">'+row[1]
-    +(row[2]?'<button class="showbtn" data-say="'+esc(row[2])+'" data-sayth="'+esc(row[0])+'">'+ic('cam',12)+'โชว์</button>':'')
+    +(row[2]?'<button class="showbtn" data-say="'+esc(row[2])+'" data-sayth="'+esc(row[0])+'" data-saycap="ยื่นให้ดูได้เลย · 보여주세요">'+ic('cam',12)+'โชว์</button>':'')
     +'</span></div>';
   }
   h+='</div>';
@@ -1109,7 +1109,7 @@ function checklistHTML(){
 
 function sheetHTML(){
  return '<div class="sheet" id="sheet" hidden><div class="sheet-in">'
-  +'<div class="sheet-cap">ยื่นให้คนขับดูได้เลย · 기사님께 보여주세요</div>'
+  +'<div class="sheet-cap" id="sheetCap">ยื่นให้คนขับดูได้เลย · 기사님께 보여주세요</div>'
   +'<div class="sheet-kr" id="sheetKr"></div>'
   +'<div class="sheet-th" id="sheetTh"></div>'
   +'<div class="sheet-btns">'
@@ -1402,6 +1402,10 @@ function wire(){
       phrase run 3x longer and would overflow the sheet at the same size */
    kr.classList.toggle('long',txt.length>14);
    document.getElementById('sheetTh').textContent=b.dataset.sayth;
+   /* "show the taxi driver" is wrong wording for a restaurant phrase - the
+      caption follows whoever is meant to read it, defaulting to the
+      original driver wording since that is the only caller that omits it */
+   document.getElementById('sheetCap').textContent=b.dataset.saycap||'ยื่นให้คนขับดูได้เลย · 기사님께 보여주세요';
    sheet.hidden=false;
    var cp=document.getElementById('sheetCopy');
    cp.innerHTML=ic('copy',15)+'คัดลอก';
