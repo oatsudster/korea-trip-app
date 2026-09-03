@@ -24,6 +24,7 @@
   --line:#EEDFD8; --line-2:#E2D2CB;
   --seoul:#E4635A; --busan:#2E9AC4; --gold:#E09A2B; --leaf:#5E9F5F; --plum:#9B6BA8;
   --seoul-bg:#FDECEA; --busan-bg:#E6F3F9; --gold-bg:#FCF1DD; --leaf-bg:#E9F3E9; --plum-bg:#F3EAF6;
+  --river-line:#B9DCEA;
   --shadow:rgba(70,45,60,.13); --shadow-2:rgba(70,45,60,.07);
   --on-accent:#FFFFFF;
   --r:18px;
@@ -35,6 +36,7 @@
     --line:#3A3350; --line-2:#463D5F;
     --seoul:#FF8B84; --busan:#63C4E8; --gold:#F2BE60; --leaf:#8FCE8F; --plum:#C79AD3;
     --seoul-bg:#3B2831; --busan-bg:#1F3542; --gold-bg:#3A3021; --leaf-bg:#243527; --plum-bg:#33263B;
+    --river-line:#2A4A5C;
     --shadow:rgba(0,0,0,.45); --shadow-2:rgba(0,0,0,.25);
     --on-accent:#1C1828;
   }
@@ -45,6 +47,7 @@
   --line:#3A3350; --line-2:#463D5F;
   --seoul:#FF8B84; --busan:#63C4E8; --gold:#F2BE60; --leaf:#8FCE8F; --plum:#C79AD3;
   --seoul-bg:#3B2831; --busan-bg:#1F3542; --gold-bg:#3A3021; --leaf-bg:#243527; --plum-bg:#33263B;
+  --river-line:#2A4A5C;
   --shadow:rgba(0,0,0,.45); --shadow-2:rgba(0,0,0,.25);
   --on-accent:#1C1828;
 }
@@ -303,7 +306,7 @@ svg{display:block}
   padding:7px 8px calc(7px + env(safe-area-inset-bottom));
   box-shadow:0 -6px 22px var(--shadow-2);
 }
-.nav .inner{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.nav .inner{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
 .nav button{
   display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 2px 3px;
   border-radius:13px;color:var(--ink-faint);font-size:10.5px;font-weight:600;letter-spacing:.2px;
@@ -384,6 +387,69 @@ svg{display:block}
 .chk-bar{display:flex;align-items:center;gap:9px;margin:2px 0 6px;font-size:12.5px;color:var(--ink-soft)}
 .chk-bar .track{flex:1;height:9px;border-radius:99px;background:var(--line);overflow:hidden}
 .chk-bar .fill{height:100%;background:var(--leaf);border-radius:99px;transition:width .25s}
+
+/* zone map */
+.zm-map svg{display:block;width:100%;height:auto;overflow:visible}
+.zm-legend{
+  display:flex;justify-content:center;gap:14px;margin-top:10px;padding-top:10px;
+  border-top:2px dashed var(--line);font-size:10.5px;color:var(--ink-faint);flex-wrap:wrap;
+}
+.zm-legend span{display:inline-flex;align-items:center;gap:5px}
+.zm-dot-solid,.zm-dot-alt{width:10px;height:10px;border-radius:50%;display:inline-block}
+.zm-dot-solid{background:var(--ink-soft)}
+.zm-dot-alt{background:none;border:1.6px dashed var(--ink-faint)}
+.zm-dash{width:16px;height:0;border-top:1.6px dashed var(--ink-faint);display:inline-block}
+.zm-days{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.zm-day{
+  background:var(--card); border:2px solid var(--line-2); border-radius:18px;
+  padding:12px 14px; display:flex; gap:12px; align-items:flex-start;
+  position:relative; overflow:hidden;
+}
+.zm-day::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--dc)}
+.zm-badge{
+  flex:0 0 auto; width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center; background:var(--dbg); border:2px solid var(--dc);
+  font-family:'Mali',cursive;font-weight:700;font-size:15px;color:var(--dc);margin-left:2px;
+}
+.zm-day-body{flex:1;min-width:0}
+.zm-day-head{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:2px}
+.zm-day-date{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);letter-spacing:.3px}
+.zm-day-zone{font-family:'Mali',cursive;font-weight:700;font-size:15px;color:var(--ink)}
+.zm-day-zone .kr{font-family:'Gaegu',cursive;font-weight:400;font-size:12px;color:var(--ink-faint);margin-left:4px}
+.zm-day-hi{font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+.zm-day-hi b{color:var(--dc);font-weight:600}
+.zm-transit{
+  display:flex;align-items:center;gap:5px;margin-top:7px;font-size:11px;
+  color:var(--dc);font-family:'IBM Plex Mono',monospace;
+}
+.zm-alt{margin-top:9px;padding-top:9px;border-top:2px dashed var(--line)}
+.zm-alt-label{font-family:'Gaegu',cursive;font-size:11.5px;color:var(--ink-faint);display:block;margin-bottom:5px}
+.zm-chips{display:flex;flex-wrap:wrap;gap:6px}
+.zm-chip{
+  display:inline-flex;align-items:center;gap:3px;
+  background:var(--dbg);color:var(--dc);text-decoration:none;
+  font-size:11.5px;font-weight:500;padding:4px 9px 3px;border-radius:999px;
+  border:1.5px solid var(--dc);white-space:nowrap;
+}
+.zm-extra{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+.zm-ecard{
+  background:var(--card); border:2px dashed var(--zc); border-radius:16px;
+  padding:11px 13px; display:flex; gap:11px; align-items:flex-start;
+}
+.zm-eicon{
+  flex:0 0 auto; width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;font-size:16px;background:var(--zbg); border:2px solid var(--zc);
+}
+.zm-ebody{flex:1;min-width:0}
+.zm-ename{font-family:'Mali',cursive;font-weight:700;font-size:14.5px;color:var(--ink)}
+.zm-ename .kr{font-family:'Gaegu',cursive;font-weight:400;font-size:11.5px;color:var(--ink-faint);margin-left:4px}
+.zm-estyle{font-size:12px;color:var(--ink-soft);line-height:1.5;margin-top:2px}
+.zm-estyle b{color:var(--zc);font-weight:600}
+.zm-elink{
+  display:inline-flex;align-items:center;gap:3px;margin-top:6px;
+  background:var(--zbg);color:var(--zc);text-decoration:none;
+  font-size:11px;font-weight:500;padding:3px 9px 2px;border-radius:999px;border:1.5px solid var(--zc);
+}
 
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}
@@ -685,6 +751,51 @@ var PREP=[
   ['สถานทูตไทย โซล','<b>+82-2-795-3098</b> (ฉุกเฉินนอกเวลา +82-10-2789-5058)'],
   ['ก่อนบิน','ถ่ายรูปพาสปอร์ต + K-ETA + ตั๋วเครื่องบิน เก็บไว้ในมือถือและอีเมลตัวเอง']
  ]}
+];
+
+/* ================= zone map =================
+   A schematic (not to-scale) view of Seoul, grouped by travel style rather
+   than geography, so it still makes sense if the day-by-day plan changes.
+   ZONE_DAYS mirrors DAYS at the zone level - kept separate because DAYS is
+   a timeline of events, not a one-zone-per-day summary. */
+var ZONE_DAYS=[
+ {d:1,date:'เสาร์ 12 ก.ย.',c:'seoul',zone:'ยออีโด → ดงแดมุน',kr:'여의도 · 동대문',
+  hi:'ถึง ICN เช้า → เช็คอินฝากกระเป๋า IFC/더현대 → <b>ตลาดควังจัง</b> street food → <b>DDP ตอนกลางคืน</b>',
+  transit:'สาย 5 (สีม่วง) จาก 여의도역 → 을지로4가 · ตรง ไม่เปลี่ยนสาย ~22 นาที',
+  alt:[['청계천','ทางเดินริมคลอง'],['을지로 골목','บาร์/คราฟต์เบียร์'],['63빌딩','ตึกชมวิว (ใกล้ที่พัก)']]},
+ {d:2,date:'อาทิตย์ 13 ก.ย.',c:'gold',zone:'จงโน — วังเก่า',kr:'경복궁 · 북촌 · 익선동',
+  hi:'<b>เคียงบกกุง</b> → <b>บุกชอนฮันอก</b> → คาเฟ่ซัมชองดง → <b>อิกซอนดง</b> ตอนเย็น → คราฟต์เบียร์อึลจีโร',
+  transit:'สาย 5 (สีม่วง) จาก 여의도역 → 광화문역 · ตรง ไม่เปลี่ยนสาย ~15 นาที',
+  alt:[['인사동','ถนนของเก่า/งานฝีมือ'],['창덕궁','อีกวังนึงถ้าไม่จุใจ']]},
+ {d:3,date:'จันทร์ 14 ก.ย.',c:'leaf',zone:'ซองซู',kr:'성수동',
+  hi:'ย่านคาเฟ่โรงงานเก่า — <b>แดริมชังโก</b>, <b>ออนเนียน</b>, ช้อป Olive Young, เดินสวน<b>ซอลซุป</b> ริมแม่น้ำฮัน',
+  transit:'สาย 5 여의도→왕십리 (12 สถานี) เปลี่ยนสาย 2 → 성수역 · ~40 นาที',
+  alt:[['뚝섬한강공원','ต่อจากสวนซอลซุป'],['성수동 수제화거리','ถนนรองเท้าทำมือ']]},
+ {d:4,date:'อังคาร 15 ก.ย.',c:'plum',zone:'กังนัม → นัมซาน',kr:'강남 · 남산타워',
+  hi:'<b>คาโรซูกิล</b> เช้า → <b>คลินิก 13:00</b> → <b>COEX/Starfield</b> ในร่ม → <b>N Seoul Tower</b> พระอาทิตย์ตก → คราฟต์เบียร์แฮบังชน',
+  transit:'สาย 9 ขบวนด่วน 여의도→신논현 ~15น ต่อสาย3→신사 · แล้วบ่าย 🚕แท็กซี่ COEX→해방촌 ~20–25น',
+  alt:[['봉은사','วัดกลางเมือง ใกล้ COEX'],['압구정로데오','ช้อปเพิ่ม']]},
+ {d:5,date:'พุธ 16 ก.ย.',c:'busan',zone:'ยออีโด → ICN',kr:'인천공항',
+  hi:'ตื่นตี 5 เก็บกระเป๋า → คืนภาษีที่สนามบิน → <b>บิน TG657 10:20</b> กลับกรุงเทพฯ',
+  transit:'สาย 5 여의도→공덕 (2 สถานี) เปลี่ยน AREX ธรรมดา → ICN T1 · รวม ~65 นาที ₩5,650',
+  alt:null}
+];
+
+/* zones nobody has to visit but worth knowing about if the fixed plan
+   changes - grouped by what kind of day out they make, not where they sit */
+var ZONE_EXTRA=[
+ {icon:'🎸',c:'seoul',name:'홍대·합정·연남동',kr:'Hongdae',
+  style:'ย่านมหาลัย <b>วัยรุ่น·อินดี้</b> — บาร์ไลฟ์เพลง ตลาดศิลปะข้างถนนวันหยุด คาเฟ่คอนเซปต์แปลกๆ ราคาถูกกว่าย่านอื่น เที่ยวได้ทั้งกลางวันกลางคืน',
+  q:'홍대'},
+ {icon:'🛍',c:'plum',name:'명동',kr:'Myeongdong',
+  style:'<b>ช้อปปิ้งสายนักท่องเที่ยว</b> — เครื่องสำอางเรียงเป็นแถวถนน สตรีทฟู้ดตอนเย็น เดินต่อจากนัมซานได้ในวันเดียวกัน',
+  q:'명동'},
+ {icon:'🎢',c:'plum',name:'잠실·롯데월드',kr:'Jamsil',
+  style:'<b>บันเทิงครบวงจร</b> — สวนสนุกในร่ม Lotte World และตึกที่สูงที่สุดในเกาหลี Lotte Tower ชมวิว 360° เหมาะถ้าอยากพักจากเดินเที่ยวเมืองสักวัน',
+  q:'롯데월드'},
+ {icon:'🐟',c:'busan',name:'노량진',kr:'Noryangjin',
+  style:'<b>ตลาดปลาสด</b> — ซื้อของสดจากแผงแล้วเดินขึ้นชั้นบนให้ร้านทำสดๆ ให้กิน เปิดถึงดึก อยู่ใกล้ยออีโดแค่ข้ามสะพานเดียว ถ้าเย็นวันไหนว่างแวะได้ง่าย',
+  q:'노량진수산시장'}
 ];
 
 /* Won is the single source of truth here. Baht used to be typed in a second
@@ -1028,6 +1139,105 @@ function refHTML(list){
  return h;
 }
 
+/* Schematic (not to-scale) map of Seoul grouped by travel style. Coordinates
+   are hand-placed on a 500x600 canvas and were tuned by hand to keep zone
+   blobs, route labels and text from overlapping - moving one center means
+   re-checking its neighbours, not just recomputing a formula. */
+function zoneMapSVG(){
+ return '<svg viewBox="0 0 560 700" xmlns="http://www.w3.org/2000/svg">'
+  +'<rect x="0" y="0" width="560" height="700" rx="16" fill="var(--card2)"/>'
+  +'<path d="M -10 365 C 80 340, 160 372, 240 355 C 330 335, 400 368, 480 348 C 510 340, 540 350, 570 344 L 570 400 C 540 406, 510 396, 480 404 C 400 424, 330 391, 240 411 C 160 428, 80 396, -10 421 Z" fill="var(--busan-bg)" stroke="var(--river-line)" stroke-width="2"/>'
+  +'<text x="520" y="330" text-anchor="middle" font-size="10" fill="var(--busan)" font-family="\'Gaegu\',cursive" opacity=".8">한강</text>'
+  +'<g font-family="\'IBM Plex Sans Thai\',sans-serif" font-size="9.5" font-weight="500">'
+   +'<path d="M46 402 Q 75 405 106 420" fill="none" stroke="var(--busan)" stroke-width="2.2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".75"/>'
+   +'<rect x="25" y="368" width="72" height="26" rx="7" fill="var(--card)" stroke="var(--busan)" stroke-width="1.2" opacity=".95"/>'
+   +'<text x="61" y="379" text-anchor="middle" fill="var(--busan)" font-weight="700">✈ AREX·5</text>'
+   +'<text x="61" y="390" text-anchor="middle" fill="var(--ink-soft)">เข้า/ออก ~65น</text>'
+   +'<path d="M128 408 Q 320 175 415 195" fill="none" stroke="var(--seoul)" stroke-width="2.2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".75"/>'
+   +'<rect x="335" y="240" width="72" height="26" rx="7" fill="var(--card)" stroke="var(--seoul)" stroke-width="1.2" opacity=".95"/>'
+   +'<text x="371" y="251" text-anchor="middle" fill="var(--seoul)" font-weight="700">1 · 5호선</text>'
+   +'<text x="371" y="262" text-anchor="middle" fill="var(--ink-soft)">ตรง ~22น</text>'
+   +'<path d="M115 404 Q 140 260 185 132" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".75"/>'
+   +'<rect x="140" y="168" width="70" height="26" rx="7" fill="var(--card)" stroke="var(--gold)" stroke-width="1.2" opacity=".95"/>'
+   +'<text x="175" y="179" text-anchor="middle" fill="var(--gold)" font-weight="700">2 · 5호선</text>'
+   +'<text x="175" y="190" text-anchor="middle" fill="var(--ink-soft)">ตรง ~15น</text>'
+   +'<path d="M155 418 Q 330 405 452 312" fill="none" stroke="var(--leaf)" stroke-width="2.2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".75"/>'
+   +'<rect x="378" y="325" width="90" height="26" rx="7" fill="var(--card)" stroke="var(--leaf)" stroke-width="1.2" opacity=".95"/>'
+   +'<text x="423" y="336" text-anchor="middle" fill="var(--leaf)" font-weight="700">3 · 5→2호선</text>'
+   +'<text x="423" y="347" text-anchor="middle" fill="var(--ink-soft)">เปลี่ยน1ครั้ง ~40น</text>'
+   +'<path d="M158 445 Q 260 478 348 500" fill="none" stroke="var(--plum)" stroke-width="2.2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".75"/>'
+   +'<rect x="230" y="452" width="82" height="26" rx="7" fill="var(--card)" stroke="var(--plum)" stroke-width="1.2" opacity=".95"/>'
+   +'<text x="271" y="463" text-anchor="middle" fill="var(--plum)" font-weight="700">4 · 9호선急行</text>'
+   +'<text x="271" y="474" text-anchor="middle" fill="var(--ink-soft)">ด่วน ~20น</text>'
+   +'<path d="M362 468 Q 320 395 295 340" fill="none" stroke="var(--seoul)" stroke-width="2.2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".75"/>'
+   +'<rect x="296" y="418" width="76" height="26" rx="7" fill="var(--card)" stroke="var(--seoul)" stroke-width="1.2" opacity=".95"/>'
+   +'<text x="334" y="429" text-anchor="middle" fill="var(--seoul)" font-weight="700">4 · 🚕택시</text>'
+   +'<text x="334" y="440" text-anchor="middle" fill="var(--ink-soft)">~20–25น</text>'
+  +'</g>'
+  +'<g font-family="\'Mali\',cursive" font-weight="700">'
+   +'<g transform="translate(65,255)"><ellipse rx="46" ry="34" fill="var(--seoul-bg)" fill-opacity=".45" stroke="var(--seoul)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-32" cy="-22" r="13" fill="var(--card)" stroke="var(--seoul)" stroke-width="1.6"/><text x="-32" y="-17" text-anchor="middle" font-size="13" font-family="sans-serif">🎸</text><text x="6" y="-4" text-anchor="middle" font-size="12" fill="var(--seoul)">홍대·연남동</text><text x="6" y="11" text-anchor="middle" font-size="10" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">วัยรุ่น·อินดี้</text></g>'
+   +'<g transform="translate(345,105)"><ellipse rx="32" ry="25" fill="var(--plum-bg)" fill-opacity=".45" stroke="var(--plum)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-21" cy="-15" r="12" fill="var(--card)" stroke="var(--plum)" stroke-width="1.6"/><text x="-21" y="-11" text-anchor="middle" font-size="12" font-family="sans-serif">🛍</text><text x="7" y="-1" text-anchor="middle" font-size="11" fill="var(--plum)">명동</text><text x="7" y="13" text-anchor="middle" font-size="9" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">ช้อปนักท่องเที่ยว</text></g>'
+   +'<g transform="translate(198,514)"><ellipse rx="32" ry="25" fill="var(--busan-bg)" fill-opacity=".45" stroke="var(--busan)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-21" cy="-15" r="12" fill="var(--card)" stroke="var(--busan)" stroke-width="1.6"/><text x="-21" y="-11" text-anchor="middle" font-size="12" font-family="sans-serif">🐟</text><text x="7" y="-1" text-anchor="middle" font-size="11" fill="var(--busan)">노량진</text><text x="7" y="13" text-anchor="middle" font-size="9" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">ตลาดปลาสด</text></g>'
+   +'<g transform="translate(522,568)"><ellipse rx="38" ry="29" fill="var(--plum-bg)" fill-opacity=".45" stroke="var(--plum)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-26" cy="-18" r="13" fill="var(--card)" stroke="var(--plum)" stroke-width="1.6"/><text x="-26" y="-13" text-anchor="middle" font-size="13" font-family="sans-serif">🎢</text><text x="8" y="-3" text-anchor="middle" font-size="11.5" fill="var(--plum)">잠실</text><text x="8" y="12" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">สวนสนุก·ตึกสูง</text></g>'
+  +'</g>'
+  +'<g transform="translate(28,408)"><circle r="15" fill="var(--busan-bg)" stroke="var(--busan)" stroke-width="2"/><path d="M-6 1 L6 1 M0 -6 L0 6 M-4 -3 L4 3 M-4 3 L4 -3" stroke="var(--busan)" stroke-width="1.6" stroke-linecap="round"/></g>'
+  +'<text x="28" y="433" text-anchor="middle" font-size="10.5" fill="var(--busan)" font-family="\'Mali\',cursive" font-weight="700">ICN</text>'
+  +'<g transform="translate(130,432)"><circle r="21" fill="var(--seoul-bg)" stroke="var(--seoul)" stroke-width="2.5"/><path d="M-7 2 L-7 -3 L0 -9 L7 -3 L7 2 L4 2 L4 6 L-4 6 L-4 2 Z" fill="var(--seoul)"/></g>'
+  +'<text x="130" y="467" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-family="\'Mali\',cursive" font-weight="700">ยออีโด</text>'
+  +'<text x="130" y="480" text-anchor="middle" font-size="10" fill="var(--ink-faint)" font-family="\'Gaegu\',cursive">여의도 · ที่พัก</text>'
+  +'<g font-family="\'Mali\',cursive" font-weight="700">'
+   +'<g transform="translate(462,168)"><ellipse rx="54" ry="40" fill="var(--seoul-bg)" stroke="var(--seoul)" stroke-width="2.5"/><circle cx="-39" cy="-27" r="13" fill="var(--seoul)"/><text x="-39" y="-22" text-anchor="middle" font-size="13" fill="var(--paper)">1</text><text x="8" y="-7" text-anchor="middle" font-size="12.5" fill="var(--seoul)">DDP·을지로</text><text x="8" y="9" text-anchor="middle" font-size="10" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">ตลาด·กลางคืน</text><text x="8" y="22" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="\'Gaegu\',cursive">동대문·광장시장</text></g>'
+   +'<g transform="translate(200,85)"><ellipse rx="62" ry="46" fill="var(--gold-bg)" stroke="var(--gold)" stroke-width="2.5"/><circle cx="-45" cy="-32" r="13" fill="var(--gold)"/><text x="-45" y="-27" text-anchor="middle" font-size="13" fill="var(--paper)">2</text><text x="10" y="-14" text-anchor="middle" font-size="12.5" fill="var(--gold)">วังเก่า·บุกชอน</text><text x="10" y="1" text-anchor="middle" font-size="10" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">ประวัติศาสตร์·ฮันอก</text><text x="10" y="15" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="\'Gaegu\',cursive">경복궁·삼청동·익선동</text><text x="10" y="28" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="\'Gaegu\',cursive">인사동·창덕궁</text></g>'
+   +'<g transform="translate(280,308)"><ellipse rx="46" ry="34" fill="var(--seoul-bg)" stroke="var(--seoul)" stroke-width="2.5"/><circle cx="-33" cy="-22" r="13" fill="var(--seoul)"/><text x="-33" y="-17" text-anchor="middle" font-size="13" fill="var(--paper)">4</text><text x="7" y="-3" text-anchor="middle" font-size="12" fill="var(--seoul)">남산·이태원</text><text x="7" y="11" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">วิวเมือง·นานาชาติ</text><text x="7" y="23" text-anchor="middle" font-size="9" font-weight="400" fill="var(--ink-faint)" font-family="\'Gaegu\',cursive">해방촌·경리단길</text></g>'
+   +'<g transform="translate(525,300)"><ellipse rx="52" ry="40" fill="var(--leaf-bg)" stroke="var(--leaf)" stroke-width="2.5"/><circle cx="-38" cy="-27" r="13" fill="var(--leaf)"/><text x="-38" y="-22" text-anchor="middle" font-size="13" fill="var(--paper)">3</text><text x="7" y="-6" text-anchor="middle" font-size="12.5" fill="var(--leaf)">ซองซู</text><text x="7" y="10" text-anchor="middle" font-size="10" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">คาเฟ่ฮิป·อินดัสเทรียล</text><text x="7" y="23" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="\'Gaegu\',cursive">성수동·서울숲</text></g>'
+   +'<g transform="translate(400,508)"><ellipse rx="60" ry="44" fill="var(--plum-bg)" stroke="var(--plum)" stroke-width="2.5"/><circle cx="-44" cy="-30" r="13" fill="var(--plum)"/><text x="-44" y="-25" text-anchor="middle" font-size="13" fill="var(--paper)">4</text><text x="9" y="-12" text-anchor="middle" font-size="12.5" fill="var(--plum)">강남·COEX</text><text x="9" y="4" text-anchor="middle" font-size="10" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">หรูหรา·ช้อปปิ้ง</text><text x="9" y="17" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="\'Gaegu\',cursive">가로수길·신사·압구정</text></g>'
+  +'</g>'
+  +'<g transform="translate(528,38)" opacity=".7"><circle r="15" fill="var(--card)" stroke="var(--line-2)" stroke-width="1.5"/><path d="M0 -10 L4 2 L0 -1 L-4 2 Z" fill="var(--ink-soft)"/><text y="13" text-anchor="middle" font-size="8" fill="var(--ink-faint)" font-family="\'IBM Plex Mono\',monospace">N</text></g>'
+  +'</svg>';
+}
+function zoneMapHTML(){
+ var h='<div class="card zm-map"><h2><span class="ic" style="background:var(--seoul-bg);color:var(--seoul)">'+ic('map',17)+'</span>โซนไหนเที่ยวแบบไหน</h2>'
+  +'<div class="lead">ภาพเดียวดูรวด — วงทึบมีเลขวันคือตามแผน วงขอบประคือโซนเสริมเผื่อเปลี่ยนใจ</div>'
+  +zoneMapSVG()
+  +'<div class="zm-legend"><span><i class="zm-dot-solid"></i>โซนตามแผน (มีเลขวัน)</span><span><i class="zm-dot-alt"></i>โซนเสริม เผื่อเปลี่ยนแผน</span><span><i class="zm-dash"></i>เส้นทาง+วิธีเดินทาง</span></div>'
+  +'</div>';
+
+ h+='<div class="card"><h2><span class="ic" style="background:var(--gold-bg);color:var(--gold)">'+ic('cal',17)+'</span>วันไหนไปโซนไหน</h2><div class="zm-days">';
+ for(var i=0;i<ZONE_DAYS.length;i++){
+  var d=ZONE_DAYS[i];
+  h+='<div class="zm-day" style="--dc:var(--'+d.c+');--dbg:var(--'+d.c+'-bg)">'
+   +'<div class="zm-badge">'+d.d+'</div><div class="zm-day-body">'
+   +'<div class="zm-day-head"><span class="zm-day-date">'+esc(d.date)+'</span>'
+   +'<span class="zm-day-zone">'+esc(d.zone)+'<span class="kr">'+esc(d.kr)+'</span></span></div>'
+   +'<div class="zm-day-hi">'+d.hi+'</div>'
+   +'<div class="zm-transit">'+ic('metro',13)+esc(d.transit)+'</div>';
+  if(d.alt){
+   h+='<div class="zm-alt"><span class="zm-alt-label">🔁 เผื่อเปลี่ยนแผน แถวนี้ยังมี</span><div class="zm-chips">';
+   for(var j=0;j<d.alt.length;j++){
+    h+='<a class="zm-chip" href="https://map.naver.com/p/search/'+encodeURIComponent(d.alt[j][0])+'" target="_blank" rel="noopener">'+esc(d.alt[j][0])+' '+esc(d.alt[j][1])+'</a>';
+   }
+   h+='</div></div>';
+  }
+  h+='</div></div>';
+ }
+ h+='</div></div>';
+
+ h+='<div class="card"><h2><span class="ic" style="background:var(--plum-bg);color:var(--plum)">'+ic('map',17)+'</span>โซนเสริมรอบเมือง</h2>'
+  +'<div class="lead">ไม่ได้อยู่ในแผน แต่เผื่อไว้ถ้าอยากเปลี่ยน</div><div class="zm-extra">';
+ for(var k=0;k<ZONE_EXTRA.length;k++){
+  var z=ZONE_EXTRA[k];
+  h+='<div class="zm-ecard" style="--zc:var(--'+z.c+');--zbg:var(--'+z.c+'-bg)">'
+   +'<div class="zm-eicon">'+z.icon+'</div><div class="zm-ebody">'
+   +'<div class="zm-ename">'+esc(z.name)+'<span class="kr">'+esc(z.kr)+'</span></div>'
+   +'<div class="zm-estyle">'+z.style+'</div>'
+   +'<a class="zm-elink" href="https://map.naver.com/p/search/'+encodeURIComponent(z.q)+'" target="_blank" rel="noopener">เปิด Naver Map</a>'
+   +'</div></div>';
+ }
+ h+='</div></div>';
+
+ return h;
+}
+
 /* One source for the summary: the on-screen receipt and the clipboard text
    are two renderings of this, so they cannot disagree. */
 function summaryGroups(){
@@ -1312,6 +1522,7 @@ function countdownHTML(){
 function render(){
  var body;
  if(view.tab==='plan')body=planHTML();
+ else if(view.tab==='zonemap')body=zoneMapHTML();
  else if(view.tab==='move')body=refHTML(TRANSPORT);
  else if(view.tab==='money')body=expenseHTML();
  else body=checklistHTML()+refHTML(PREP)+budgetHTML();
@@ -1323,7 +1534,8 @@ function render(){
    +'<div class="sub">12–16 กันยายน 2569 · 4 คืน · คาเฟ่ ตลาด คราฟต์เบียร์</div>'
    +countdownHTML()+'</div>';
  }else{
-  var t={move:['เดินทางยังไง','คู่มือรถไฟฟ้า บัตร แอป และการจองทุกอย่าง'],
+  var t={zonemap:['โซนเที่ยวโซล','วันไหนไปโซนไหน พร้อมวิธีเดินทางจากยออีโด'],
+         move:['เดินทางยังไง','คู่มือรถไฟฟ้า บัตร แอป และการจองทุกอย่าง'],
          money:['ค่าใช้จ่ายร่วมกัน','ใส่ทุกครั้งที่จ่าย เคลียร์ทีเดียวตอนกลับ'],
          prep:['เตรียมตัวก่อนไป','K-ETA อากาศ เงิน และภาษาที่ได้ใช้จริง']}[view.tab];
   hero='<div class="hero" style="padding-bottom:2px"><h1 style="font-size:23px">'+t[0]+'</h1><div class="sub">'+t[1]+'</div></div>';
@@ -1331,6 +1543,7 @@ function render(){
 
  var nav='<nav class="nav"><div class="inner">'
   +navBtn('plan','cal','แผนเที่ยว')
+  +navBtn('zonemap','map','โซน')
   +navBtn('move','metro','เดินทาง')
   +navBtn('money','wallet','ค่าใช้จ่าย')
   +navBtn('prep','info','เตรียมตัว')
