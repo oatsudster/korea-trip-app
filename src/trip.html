@@ -233,6 +233,11 @@ svg{display:block}
 .daygrp .dcount{font-weight:400;color:var(--ink-faint)}
 .daygrp .dsum{margin-left:auto;color:var(--ink-soft)}
 .tzhint{margin-top:10px;font-size:11.5px;color:var(--ink-faint);text-align:center}
+.taxtag{
+  display:inline-block;margin-left:6px;font-size:10.5px;font-weight:700;vertical-align:1px;
+  color:var(--leaf);background:var(--leaf-bg);border:1.5px solid var(--leaf);
+  border-radius:999px;padding:1px 7px 0;
+}
 .sumsheet{margin-top:11px;border:2px dashed var(--line-2);border-radius:16px;background:var(--card2);padding:15px 14px 14px}
 .sum-h{font-family:'Mali','IBM Plex Sans Thai',cursive;font-weight:700;font-size:17px;text-align:center;line-height:1.3}
 .sum-sub{font-size:11.5px;color:var(--ink-faint);text-align:center;margin-bottom:6px}
@@ -491,6 +496,11 @@ var IMM_FACTS={
  stay:'4 nights, 12–16 September 2026',
  hotel:'Comfort Inn Yeouido',
  addr:'7, Gukhoe-daero 72-gil, Yeongdeungpo-gu, Seoul',
+ /* Korean drivers cannot read the romanised address above, so the Hangul form
+    is what the taxi card and the "back to the hotel" buttons actually show.
+    Transliterated from the romanised address - verify against the booking
+    confirmation once before relying on it at 1am. */
+ addrKr:'서울 영등포구 국회대로72길 7',
  arrival:'Thai Airways TG656 · arrived 12 Sep, 06:55',
  departure:'Thai Airways TG657 · 16 Sep, 10:20 → Bangkok (BKK)'
 };
@@ -523,7 +533,7 @@ var DAYS=[
   ],meta:[{t:'~22 นาที'},{t:'₩1,550',c:'w'},{t:'ไม่ต้องเปลี่ยนสาย',c:'g'}]},
   note:{txt:'📸 <b>ถ่ายรูปในตลาดให้สวย:</b> ยืนกลางทางเดินแล้วถ่ายย้อนแสงแผงที่มีไอควัน · ช่วง <b>18:00–20:00 ไฟติดครบแต่คนยังไม่แน่นสุด</b> เป็นเวลาที่ดีที่สุด'}},
  {t:'19:45',k:'spot',ic:'spot',h:'DDP ตอนกลางคืน',map:'동대문디자인플라자',kr:'동대문디자인플라자',b:'ตึกโค้งเงินไร้เหลี่ยมมุมของ <b>Zaha Hadid</b> — <b>กลางคืนสวยกว่ากลางวันมาก</b> เพราะไฟส่องให้เห็นเส้นโค้ง<br>📸 จุดถ่ายรูปคือ<b>บันไดโค้งฝั่งนอก</b>และ<b>อุโมงค์ทางเดินใต้ตึก</b><br>เดินจากควังจังมา ~15 นาที หรือนั่งสาย 5 อีกสถานีเดียว รอบตึกเดินฟรี'},
- {t:'21:00',k:'move',ic:'metro',h:'กลับที่พัก',kr:'여의도',b:'<b>สาย 5</b> จาก <b>동대문역사문화공원</b> ฝั่ง 방화 ตรงถึง <b>여의도</b> ~25 นาที ไม่ต้องเปลี่ยนสาย<br>คืนแรกจบเบาๆ ไม่ต้องฝืน พรุ่งนี้เป็นวันหลัก<br>🍺 <b>คืนนี้กินธรรมดา</b> — เก็บคราฟต์เบียร์ไว้พรุ่งนี้ที่อึลจีโร'}
+ {t:'21:00',k:'move',ic:'metro',h:'กลับที่พัก',kr:'여의도',map:IMM_FACTS.addrKr,b:'<b>สาย 5</b> จาก <b>동대문역사문화공원</b> ฝั่ง 방화 ตรงถึง <b>여의도</b> ~25 นาที ไม่ต้องเปลี่ยนสาย<br>คืนแรกจบเบาๆ ไม่ต้องฝืน พรุ่งนี้เป็นวันหลัก<br>🍺 <b>คืนนี้กินธรรมดา</b> — เก็บคราฟต์เบียร์ไว้พรุ่งนี้ที่อึลจีโร'}
 ]},
 
 {n:2,dow:'อาทิตย์',date:'13 ก.ย.',city:'seoul',cityName:'ย่านเก่า',title:'วัง ฮันอก และฮิปจีโร',meta:'เคียงบกกุง → บุกชอน → อิกซอนดง → อึลจีโร',ev:[
@@ -550,7 +560,7 @@ var DAYS=[
    'เดินจากอิกซอนดงลงใต้ ~10 นาที ผ่าน <b>คลองชองกเยชอน</b> — ลงไปเดินริมน้ำได้ ไฟสวย',
    'หรือขึ้น <b>สาย 5</b> ที่ <b>종로3가</b> นั่งสถานีเดียวลง <b>을지로4가</b>'
   ],meta:[{t:'เดิน ~10 นาที'},{t:'ผ่านคลองชองกเยชอน',c:'g'}]}},
- {t:'21:30',k:'move',ic:'metro',h:'กลับที่พัก',kr:'여의도',b:'<b>สาย 5</b> จาก <b>을지로4가</b> ฝั่ง 방화 ตรงถึง <b>여의도</b> ~22 นาที ไม่ต้องเปลี่ยนสาย<br>⚠️ รถไฟฟ้าหมดประมาณ <b>24:00</b> ถ้าเลยให้เรียก Kakao T ~₩15,000'}
+ {t:'21:30',k:'move',ic:'metro',h:'กลับที่พัก',kr:'여의도',map:IMM_FACTS.addrKr,b:'<b>สาย 5</b> จาก <b>을지로4가</b> ฝั่ง 방화 ตรงถึง <b>여의도</b> ~22 นาที ไม่ต้องเปลี่ยนสาย<br>⚠️ รถไฟฟ้าหมดประมาณ <b>24:00</b> ถ้าเลยให้เรียก Kakao T ~₩15,000 — <b>กดปุ่ม “โชว์คนขับ” ข้างล่างนี้ยื่นที่อยู่ที่พักให้ดูได้เลย</b>'}
 ]},
 
 {n:3,dow:'จันทร์',date:'14 ก.ย.',city:'plum',cityName:'ซองซู',title:'โรงงานเก่ากับคาเฟ่ดีไซน์',meta:'ซองซู → ซอลซุป → ริมแม่น้ำฮันหน้าที่พัก',ev:[
@@ -568,7 +578,7 @@ var DAYS=[
   note:{warn:true,txt:'<b>ป๊อปอัปสโตร์ในซองซูเปลี่ยนแทบทุกสัปดาห์</b> — อันนี้คือเสน่ห์หลักของย่านเลย และหลายอันทำมาเพื่อถ่ายรูปโดยเฉพาะ<br>ก่อนไปเสิร์ช <b>#성수팝업</b> ใน Instagram หรือเช็ค Naver ว่าช่วงนั้นมีแบรนด์อะไรมาจัด'}},
  {t:'16:45',k:'spot',ic:'walk',h:'สวนซอลซุป',kr:'서울숲',map:'서울숲',b:'เดินจากย่านคาเฟ่มา ~15 นาที สวนใหญ่ริมแม่น้ำฮัน มีลานกวาง เรือนกระจกผีเสื้อ<br>📸 <b>ทางเดินต้นไม้สองข้าง</b> ช่วงเย็นแดดส่องลอดใบไม้ — มุมที่คนโซลชอบมาก'},
  {t:'18:30',k:'food',ic:'food',h:'ดินเนอร์ซองซู — กินธรรมดา',b:'<b>คืนนี้ไม่ใช่คืนคราฟต์เบียร์</b> กินให้อิ่มแบบสบายๆ<br>• <b>ปิ้งย่างหมูสามชั้น</b> หรือ <b>ไก่ตุ๋น / จิมดัก</b> ร้านเกาหลีดั้งเดิมในซองซูมีเยอะ ~₩18,000–25,000/คน<br>• หรือกลับไปกินแถวยออีโดก็ได้ ถ้าอยากถึงที่พักเร็ว'},
- {t:'20:15',k:'move',ic:'metro',h:'กลับยออีโด',kr:'여의도',b:'<b>สาย 2</b> จาก <b>성수</b> → <b>왕십리</b> (2 สถานี) เปลี่ยน <b>สาย 5</b> ตรงถึง <b>여의도</b> ~40 นาที<br>ขาล้ามากเรียก Kakao T ~35 นาที ₩22,000–28,000'},
+ {t:'20:15',k:'move',ic:'metro',h:'กลับยออีโด',kr:'여의도',map:IMM_FACTS.addrKr,b:'<b>สาย 2</b> จาก <b>성수</b> → <b>왕십리</b> (2 สถานี) เปลี่ยน <b>สาย 5</b> ตรงถึง <b>여의도</b> ~40 นาที<br>ขาล้ามากเรียก Kakao T ~35 นาที ₩22,000–28,000'},
  {t:'21:15',k:'spot',ic:'walk',h:'ริมแม่น้ำฮันหน้าที่พัก',map:'여의도한강공원',kr:'여의도한강공원',b:'<b>ข้อดีที่สุดของการพักยออีโด</b> — สวนริมแม่น้ำฮันเดินถึงจากที่พัก ไม่ต้องนั่งรถไปไหน<br>• แวะ <b>CU / GS25 ในสวน</b> ซื้อ <b>เบียร์ + ราเมงต้มตู้</b> (ตู้ต้มราเมงอัตโนมัติ — ต้องลอง) ~₩10,000 สองคน<br>• 📸 ไฟสะพานกับตึกยออีโดสะท้อนน้ำ ถ่ายเงาคนตัดกับแม่น้ำสวยมาก<br>• เดินเล่นครึ่งชั่วโมงแล้วกลับเข้านอน ปิดวันแบบไม่ต้องเดินทาง',
   note:{txt:'<b>ฝนตกก็ไม่เสียหาย</b> — ข้ามไปเดิน <b>IFC Mall</b> หรือ <b>The Hyundai Seoul</b> ที่เปิดถึง 20:00–22:00 แทน อยู่ในร่มและเดินถึงเหมือนกัน'}}
 ]},
@@ -605,7 +615,7 @@ var DAYS=[
  {t:'18:20',k:'spot',ic:'spot',h:'N Seoul Tower — พระอาทิตย์ตก',map:'N서울타워',kr:'남산서울타워',b:'📸 <b>รูปปิดทริป</b> — กลางเดือน ก.ย. <b>พระอาทิตย์ตก ~18:50</b> ขึ้นไปก่อน 18:30 จะได้ทั้งแสงเย็นและช่วงไฟเมืองติด (golden hour → blue hour ต่อกันพอดี)<br>• <b>ไม่ต้องซื้อตั๋วขึ้นชั้นสังเกตการณ์ก็ได้</b> — ลานรอบฐานหอคอยเห็นวิวรอบทิศอยู่แล้ว ฟรี<br>• อยากขึ้นชั้นบน ~₩21,000/คน<br>• มองหาฝั่งแม่น้ำฮันกับตึกยออีโดที่เราพักอยู่ — เห็นที่พักตัวเองจากมุมสูงในคืนสุดท้าย'},
  {t:'20:00',k:'food',ic:'food',h:'🍺 คราฟต์เบียร์ + ดินเนอร์ที่แฮบังชน',map:'경리단길',kr:'경리단길',b:'<b>คืนคราฟต์เบียร์คืนที่สอง และเป็นคืนสุดท้าย</b><br>ลงจากหอคอยกลับมาแถวแฮบังชน/คยองนีดันกิล ~10 นาที<br>• ย่านนี้เป็น<b>ต้นกำเนิดคราฟต์เบียร์ของโซล</b> — โรงเบียร์ในย่านนี้เป็นเจ้าแรกๆ ของประเทศ<br>• อาหารเป็นแนวอเมริกัน-ยุโรป พิซซ่า ปีกไก่ ฟิชแอนด์ชิปส์ กินคู่เบียร์<br>~₩9,000–13,000/แก้ว · อาหาร ~₩18,000–28,000',
   note:{warn:true,txt:'<b>⚠️ พรุ่งนี้ต้องตื่นตี 5 — ดื่มพอสบายๆ และตั้งเวลากลับล่วงหน้า</b> เช่น กลับที่พักไม่เกิน 21:30 แทนที่จะปล่อยไปเรื่อยแบบคืนอื่น'}},
- {t:'21:30',k:'move',ic:'metro',h:'กลับที่พัก',kr:'여의도',b:'',
+ {t:'21:30',k:'move',ic:'metro',h:'กลับที่พัก',kr:'여의도',map:IMM_FACTS.addrKr,b:'',
   route:{label:'อิแทวอน → ยออีโด',steps:[
    '<b>สาย 6 (สีน้ำตาล)</b> จาก <b>이태원역</b> ฝั่ง 응암 นั่ง 5 สถานี ลง <b>공덕역</b>',
    'เปลี่ยนเป็น <b>สาย 5</b> ฝั่ง 방화 นั่ง <b>2 สถานี</b> ถึง <b>여의도</b>',
@@ -655,10 +665,11 @@ var TRANSPORT=[
   ['ทางออก','ทางออก (출구/Exit) มีเลขกำกับ บางสถานีมี 15 ทางออกและห่างกันเป็น 500 เมตร — <b>เช็คเลข Exit ให้ชัวร์ก่อนขึ้น</b>'],
   ['เวลาเดินรถ','ประมาณ <b>05:30 – 24:00</b> เที่ยวสุดท้ายเร็วกว่าที่คิด ถ้ากลับดึกให้เผื่อค่าแท็กซี่']
  ]},
- {ic:'taxi',c:'seoul',h:'แท็กซี่ — คุ้มมากเมื่อไปกัน 2 คน',rows:[
+ {ic:'taxi',c:'seoul',h:'แท็กซี่ — คุ้มมากเมื่อไปกัน 2 คน',lead:'กลับที่พักดึกๆ กดปุ่ม “โชว์” แถวแรก ยื่นให้คนขับดูได้เลย',rows:[
+  ['กลับที่พัก — ยื่นให้คนขับ','<b>'+IMM_FACTS.hotel+'</b><br>'+IMM_FACTS.addrKr+'<br><span style="font-size:12px;color:var(--ink-faint)">คนขับเกาหลีอ่านที่อยู่โรมันไม่ออก ต้องเป็นฮันกึลเท่านั้น</span>',IMM_FACTS.addrKr],
   ['เรียกยังไง','แอป <b>Kakao T</b> (ตั้งภาษาอังกฤษได้ ผูกบัตรเครดิตได้) — ดีกว่าโบกข้างถนนมากเพราะไม่ต้องพูดเกาหลี'],
   ['ค่าเริ่มต้น','~<b>₩4,800</b> แล้วขึ้นตามมิเตอร์'],
-  ['ควรใช้ตอน','ขนกระเป๋าเข้าโรงแรม • ขึ้นเขาคัมชอน • กลับดึกหลังรถไฟฟ้าหมด • ฝนตก'],
+  ['ควรใช้ตอน','ขนกระเป๋าเข้าโรงแรม • กลับดึกหลังรถไฟฟ้าหมด • ฝนตก • ขาล้าหลังเดินทั้งวัน'],
   ['ระวัง','ช่วง 22:00–04:00 มี<b>ค่าธรรมเนียมกลางคืน +20%</b> และรถหายากมากคืนวันศุกร์-เสาร์']
  ]},
  {ic:'metro',c:'plum',h:'ไปย่านนอกใจกลางเมือง',lead:'ทุกที่ไปด้วยรถไฟฟ้า เปลี่ยนสายไม่เกินครั้งเดียว',rows:[
@@ -867,7 +878,7 @@ function nowSlot(day){
 
 /* ================= view state ================= */
 var view={tab:'plan',day:tripDayIndex()||1,showSummary:false,
-  f:{label:'',amt:'',cur:'KRW',payer:0,split:'both',cat:'food'}};
+  f:{label:'',amt:'',cur:'KRW',payer:0,split:'both',cat:'food',tax:false}};
 /* Which view we last auto-jumped for. The 4s poll re-renders constantly, so
    jumping on every render would yank the page out from under whoever is
    reading it - only a real change of tab or day may move the scroll. */
@@ -1069,8 +1080,8 @@ function planHTML(){
   +'<div class="lead">พักยออีโดที่เดียว 4 คืน · กลางวันคาเฟ่กับถ่ายรูป กลางคืนสลับตลาดกับคราฟต์เบียร์</div><div class="rows">'
   +'<div class="row"><span class="k">สาย 5 ทำงานหนักแทนเรา</span><span class="v">จากยออีโด สาย 5 วิ่งตรงถึงควังจัง · DDP · อิกซอนดง · ควังฮวามุน (วัง) — วันที่ 1 กับ 2 ไม่ต้องเปลี่ยนสายเลยสักครั้ง</span></div>'
   +'<div class="row"><span class="k">คราฟต์เบียร์สลับวัน</span><span class="v">ดื่ม 2 คืน (อึลจีโร · แฮบังชน) สลับกับกินธรรมดา 2 คืน — คืนที่ไม่ดื่มจบด้วยเดินริมแม่น้ำฮันหน้าที่พัก</span></div>'
-  +'<div class="row"><span class="k">ข้อแลกของยออีโด</span><span class="v">ขาสนามบินต้องเปลี่ยนสาย 1 ครั้งที่กงด็อก (ฮงแดเคยตรง) — วันสุดท้ายเลยต้องออก 07:45 ไม่ใช่ 08:00 แลกกับการที่สาย 5 กับสาย 9 ด่วนพาไปได้เกือบทุกที่</span></div>'
-  +'<div class="row"><span class="k">วันที่ 16 ไม่นับ</span><span class="v">ไฟลท์ 12:00 ทำให้ต้องออกจากที่พัก 08:00 — วันสุดท้ายเป็นวันเดินทางล้วน แผนเที่ยวจึงจบครบตั้งแต่คืนวันที่ 15</span></div>'
+  +'<div class="row"><span class="k">ข้อแลกของยออีโด</span><span class="v">ขาสนามบินต้องเปลี่ยนสาย 1 ครั้งที่กงด็อก (ฮงแดเคยตรง) แลกกับการที่สาย 5 กับสาย 9 ด่วนพาไปได้เกือบทุกที่</span></div>'
+  +'<div class="row"><span class="k">วันที่ 16 ไม่นับ</span><span class="v">ไฟลท์ <b>10:20</b> ทำให้ต้องออกจากที่พัก <b>06:00</b> — วันสุดท้ายเป็นวันเดินทางล้วน แผนเที่ยวจึงจบครบตั้งแต่คืนวันที่ 15</span></div>'
   +'</div></div>';
  return h;
 }
@@ -1297,7 +1308,7 @@ function immSheetHTML(){
   +'<div class="imm-rows">'
   +row('Purpose of visit',f.purpose)
   +row('Length of stay',f.stay)
-  +row('Accommodation',f.hotel,f.addr)
+  +row('Accommodation',f.hotel,f.addr+'  ·  '+f.addrKr)
   +row('Arrival flight',f.arrival)
   +row('Departure flight',f.departure)
   +'</div>'
@@ -1349,8 +1360,12 @@ function kstClock(ms){return kstFmt({hour:'2-digit',minute:'2-digit',hour12:fals
 function toTHB(it){return it.cur==='THB'?it.amt:it.amt/state.rate;}
 function fmt(n){return n.toLocaleString('th-TH',{maximumFractionDigits:0});}
 
+/* Korea refunds VAT on Tax Free purchases of ₩30,000+ per receipt. The payout
+   after handling fees lands around 7-8% of the price, not the full 10% VAT. */
+var TAX_MIN_WON=30000, TAX_REFUND_RATE=0.075;
+
 function calc(){
- var paid=[0,0],owe=[0,0],total=0,bycat={};
+ var paid=[0,0],owe=[0,0],total=0,bycat={},taxWon=0,taxCount=0;
  for(var i=0;i<state.items.length;i++){
   var it=state.items[i],v=toTHB(it);
   total+=v;paid[it.payer]+=v;
@@ -1358,8 +1373,10 @@ function calc(){
   if(it.split==='both'){owe[0]+=v/2;owe[1]+=v/2;}
   else if(it.split==='a')owe[0]+=v;
   else owe[1]+=v;
+  if(it.tax&&it.cur==='KRW'){taxWon+=it.amt;taxCount++;}
  }
- return {paid:paid,owe:owe,total:total,bycat:bycat,net:paid[0]-owe[0]};
+ return {paid:paid,owe:owe,total:total,bycat:bycat,net:paid[0]-owe[0],
+   taxWon:taxWon,taxCount:taxCount,taxRefund:Math.round(taxWon*TAX_REFUND_RATE)};
 }
 
 function expenseHTML(){
@@ -1408,8 +1425,17 @@ function expenseHTML(){
   +'</div></div>'
   +'<div class="fld"><label>หมวด</label><div class="chips">';
  for(var i=0;i<CATS.length;i++)h+='<button class="chip n" data-cat="'+CATS[i].id+'" aria-pressed="'+(f.cat===CATS[i].id)+'">'+esc(CATS[i].n)+'</button>';
- h+='</div></div>'
-  +'<button class="btn" id="add">'+ic('plus',18)+'บันทึกรายการ</button>'
+ h+='</div></div>';
+ if(f.cur==='KRW'){
+  var amtNow=parseFloat(f.amt);
+  var under=isFinite(amtNow)&&amtNow>0&&amtNow<TAX_MIN_WON;
+  h+='<div class="fld"><label>ใบเสร็จนี้ขอคืนภาษีได้ไหม</label><div class="chips">'
+   +'<button class="chip n" data-tax="1" aria-pressed="'+(!!f.tax)+'">🧾 ขอคืนภาษีได้</button>'
+   +'</div><div class="lead" style="margin:7px 0 0">ร้านที่มีป้าย <b>Tax Free</b> · ยอด <b>≥ ₩30,000 ต่อใบ</b> · ต้องใช้พาสปอร์ตตอนซื้อ'
+   +(under?'<br><b style="color:var(--seoul)">ยอดนี้ยังไม่ถึง ₩30,000 — ขอคืนไม่ได้</b>':'')
+   +'</div></div>';
+ }
+ h+='<button class="btn" id="add">'+ic('plus',18)+'บันทึกรายการ</button>'
   +'</div></div>';
 
  // list
@@ -1432,7 +1458,8 @@ function expenseHTML(){
     var ca=catOf(it.cat),thb=toTHB(it);
     var splitTxt=it.split==='both'?'หาร 50/50':('ของ '+state.names[it.split==='a'?0:1]);
     h+='<div class="item"><span class="cdot" style="background:'+ca.c+'"></span>'
-     +'<div class="txt"><div class="t1">'+esc(it.label||'(ไม่มีชื่อ)')+'</div>'
+     +'<div class="txt"><div class="t1">'+esc(it.label||'(ไม่มีชื่อ)')
+     +(it.tax&&it.cur==='KRW'?'<span class="taxtag">🧾 คืนภาษี</span>':'')+'</div>'
      +'<div class="t2"><b class="money">'+esc(kstClock(itemTime(it)))+'</b> · '
      +esc(state.names[it.payer])+' จ่าย · '+esc(splitTxt)+'</div></div>'
      +'<div class="val"><div class="money">฿'+fmt(thb)+'</div>'
@@ -1457,6 +1484,16 @@ function expenseHTML(){
   h+='<div style="display:flex;margin-top:10px"><button class="btn ghost" id="clear" style="flex:1;font-size:13px">ล้างรายการทั้งหมด</button></div>';
  }
  h+='</div>';
+
+ if(c.taxCount){
+  h+='<div class="card"><h2><span class="ic" style="background:var(--leaf-bg);color:var(--leaf)">'+ic('doc',17)+'</span>คืนภาษีที่สนามบิน</h2>'
+   +'<div class="lead">ทำที่ <b>Tax Refund kiosk ก่อนเช็คอิน</b> วันที่ 16 — เจ้าหน้าที่อาจขอดูของจริง อย่าเพิ่งโหลดกระเป๋า</div>'
+   +'<div class="rows">'
+   +'<div class="row"><span class="k">ใบเสร็จที่ติ๊กไว้</span><span class="v"><b>'+c.taxCount+' ใบ</b> · รวม <b class="money">₩'+fmt(c.taxWon)+'</b></span></div>'
+   +'<div class="row"><span class="k">น่าจะได้คืนราว</span><span class="v"><b class="money">₩'+fmt(c.taxRefund)+'</b> (~฿'+fmt(wonToTHB(c.taxRefund))+') — ประมาณ 7–8% หลังหักค่าธรรมเนียม</span></div>'
+   +'<div class="row"><span class="k">ต้องพกไปด้วย</span><span class="v">พาสปอร์ต + ใบเสร็จตัวจริงทุกใบ + ของที่ซื้อ (ยังไม่แกะยิ่งดี)</span></div>'
+   +'</div></div>';
+ }
 
  h+='<div class="card"><h2><span class="ic" style="background:var(--gold-bg);color:var(--gold)">'+ic('info',17)+'</span>ตั้งค่า</h2>'
   +'<div class="fld"><label for="rate">เรทแลกเงิน — ₩1,000 เท่ากับกี่บาท</label>'
@@ -1613,6 +1650,7 @@ function wire(){
  document.querySelectorAll('[data-payer]').forEach(function(b){b.onclick=function(){f.payer=+b.dataset.payer;render();};});
  document.querySelectorAll('[data-split]').forEach(function(b){b.onclick=function(){f.split=b.dataset.split;render();};});
  document.querySelectorAll('[data-cat]').forEach(function(b){b.onclick=function(){f.cat=b.dataset.cat;render();};});
+ document.querySelectorAll('[data-tax]').forEach(function(b){b.onclick=function(){f.tax=!f.tax;render();};});
 
  var n0=document.getElementById('n0'),n1=document.getElementById('n1');
  if(n0)n0.onchange=function(){state.names[0]=n0.value.trim()||'OATT';persist({meta:{names:state.names.slice(),rate:state.rate}});};
@@ -1624,8 +1662,11 @@ function wire(){
   if(!isFinite(v)||v<=0){if(fa){fa.focus();fa.style.borderColor='var(--seoul)';}return;}
   var item={id:'e'+Date.now()+Math.random().toString(36).slice(2,6),ts:Date.now(),
    label:f.label.trim(),amt:v,cur:f.cur,payer:f.payer,split:f.split,cat:f.cat};
+  /* only meaningful on won receipts of ₩30,000+, so it is never stored on
+     anything that could not actually be claimed at the airport */
+  if(f.tax&&f.cur==='KRW'&&v>=TAX_MIN_WON)item.tax=true;
   state.items.push(item);
-  view.f={label:'',amt:'',cur:f.cur,payer:f.payer,split:'both',cat:f.cat};
+  view.f={label:'',amt:'',cur:f.cur,payer:f.payer,split:'both',cat:f.cat,tax:false};
   persist({add:item});
  };
  document.querySelectorAll('[data-del]').forEach(function(b){
