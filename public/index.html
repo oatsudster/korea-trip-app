@@ -459,6 +459,63 @@ svg{display:block}
   font-size:11px;font-weight:500;padding:3px 9px 2px;border-radius:999px;border:1.5px solid var(--zc);
 }
 
+/* ---------- in-trip layout: slim hero, now card, folded events ---------- */
+.hero-slim{padding:14px 4px 2px}
+.hero-slim h1{font-size:20px}
+
+.nowcard{
+  background:var(--card);border:2px solid var(--gold);border-radius:var(--r);
+  box-shadow:0 6px 0 -2px var(--shadow-2);overflow:hidden;margin-bottom:14px;
+}
+.nw-row{padding:12px 15px 13px;border-bottom:2px dotted var(--line-2)}
+.nw-row:last-child{border-bottom:0}
+.nw-row.is-next{background:var(--card2)}
+.nw-lbl{
+  font-family:'Gaegu','Mali',cursive;font-size:12.5px;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--gold);font-weight:700;
+}
+.nw-row.is-next .nw-lbl{color:var(--ink-faint)}
+.nw-main{display:flex;align-items:baseline;gap:9px;margin-top:1px}
+.nw-t{font-size:13px;color:var(--ink-faint);flex:0 0 auto}
+.nw-h{font-family:'Mali',cursive;font-weight:700;font-size:16.5px;line-height:1.3;color:var(--ink)}
+.nw-row.is-next .nw-h{font-size:15px;font-weight:600}
+.nw-acts{margin-top:8px}
+.nw-end{padding:11px 15px 13px;font-size:12.5px;color:var(--ink-soft)}
+
+.ev.collapsed{
+  display:flex;align-items:center;gap:9px;width:100%;text-align:left;
+  padding:6px 8px 6px 34px;min-height:44px;opacity:.62;
+}
+.ev.collapsed .time{flex:0 0 auto}
+.ev.collapsed .ctitle{
+  flex:1;min-width:0;font-size:13.5px;color:var(--ink-soft);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ev.collapsed .cmore{flex:0 0 auto;color:var(--ink-faint)}
+.ev.collapsed .dot{top:9px}
+.tl-all{
+  display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+  min-height:44px;padding:10px;border-top:2px dotted var(--line-2);
+  font-size:12.5px;color:var(--ink-faint);
+}
+
+.route.rfold{
+  display:flex;flex-direction:column;align-items:flex-start;gap:7px;
+  width:100%;text-align:left;
+}
+.route.rfold .rt{margin-bottom:0}
+.route.rfold .rmeta{margin-top:0}
+.rmore{
+  display:inline-flex;align-items:center;gap:5px;min-height:34px;
+  font-size:12px;font-weight:600;color:var(--busan);
+}
+.rless{
+  display:flex;align-items:center;justify-content:center;width:100%;min-height:40px;
+  margin-top:9px;padding-top:8px;border-top:2px dotted var(--line-2);
+  font-size:12px;font-weight:600;color:var(--ink-faint);
+}
+.zm-alt-label{display:flex;align-items:center;gap:5px}
+
 /* ---------- tap-to-edit, undo, who-is-this-phone ---------- */
 button.txt{text-align:left;display:flex;flex-direction:column;justify-content:center;min-height:44px;width:100%}
 .item.editing{border-color:var(--plum);background:var(--plum-bg)}
@@ -521,6 +578,11 @@ var ICONS={
  food:'<path '+P+' d="M4 3v7a3 3 0 0 0 6 0V3M7 10v11"/><path '+P+' d="M17 3c-2 2-2 6 0 8v10"/>',
  stay:'<path '+P+' d="M4 20V9l8-5 8 5v11"/><path '+P+' d="M9 20v-6h6v6"/>',
  wallet:'<rect '+P+' x="3" y="6" width="18" height="13" rx="3.5"/><path '+P+' d="M3 10h18"/><circle cx="17" cy="14" r="1.3" fill="currentColor" stroke="none"/>',
+ music:'<path '+P+' d="M9 17V5l11-2v12"/><ellipse '+P+' cx="6.5" cy="17.5" rx="3" ry="2.5"/><ellipse '+P+' cx="17.5" cy="15.5" rx="2.5" ry="2.2"/>',
+ bag:'<path '+P+' d="M5.5 8h13l-1 12h-11z"/><path '+P+' d="M9 8V6.2a3 3 0 0 1 6 0V8"/>',
+ ferris:'<circle '+P+' cx="12" cy="9.5" r="6.5"/><path '+P+' d="M12 3v13M5.5 9.5h13M7.4 5l9.2 9M16.6 5l-9.2 9"/><path '+P+' d="M12 16l-3.5 5h7z"/>',
+ fish:'<path '+P+' d="M2.5 12c2.4-3.4 5.4-5 8.8-5s5.9 1.6 6.9 5c-1 3.4-3.5 5-6.9 5s-6.4-1.6-8.8-5z"/><path '+P+' d="M18.2 12l3.3-2.6v5.2z"/><circle cx="7.2" cy="11" r="1" fill="currentColor" stroke="none"/>',
+ swap:'<path '+P+' d="M4 8.5h13l-3.2-3.2M20 15.5H7l3.2 3.2"/>',
  map:'<path '+P+' d="M9 4L3 6.5v14L9 18l6 2.5 6-2.5v-14L15 6.5 9 4z"/><path '+P+' d="M9 4v14M15 6.5v14"/>',
  info:'<circle '+P+' cx="12" cy="12" r="9"/><path '+P+' d="M12 11v5"/><circle cx="12" cy="7.8" r="1.2" fill="currentColor" stroke="none"/>',
  cal:'<rect '+P+' x="3" y="5" width="18" height="16" rx="3.5"/><path '+P+' d="M3 10h18M8 3v4M16 3v4"/>',
@@ -559,7 +621,7 @@ var IMM_FACTS={
 var DAYS=[
 {n:1,dow:'เสาร์',date:'12 ก.ย.',city:'seoul',cityName:'ยออีโด',title:'ถึงโซล — ตลาดกลางคืน',meta:'อินชอน → ยออีโด → ควังจัง → DDP',ev:[
  {t:'06:55',k:'move',ic:'plane',h:'ถึงสนามบินอินชอน (ICN)',kr:'인천공항',b:'<b>Thai Airways TG656 · BKK 23:30 → ICN 06:55</b><br>เผื่อเวลาผ่าน ตม. + รอกระเป๋าประมาณ <b>1 ชั่วโมง</b> ระหว่างรอ แวะเข้าห้องน้ำล้างหน้าแปรงฟันก่อน — บินข้ามคืนมาถึงหน้าโทรมกันทั้งคู่',
-  note:{warn:true,txt:'<b>⚠️ ก่อนถึงจุดนี้ต้องผ่าน 3 ขา คนละสายการบิน คนละ booking กัน</b><br>1. <b>VZ353 Thai Vietjet</b> สุราษฎร์ฯ → กรุงเทพฯ URT 18:50 → BKK 20:05 (ศ. 11 ก.ย.) — โดเมสติกโลว์คอสต์ปิดเช็คอินก่อนบิน ~45–60 นาที <b>ถึงสนามบินสุราษฎร์ฯ ไม่เกิน 17:00</b><br>2. <b>ต่อเครื่องที่ BKK 3 ชม. 25 นาที</b> — เป็นคนละ PNR กับเที่ยวบินระหว่างประเทศ (RXUWZY ≠ EAMUUH) <b>ต้องรับกระเป๋าโหลดออกมาก่อน แล้วเดินไปฝั่งผู้โดยสารขาออกระหว่างประเทศเพื่อเช็คอินใหม่กับการบินไทย</b> — เวลาที่มีเพียงพอสบายๆ แค่อย่าเผลอเดินเล่นนานเกินไป<br>3. <b>TG656 Thai Airways</b> BKK 23:30 → ICN 06:55 บินข้ามคืนศุกร์ที่ 11 ถึงเช้าวันเสาร์ที่ 12<br><br>รวมแล้วออกจากบ้านตั้งแต่ช่วงเย็นวันศุกร์ที่ 11 และจะไม่ได้นอนบนเตียงคืนนั้นเลย — วันที่ 12 ถึงได้จัดให้นอนกลางวันชดเชย'}},
+  note:{warn:true,pre:true,txt:'1. <b>VZ353 Thai Vietjet</b> สุราษฎร์ฯ → กรุงเทพฯ URT 18:50 → BKK 20:05 (ศ. 11 ก.ย.) — โดเมสติกโลว์คอสต์ปิดเช็คอินก่อนบิน ~45–60 นาที <b>ถึงสนามบินสุราษฎร์ฯ ไม่เกิน 17:00</b><br>2. <b>ต่อเครื่องที่ BKK 3 ชม. 25 นาที</b> — เป็นคนละ PNR กับเที่ยวบินระหว่างประเทศ (RXUWZY ≠ EAMUUH) <b>ต้องรับกระเป๋าโหลดออกมาก่อน แล้วเดินไปฝั่งผู้โดยสารขาออกระหว่างประเทศเพื่อเช็คอินใหม่กับการบินไทย</b> — เวลาที่มีเพียงพอสบายๆ แค่อย่าเผลอเดินเล่นนานเกินไป<br>3. <b>TG656 Thai Airways</b> BKK 23:30 → ICN 06:55 บินข้ามคืนศุกร์ที่ 11 ถึงเช้าวันเสาร์ที่ 12<br><br>รวมแล้วออกจากบ้านตั้งแต่ช่วงเย็นวันศุกร์ที่ 11 และจะไม่ได้นอนบนเตียงคืนนั้นเลย — วันที่ 12 ถึงได้จัดให้นอนกลางวันชดเชย'}},
  {t:'09:00',k:'move',ic:'metro',h:'อินชอน → ยออีโด (ที่พัก)',kr:'여의도',b:'ต้องเปลี่ยนสาย <b>1 ครั้งที่กงด็อก</b> แต่เป็นการเปลี่ยนในสถานีเดียวกัน ไม่ต้องออกไปข้างนอก',
   route:{label:'วิธีเดินทางละเอียด',steps:[
    'ก่อนอื่น <b>ซื้อบัตร T-money</b> ที่ร้าน CU / GS25 / 7-Eleven ในอาคารผู้โดยสาร (ชั้น 1 ฝั่งขาเข้า) บอกพนักงานว่า “T-money card, please” — ค่าบัตร <b>₩4,000</b> แล้วเติมเงินที่ตู้ <b>₩40,000/คน</b> พอใช้ทั้งทริป',
@@ -821,7 +883,7 @@ var ZONE_DAYS=[
   alt:[['뚝섬한강공원','ต่อจากสวนซอลซุป'],['성수동 수제화거리','ถนนรองเท้าทำมือ']]},
  {d:4,date:'อังคาร 15 ก.ย.',c:'plum',zone:'กังนัม → นัมซาน',kr:'강남 · 남산타워',
   hi:'<b>คาโรซูกิล</b> เช้า → <b>คลินิก 13:00</b> → <b>COEX/Starfield</b> ในร่ม → <b>N Seoul Tower</b> พระอาทิตย์ตก → คราฟต์เบียร์แฮบังชน',
-  transit:'สาย 9 ขบวนด่วน 여의도→신논현 ~15น ต่อสาย3→신사 · แล้วบ่าย 🚕แท็กซี่ COEX→해방촌 ~20–25น',
+  transit:'สาย 9 ขบวนด่วน 여의도→신논현 ~15น ต่อสาย3→신사 · แล้วบ่ายนั่งแท็กซี่ COEX→해방촌 ~20–25น',
   alt:[['봉은사','วัดกลางเมือง ใกล้ COEX'],['압구정로데오','ช้อปเพิ่ม']]},
  {d:5,date:'พุธ 16 ก.ย.',c:'busan',zone:'ยออีโด → ICN',kr:'인천공항',
   hi:'ตื่นตี 5 เก็บกระเป๋า → คืนภาษีที่สนามบิน → <b>บิน TG657 10:20</b> กลับกรุงเทพฯ',
@@ -832,16 +894,16 @@ var ZONE_DAYS=[
 /* zones nobody has to visit but worth knowing about if the fixed plan
    changes - grouped by what kind of day out they make, not where they sit */
 var ZONE_EXTRA=[
- {icon:'🎸',c:'seoul',name:'ฮงแด·ยอนนัมดง',kr:'홍대·합정·연남동',
+ {icon:'music',c:'seoul',name:'ฮงแด·ยอนนัมดง',kr:'홍대·합정·연남동',
   style:'ย่านมหาลัย <b>วัยรุ่น·อินดี้</b> — บาร์ไลฟ์เพลง ตลาดศิลปะข้างถนนวันหยุด คาเฟ่คอนเซปต์แปลกๆ ราคาถูกกว่าย่านอื่น เที่ยวได้ทั้งกลางวันกลางคืน',
   q:'홍대'},
- {icon:'🛍',c:'plum',name:'เมียงดง',kr:'명동',
+ {icon:'bag',c:'plum',name:'เมียงดง',kr:'명동',
   style:'<b>ช้อปปิ้งสายนักท่องเที่ยว</b> — เครื่องสำอางเรียงเป็นแถวถนน สตรีทฟู้ดตอนเย็น เดินต่อจากนัมซานได้ในวันเดียวกัน',
   q:'명동'},
- {icon:'🎢',c:'plum',name:'จัมชิล·ลอตเต้เวิลด์',kr:'잠실·롯데월드',
+ {icon:'ferris',c:'plum',name:'จัมชิล·ลอตเต้เวิลด์',kr:'잠실·롯데월드',
   style:'<b>บันเทิงครบวงจร</b> — สวนสนุกในร่ม Lotte World และตึกที่สูงที่สุดในเกาหลี Lotte Tower ชมวิว 360° เหมาะถ้าอยากพักจากเดินเที่ยวเมืองสักวัน',
   q:'롯데월드'},
- {icon:'🐟',c:'busan',name:'โนรยางจิน',kr:'노량진',
+ {icon:'fish',c:'busan',name:'โนรยางจิน',kr:'노량진',
   style:'<b>ตลาดปลาสด</b> — ซื้อของสดจากแผงแล้วเดินขึ้นชั้นบนให้ร้านทำสดๆ ให้กิน เปิดถึงดึก อยู่ใกล้ยออีโดแค่ข้ามสะพานเดียว ถ้าเย็นวันไหนว่างแวะได้ง่าย',
   q:'노량진수산시장'}
 ];
@@ -927,7 +989,7 @@ function nowSlot(day){
 }
 
 /* ================= view state ================= */
-var view={tab:'plan',day:tripDayIndex()||1,showSummary:false,
+var view={tab:'plan',day:tripDayIndex()||1,showSummary:false,open:{},route:{},
   f:{label:'',amt:'',cur:'KRW',payer:0,split:'both',cat:'food',tax:false,editId:null}};
 /* A deleted row waits here for a few seconds so one mis-tap on a 44px bin is
    recoverable - the row is already gone from the shared list by then, and
@@ -1235,24 +1297,45 @@ function heroArt(){
  +'</svg>';
 }
 
-function evHTML(e,isNow){
+/* `done` is an event whose time has passed today: it keeps its place in the
+   timeline as a single line so the day stays readable at a glance, and opens
+   again on a tap. `openRoute` is the walkthrough - the summary facts (time,
+   fare, how many changes) stay on screen either way, only the step-by-step
+   folds, which is what made day 4 seven screens long. */
+function evHTML(e,isNow,done,key,openRoute){
+ if(done){
+  return '<button class="ev k-'+e.k+' collapsed" data-open="'+esc(key)+'">'
+   +'<span class="dot">'+ic(e.ic||'spot',15)+'</span>'
+   +'<span class="time">'+esc(e.t)+'</span>'
+   +'<span class="ctitle">'+esc(e.h)+'</span>'
+   +'<span class="cmore">'+ic('plus',13)+'</span></button>';
+ }
  var h='<div class="ev k-'+e.k+(isNow?' now':'')+'">'
   +'<span class="dot">'+ic(e.ic||'spot',15)+'</span>'
   +'<div class="time">'+esc(e.t)+'</div>'
   +'<h3>'+esc(e.h)+(e.kr?'<span class="kr">'+esc(e.kr)+'</span>':'')+'</h3>';
  if(e.b)h+='<div class="body">'+e.b+'</div>';
  if(e.route){
-  h+='<div class="route"><div class="rt">'+ic('map',14)+esc(e.route.label)+'</div><ol>';
-  for(var i=0;i<e.route.steps.length;i++)h+='<li>'+e.route.steps[i]+'</li>';
-  h+='</ol>';
+  var metaHTML='';
   if(e.route.meta&&e.route.meta.length){
-   h+='<div class="rmeta">';
-   for(var j=0;j<e.route.meta.length;j++)h+='<span class="tag '+(e.route.meta[j].c||'')+'">'+esc(e.route.meta[j].t)+'</span>';
-   h+='</div>';
+   metaHTML='<div class="rmeta">';
+   for(var j=0;j<e.route.meta.length;j++)metaHTML+='<span class="tag '+(e.route.meta[j].c||'')+'">'+esc(e.route.meta[j].t)+'</span>';
+   metaHTML+='</div>';
   }
-  h+='</div>';
+  if(!openRoute){
+   h+='<button class="route rfold" data-route="'+esc(key)+'">'
+    +'<span class="rt">'+ic('map',14)+esc(e.route.label)+'</span>'
+    +metaHTML
+    +'<span class="rmore">'+ic('plus',13)+'ดูวิธีไปทีละขั้น ('+e.route.steps.length+' ขั้น)</span>'
+    +'</button>';
+  }else{
+   h+='<div class="route"><div class="rt">'+ic('map',14)+esc(e.route.label)+'</div><ol>';
+   for(var i=0;i<e.route.steps.length;i++)h+='<li>'+e.route.steps[i]+'</li>';
+   h+='</ol>'+metaHTML
+    +'<button class="rless" data-route="'+esc(key)+'">ยุบวิธีไป</button></div>';
+  }
  }
- if(e.note)h+='<div class="note'+(e.note.warn?' warn':'')+'">'+e.note.txt+'</div>';
+ if(e.note&&!e.note.pre)h+='<div class="note'+(e.note.warn?' warn':'')+'">'+e.note.txt+'</div>';
  if(e.map){
   h+='<div class="acts">'
    +'<button class="act go" data-nav="'+esc(e.map)+'">'+ic('nav',14)+'นำทาง</button>'
@@ -1260,6 +1343,34 @@ function evHTML(e,isNow){
    +'<button class="act pic" data-pic="'+esc(e.map)+'">'+ic('cam',14)+'ดูรูป</button>'
    +'</div>';
  }
+ return h+'</div>';
+}
+
+/* During the trip the question is never "what is the plan for today" but
+   "what now, and how do I get to the next thing". That answer belongs above
+   the timeline, not five screens inside it. */
+function nowCardHTML(){
+ var dn=tripDayIndex();
+ if(!dn||view.day!==dn)return '';
+ var day=DAYS[dn-1],i=nowSlot(dn);
+ var cur=(i>=0)?day.ev[i]:null,nxt=day.ev[i+1]||null;
+ if(!cur&&!nxt)return '';
+ function row(e,lbl,cls){
+  var s='<div class="nw-row '+cls+'"><span class="nw-lbl">'+lbl+'</span>'
+   +'<div class="nw-main"><span class="nw-t tnum">'+esc(e.t)+'</span>'
+   +'<span class="nw-h">'+esc(e.h)+'</span></div>';
+  if(e.map){
+   s+='<div class="acts nw-acts">'
+    +'<button class="act go" data-nav="'+esc(e.map)+'">'+ic('nav',14)+'นำทาง</button>'
+    +'<button class="act say" data-say="'+esc(e.map)+'" data-sayth="'+esc(e.h)+'">'+ic('say',14)+'โชว์คนขับ</button>'
+    +'</div>';
+  }
+  return s+'</div>';
+ }
+ var h='<div class="nowcard">';
+ if(cur)h+=row(cur,'ตอนนี้','is-now');
+ if(nxt)h+=row(nxt,'ถัดไป','is-next');
+ if(!nxt)h+='<div class="nw-end">จบแผนของวันนี้แล้ว — พรุ่งนี้กดที่วันถัดไปด้านบนได้เลย</div>';
  return h+'</div>';
 }
 
@@ -1273,14 +1384,39 @@ function planHTML(){
  }
  h+='</div>';
  var d=DAYS[view.day-1];
+ var onTrip=tripDayIndex();
+
+ h+=nowCardHTML();
+
+ /* Getting to Korea is three flights on the day BEFORE day 1, so it was the
+    heaviest block in the app sitting inside the 06:55 arrival. It is its own
+    card above the timeline now, and it disappears once the trip starts. */
+ if(!onTrip&&view.day===1){
+  var pre=null;
+  d.ev.forEach(function(e){if(e.note&&e.note.pre)pre=e.note;});
+  if(pre){
+   h+='<div class="card"><h2><span class="ic" style="background:var(--seoul-bg);color:var(--seoul)">'+ic('plane',17)+'</span>ก่อนถึงโซล — 3 ขา คนละ booking</h2>'
+    +'<div class="lead">ออกจากบ้านเย็นวันศุกร์ที่ 11 ก.ย. · การ์ดนี้จะหายไปเองเมื่อทริปเริ่ม</div>'
+    +'<div class="note warn" style="margin-top:0">'+pre.txt+'</div></div>';
+  }
+ }
+
  h+='<div class="ticket"><div class="tk-head '+d.city+'">'
   +'<div class="eyebrow">DAY '+d.n+' · '+esc(d.cityName)+'</div>'
   +'<h2>'+esc(d.title)+'</h2>'
   +'<div class="meta">'+esc(d.dow)+' '+esc(d.date)+' 2569 · '+esc(d.meta)+'</div>'
   +'</div><div class="perf"><span class="dash"></span></div><div class="tl">';
  var nw=nowSlot(view.day);
- for(var k=0;k<d.ev.length;k++)h+=evHTML(d.ev[k],k===nw);
- h+='</div></div>';
+ var hidden=0;
+ for(var k=0;k<d.ev.length;k++){
+  var key=view.day+':'+k;
+  var done=(nw>0&&k<nw&&!view.open[key]);
+  if(done)hidden++;
+  h+=evHTML(d.ev[k],k===nw,done,key,!!view.route[key]||k===nw);
+ }
+ h+='</div>';
+ if(hidden)h+='<button class="tl-all">'+ic('cal',14)+'ผ่านไปแล้ว '+hidden+' รายการ — แตะรายการไหนก็กางดูได้</button>';
+ h+='</div>';
  h+='<div class="card"><h2><span class="ic" style="background:var(--gold-bg);color:var(--gold)">'+ic('tip',17)+'</span>ทำไมจัดแบบนี้</h2>'
   +'<div class="lead">พักยออีโดที่เดียว 4 คืน · กลางวันคาเฟ่กับถ่ายรูป กลางคืนสลับตลาดกับคราฟต์เบียร์</div><div class="rows">'
   +'<div class="row"><span class="k">สาย 5 ทำงานหนักแทนเรา</span><span class="v">จากยออีโด สาย 5 วิ่งตรงถึงควังจัง · DDP · อิกซอนดง · ควังฮวามุน (วัง) — วันที่ 1 กับ 2 ไม่ต้องเปลี่ยนสายเลยสักครั้ง</span></div>'
@@ -1323,7 +1459,7 @@ function zoneMapSVG(){
   +'<g font-family="\'IBM Plex Sans Thai\',sans-serif" font-size="9.5" font-weight="500">'
    +'<path d="M46 402 Q 75 405 106 420" fill="none" stroke="var(--busan)" stroke-width="2.2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".75"/>'
    +'<rect x="25" y="368" width="72" height="26" rx="7" fill="var(--card)" stroke="var(--busan)" stroke-width="1.2" opacity=".95"/>'
-   +'<text x="61" y="379" text-anchor="middle" fill="var(--busan)" font-weight="700">✈ AREX·5</text>'
+   +'<text x="61" y="379" text-anchor="middle" fill="var(--busan)" font-weight="700">AREX · สาย 5</text>'
    +'<text x="61" y="390" text-anchor="middle" fill="var(--ink-soft)">เข้า/ออก ~65น</text>'
    +'<path d="M128 408 Q 320 175 415 195" fill="none" stroke="var(--seoul)" stroke-width="2.2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".75"/>'
    +'<rect x="335" y="240" width="72" height="26" rx="7" fill="var(--card)" stroke="var(--seoul)" stroke-width="1.2" opacity=".95"/>'
@@ -1343,14 +1479,14 @@ function zoneMapSVG(){
    +'<text x="271" y="474" text-anchor="middle" fill="var(--ink-soft)">ด่วน ~20น</text>'
    +'<path d="M362 468 Q 320 395 295 340" fill="none" stroke="var(--seoul)" stroke-width="2.2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".75"/>'
    +'<rect x="296" y="418" width="76" height="26" rx="7" fill="var(--card)" stroke="var(--seoul)" stroke-width="1.2" opacity=".95"/>'
-   +'<text x="334" y="429" text-anchor="middle" fill="var(--seoul)" font-weight="700">4 · 🚕택시</text>'
+   +'<text x="334" y="429" text-anchor="middle" fill="var(--seoul)" font-weight="700">4 · 택시</text>'
    +'<text x="334" y="440" text-anchor="middle" fill="var(--ink-soft)">~20–25น</text>'
   +'</g>'
   +'<g font-family="\'Mali\',cursive" font-weight="700">'
-   +'<g transform="translate(70,255)"><ellipse rx="58" ry="36" fill="var(--seoul-bg)" fill-opacity=".45" stroke="var(--seoul)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-42" cy="-22" r="13" fill="var(--card)" stroke="var(--seoul)" stroke-width="1.6"/><text x="-42" y="-17" text-anchor="middle" font-size="13" font-family="sans-serif">🎸</text><text x="10" y="-4" text-anchor="middle" font-size="10.5" fill="var(--seoul)">ฮงแด·ยอนนัมดง</text><text x="10" y="11" text-anchor="middle" font-size="10" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">วัยรุ่น·อินดี้</text></g>'
-   +'<g transform="translate(348,105)"><ellipse rx="38" ry="26" fill="var(--plum-bg)" fill-opacity=".45" stroke="var(--plum)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-25" cy="-16" r="12" fill="var(--card)" stroke="var(--plum)" stroke-width="1.6"/><text x="-25" y="-12" text-anchor="middle" font-size="12" font-family="sans-serif">🛍</text><text x="9" y="-1" text-anchor="middle" font-size="10.5" fill="var(--plum)">เมียงดง</text><text x="9" y="13" text-anchor="middle" font-size="9" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">ช้อปนักท่องเที่ยว</text></g>'
-   +'<g transform="translate(205,516)"><ellipse rx="44" ry="27" fill="var(--busan-bg)" fill-opacity=".45" stroke="var(--busan)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-29" cy="-16" r="12" fill="var(--card)" stroke="var(--busan)" stroke-width="1.6"/><text x="-29" y="-12" text-anchor="middle" font-size="12" font-family="sans-serif">🐟</text><text x="10" y="-1" text-anchor="middle" font-size="10.5" fill="var(--busan)">โนรยางจิน</text><text x="10" y="13" text-anchor="middle" font-size="9" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">ตลาดปลาสด</text></g>'
-   +'<g transform="translate(524,568)"><ellipse rx="40" ry="29" fill="var(--plum-bg)" fill-opacity=".45" stroke="var(--plum)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-27" cy="-18" r="13" fill="var(--card)" stroke="var(--plum)" stroke-width="1.6"/><text x="-27" y="-13" text-anchor="middle" font-size="13" font-family="sans-serif">🎢</text><text x="9" y="-3" text-anchor="middle" font-size="11.5" fill="var(--plum)">จัมชิล</text><text x="9" y="12" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">สวนสนุก·ตึกสูง</text></g>'
+   +'<g transform="translate(70,255)"><ellipse rx="58" ry="36" fill="var(--seoul-bg)" fill-opacity=".45" stroke="var(--seoul)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-42" cy="-22" r="13" fill="var(--card)" stroke="var(--seoul)" stroke-width="1.6"/><svg x="-49.5" y="-29.5" width="15" height="15" viewBox="0 0 24 24" style="color:var(--seoul)">'+ICONS.music+'</svg><text x="10" y="-4" text-anchor="middle" font-size="10.5" fill="var(--seoul)">ฮงแด·ยอนนัมดง</text><text x="10" y="11" text-anchor="middle" font-size="10" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">วัยรุ่น·อินดี้</text></g>'
+   +'<g transform="translate(348,105)"><ellipse rx="38" ry="26" fill="var(--plum-bg)" fill-opacity=".45" stroke="var(--plum)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-25" cy="-16" r="12" fill="var(--card)" stroke="var(--plum)" stroke-width="1.6"/><svg x="-32" y="-23" width="14" height="14" viewBox="0 0 24 24" style="color:var(--plum)">'+ICONS.bag+'</svg><text x="9" y="-1" text-anchor="middle" font-size="10.5" fill="var(--plum)">เมียงดง</text><text x="9" y="13" text-anchor="middle" font-size="9" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">ช้อปนักท่องเที่ยว</text></g>'
+   +'<g transform="translate(205,516)"><ellipse rx="44" ry="27" fill="var(--busan-bg)" fill-opacity=".45" stroke="var(--busan)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-29" cy="-16" r="12" fill="var(--card)" stroke="var(--busan)" stroke-width="1.6"/><svg x="-36" y="-23" width="14" height="14" viewBox="0 0 24 24" style="color:var(--busan)">'+ICONS.fish+'</svg><text x="10" y="-1" text-anchor="middle" font-size="10.5" fill="var(--busan)">โนรยางจิน</text><text x="10" y="13" text-anchor="middle" font-size="9" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">ตลาดปลาสด</text></g>'
+   +'<g transform="translate(524,568)"><ellipse rx="40" ry="29" fill="var(--plum-bg)" fill-opacity=".45" stroke="var(--plum)" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-27" cy="-18" r="13" fill="var(--card)" stroke="var(--plum)" stroke-width="1.6"/><svg x="-34.5" y="-25.5" width="15" height="15" viewBox="0 0 24 24" style="color:var(--plum)">'+ICONS.ferris+'</svg><text x="9" y="-3" text-anchor="middle" font-size="11.5" fill="var(--plum)">จัมชิล</text><text x="9" y="12" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-soft)" font-family="\'IBM Plex Sans Thai\',sans-serif">สวนสนุก·ตึกสูง</text></g>'
   +'</g>'
   +'<g transform="translate(28,408)"><circle r="15" fill="var(--busan-bg)" stroke="var(--busan)" stroke-width="2"/><path d="M-6 1 L6 1 M0 -6 L0 6 M-4 -3 L4 3 M-4 3 L4 -3" stroke="var(--busan)" stroke-width="1.6" stroke-linecap="round"/></g>'
   +'<text x="28" y="433" text-anchor="middle" font-size="10.5" fill="var(--busan)" font-family="\'Mali\',cursive" font-weight="700">ICN</text>'
@@ -1384,7 +1520,7 @@ function zoneMapHTML(){
    +'<div class="zm-day-hi">'+d.hi+'</div>'
    +'<div class="zm-transit">'+ic('metro',13)+esc(d.transit)+'</div>';
   if(d.alt){
-   h+='<div class="zm-alt"><span class="zm-alt-label">🔁 เผื่อเปลี่ยนแผน แถวนี้ยังมี</span><div class="zm-chips">';
+   h+='<div class="zm-alt"><span class="zm-alt-label">'+ic('swap',12)+'เผื่อเปลี่ยนแผน แถวนี้ยังมี</span><div class="zm-chips">';
    for(var j=0;j<d.alt.length;j++){
     h+='<a class="zm-chip" href="https://map.naver.com/p/search/'+encodeURIComponent(d.alt[j][0])+'" target="_blank" rel="noopener">'+esc(d.alt[j][0])+' '+esc(d.alt[j][1])+'</a>';
    }
@@ -1399,7 +1535,7 @@ function zoneMapHTML(){
  for(var k=0;k<ZONE_EXTRA.length;k++){
   var z=ZONE_EXTRA[k];
   h+='<div class="zm-ecard" style="--zc:var(--'+z.c+');--zbg:var(--'+z.c+'-bg)">'
-   +'<div class="zm-eicon">'+z.icon+'</div><div class="zm-ebody">'
+   +'<div class="zm-eicon" style="color:var(--'+z.c+')">'+ic(z.icon,17)+'</div><div class="zm-ebody">'
    +'<div class="zm-ename">'+esc(z.name)+'<span class="kr">'+esc(z.kr)+'</span></div>'
    +'<div class="zm-estyle">'+z.style+'</div>'
    +'<a class="zm-elink" href="https://map.naver.com/p/search/'+encodeURIComponent(z.q)+'" target="_blank" rel="noopener">เปิด Naver Map</a>'
@@ -1771,10 +1907,16 @@ function render(){
 
  var hero='';
  if(view.tab==='plan'){
-  hero='<div class="hero"><div class="stamp">12–16 SEP 2026</div>'+heroArt()
-   +'<h1>ยออีโด · ซองซู · กังนัม</h1>'
-   +'<div class="sub">12–16 กันยายน 2569 · 4 คืน · คาเฟ่ ตลาด คราฟต์เบียร์</div>'
-   +countdownHTML()+'</div>';
+  /* 230px of drawing before the first plan item is fine on the sofa and in
+     the way on a platform, so the art only runs before the trip starts. */
+  if(tripDayIndex()){
+   hero='<div class="hero hero-slim"><h1>ยออีโด · ซองซู · กังนัม</h1>'+countdownHTML()+'</div>';
+  }else{
+   hero='<div class="hero"><div class="stamp">12–16 SEP 2026</div>'+heroArt()
+    +'<h1>ยออีโด · ซองซู · กังนัม</h1>'
+    +'<div class="sub">12–16 กันยายน 2569 · 4 คืน · คาเฟ่ ตลาด คราฟต์เบียร์</div>'
+    +countdownHTML()+'</div>';
+  }
  }else{
   var t={zonemap:['โซนเที่ยวโซล','วันไหนไปโซนไหน พร้อมวิธีเดินทางจากยออีโด'],
          move:['เดินทางยังไง','คู่มือรถไฟฟ้า บัตร แอป และการจองทุกอย่าง'],
@@ -1816,6 +1958,7 @@ function jumpToNow(){
  if(key===lastJump)return;
  lastJump=key;
  if(view.tab!=='plan')return;
+ if(document.querySelector('.nowcard'))return;   /* already answered at the top */
  var el=document.querySelector('.ev.now');
  if(el)el.scrollIntoView({block:'center'});
 }
@@ -1845,6 +1988,21 @@ function wire(){
  document.querySelectorAll('[data-pic]').forEach(function(b){
   b.onclick=function(){
    window.open('https://search.naver.com/search.naver?where=image&query='+encodeURIComponent(b.dataset.pic),'_blank','noopener');
+  };
+ });
+
+ document.querySelectorAll('[data-open]').forEach(function(b){
+  b.onclick=function(){
+   var k=b.dataset.open;
+   view.open[k]=!view.open[k];
+   render();
+  };
+ });
+ document.querySelectorAll('[data-route]').forEach(function(b){
+  b.onclick=function(){
+   var k=b.dataset.route;
+   view.route[k]=!view.route[k];
+   render();
   };
  });
 
