@@ -248,7 +248,12 @@ function persist(op){
 
 var pollTimer=null;
 async function poll(){
-  if(inFlight||document.hidden)return;
+  if(inFlight)return;
+  /* Unsent work goes out even with the page in the background - a phone coming
+     up from a platform is in a pocket, and that is the moment the other phone
+     is waiting for. Only the READ side waits for the tab, to save battery. */
+  if(mode==='sync'&&queue.length){await flush();return;}
+  if(document.hidden)return;
   try{
     var res=await api('GET');
     if(res.status===200&&res.data&&res.data.ok){
