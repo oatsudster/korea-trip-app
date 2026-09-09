@@ -176,9 +176,9 @@ svg{display:block}
 .row .v{color:var(--ink-soft);flex:1}
 .row .v b{color:var(--ink);font-weight:600}
 .showbtn{
-  display:flex;align-items:center;gap:4px;margin-top:6px;width:fit-content;
+  display:flex;align-items:center;gap:4px;margin-top:6px;width:fit-content;min-height:44px;
   border:2px solid var(--plum);border-radius:999px;background:var(--plum-bg);
-  color:var(--plum);font-size:11px;font-weight:700;padding:3px 10px 2px;
+  color:var(--plum);font-size:11px;font-weight:700;padding:3px 14px 2px;
 }
 .sect-title{
   font-family:'Mali',cursive;font-weight:700;font-size:14px;margin:16px 2px 9px;
@@ -222,13 +222,15 @@ svg{display:block}
 .amtrow{display:flex;gap:8px}
 .amtrow .inp{flex:1}
 .cur{display:flex;border:2px solid var(--line-2);border-radius:12px;overflow:hidden;flex:0 0 auto}
-.cur button{padding:0 13px;font-weight:600;font-size:14px;color:var(--ink-faint);background:var(--card2)}
+.cur button{padding:0 13px;font-weight:600;font-size:14px;color:var(--ink-faint);background:var(--card2);min-width:54px;min-height:44px}
 .cur button[aria-pressed="true"]{background:var(--gold);color:#2E2340}
 .chips{display:flex;gap:7px;flex-wrap:wrap}
 .chip{
   border:2px solid var(--line-2);background:var(--card2);border-radius:999px;
-  padding:5px 12px 4px;font-size:13px;font-weight:500;color:var(--ink-soft);
+  padding:5px 14px 4px;font-size:13px;font-weight:500;color:var(--ink-soft);
   transition:transform .12s;
+  /* 44px minimum: these get tapped one-handed on a moving train */
+  display:inline-flex;align-items:center;min-height:44px;
 }
 .chip[aria-pressed="true"]{color:var(--ink);border-color:currentColor;transform:translateY(-1px)}
 .chip.a[aria-pressed="true"]{background:var(--seoul-bg);border-color:var(--seoul);color:var(--seoul)}
@@ -240,7 +242,7 @@ svg{display:block}
   box-shadow:0 4px 0 -1px var(--shadow);transition:transform .1s,box-shadow .1s;
 }
 .btn:active{transform:translateY(3px);box-shadow:0 1px 0 -1px var(--shadow)}
-.btn.ghost{background:var(--card2);color:var(--ink-soft);border:2px solid var(--line-2);box-shadow:none;font-size:14px;padding:9px 14px}
+.btn.ghost{background:var(--card2);color:var(--ink-soft);border:2px solid var(--line-2);box-shadow:none;font-size:14px;padding:9px 14px;min-height:44px}
 .btn[disabled]{opacity:.5;pointer-events:none}
 
 .items{display:flex;flex-direction:column;gap:8px}
@@ -283,7 +285,8 @@ svg{display:block}
 .item .txt .t2 b{color:var(--ink-soft);font-weight:600}
 .item .val{text-align:right;font-size:14px}
 .item .val .sub{font-size:11px;color:var(--ink-faint)}
-.item .del{padding:4px;color:var(--ink-faint);border-radius:8px;flex:0 0 auto}
+.item .del{width:44px;height:44px;margin:-6px -7px -6px 0;display:grid;place-items:center;
+  color:var(--ink-faint);border-radius:12px;flex:0 0 auto}
 .item .del:hover{color:var(--seoul)}
 .empty{text-align:center;color:var(--ink-faint);font-size:13.5px;padding:22px 10px}
 
@@ -322,7 +325,7 @@ svg{display:block}
 .acts{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
 .act{
   display:inline-flex;align-items:center;gap:5px;border:2px solid var(--line-2);
-  background:var(--card2);border-radius:999px;padding:5px 11px 4px;
+  background:var(--card2);border-radius:999px;padding:5px 13px 4px;min-height:44px;
   font-size:12.5px;font-weight:600;color:var(--ink-soft);transition:transform .12s;
 }
 .act:active{transform:translateY(1px)}
@@ -455,6 +458,40 @@ svg{display:block}
   background:var(--zbg);color:var(--zc);text-decoration:none;
   font-size:11px;font-weight:500;padding:3px 9px 2px;border-radius:999px;border:1.5px solid var(--zc);
 }
+
+/* ---------- tap-to-edit, undo, who-is-this-phone ---------- */
+button.txt{text-align:left;display:flex;flex-direction:column;justify-content:center;min-height:44px;width:100%}
+.item.editing{border-color:var(--plum);background:var(--plum-bg)}
+.undobar{
+  position:fixed;left:0;right:0;bottom:calc(66px + env(safe-area-inset-bottom));z-index:30;
+  display:flex;justify-content:center;padding:0 14px;pointer-events:none;
+}
+.undobar .in{
+  pointer-events:auto;max-width:492px;width:100%;display:flex;align-items:center;gap:10px;
+  background:var(--ink);color:var(--paper);border-radius:14px;
+  padding:8px 9px 8px 15px;font-size:13px;box-shadow:0 7px 20px var(--shadow);
+}
+.undobar .in > span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.undobar button{
+  flex:0 0 auto;min-height:40px;padding:0 15px;border-radius:11px;
+  background:var(--paper);color:var(--ink);font-family:'Mali',cursive;font-weight:700;font-size:13.5px;
+}
+.editnote{
+  display:flex;align-items:center;gap:7px;margin-bottom:2px;
+  background:var(--plum-bg);border:2px solid var(--plum);color:var(--plum);
+  border-radius:12px;padding:8px 12px;font-size:12.5px;font-weight:600;
+}
+.mepick{
+  background:var(--card);border:2px dashed var(--plum);border-radius:var(--r);
+  padding:13px 15px 15px;margin-bottom:14px;
+}
+.mepick .q{font-family:'Mali',cursive;font-weight:700;font-size:15.5px}
+.mepick .sm{font-size:12.5px;color:var(--ink-soft);margin:1px 0 10px}
+.queuepill{
+  margin-left:auto;flex:0 0 auto;font-size:11px;font-weight:700;white-space:nowrap;
+  background:var(--gold);color:#2E2340;border-radius:999px;padding:2px 9px 1px;
+}
+.syncbar > span:nth-child(2){flex:1;min-width:0}
 
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}
@@ -891,7 +928,19 @@ function nowSlot(day){
 
 /* ================= view state ================= */
 var view={tab:'plan',day:tripDayIndex()||1,showSummary:false,
-  f:{label:'',amt:'',cur:'KRW',payer:0,split:'both',cat:'food',tax:false}};
+  f:{label:'',amt:'',cur:'KRW',payer:0,split:'both',cat:'food',tax:false,editId:null}};
+/* A deleted row waits here for a few seconds so one mis-tap on a 44px bin is
+   recoverable - the row is already gone from the shared list by then, and
+   undoing simply adds it back. */
+var undoItem=null,undoTimer=null;
+/* Currency and category carry over between entries because the next thing you
+   buy is usually the same kind of thing; the payer resets to whoever owns this
+   phone, which is the field that used to get logged as the wrong person. */
+function blankForm(keep){
+  keep=keep||{};
+  return {label:'',amt:'',cur:keep.cur||'KRW',payer:(me===null?(keep.payer||0):me),
+    split:'both',cat:keep.cat||'food',tax:false,editId:null};
+}
 /* Which view we last auto-jumped for. The 4s poll re-renders constantly, so
    jumping on every render would yank the page out from under whoever is
    reading it - only a real change of tab or day may move the scroll. */
@@ -904,18 +953,61 @@ var lastJump=null;
    whole thing degrades to this-device-only storage. */
 var API='/api/state';
 var LS='sb-trip-2026';
-var PEND='sb-trip-pending';
-var POLL_MS=4000;
+var PEND='sb-trip-pending';   /* legacy single-slot stash - migrated once, then unused */
+var QK='sb-trip-queue';       /* ops written but not yet accepted by the server */
+var SEEN='sb-trip-seen';      /* item ids the server has confirmed at least once */
+var ME='sb-trip-me';          /* which of the two people holds THIS phone */
+var POLL_FAST=4000;           /* just after a change, so the other phone sees it quickly */
+var POLL_SLOW=15000;          /* idle: polling every 4s all day was a battery and data tax */
+var FAST_FOR=60000;
 
 var state={names:['OATT','POPP'],rate:40,items:[],checks:{}};
 var version=0;
 var mode='local';       /* local | sync */
 var syncState='init';   /* init | ok | busy | slow | error | local */
 var inFlight=false;
+var queue=[];
+var seen={};
+var fastUntil=0;
+var me=null;
 
-function stash(op){try{sessionStorage.setItem(PEND,JSON.stringify(op));}catch(e){}}
-function dropStash(){try{sessionStorage.removeItem(PEND);}catch(e){}}
-function unstash(){var v=null;try{v=JSON.parse(sessionStorage.getItem(PEND)||'null');}catch(e){}dropStash();return v;}
+/* Unsent changes live in a QUEUE in localStorage, not one slot in
+   sessionStorage. Whatever is typed on a Seoul platform with no signal stays
+   here until a PUT actually succeeds - it survives a reload and a flat
+   battery, and is replayed on top of whatever the other phone wrote. */
+function loadQueue(){
+  try{var a=JSON.parse(localStorage.getItem(QK)||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}
+}
+function saveQueue(){try{localStorage.setItem(QK,JSON.stringify(queue));}catch(e){}}
+function enqueue(op){if(!op)return;queue.push(op);if(queue.length>300)queue=queue.slice(-300);saveQueue();}
+function applyQueue(target){
+  var ch=false;
+  for(var i=0;i<queue.length;i++){if(applyOp(queue[i],target))ch=true;}
+  return ch;
+}
+/* One-off: adopt the single pending op the previous version stashed. */
+function migrateStash(){
+  try{
+    var v=JSON.parse(sessionStorage.getItem(PEND)||'null');
+    sessionStorage.removeItem(PEND);
+    if(v)enqueue(v);
+  }catch(e){}
+}
+/* Ids the server has already shown us. An item missing from the server doc but
+   present in `seen` was deleted by the other phone - it must NOT be resurrected
+   when this device rejoins. An item never seen is ours, made offline, and must
+   be. Without this distinction one of the two is always wrong. */
+function loadSeen(){
+  try{
+    var a=JSON.parse(localStorage.getItem(SEEN)||'[]');
+    if(Array.isArray(a))a.forEach(function(id){seen[id]=1;});
+  }catch(e){}
+}
+function markSeen(doc){
+  var ch=false;
+  doc.items.forEach(function(i){if(!seen[i.id]){seen[i.id]=1;ch=true;}});
+  if(ch){try{localStorage.setItem(SEEN,JSON.stringify(Object.keys(seen).slice(-600)));}catch(e){}}
+}
 
 /* Ops are id-based and idempotent, so replaying one that already landed is a
    no-op. That is what makes the conflict retry below safe. */
@@ -935,6 +1027,19 @@ function applyOp(op,target){
     t.checks=t.checks||{};
     var want=!!op.check.on;
     if(!!t.checks[op.check.id]!==want){t.checks[op.check.id]=want;changed=true;}
+  }
+  if(op.upd){
+    for(var u=0;u<t.items.length;u++){
+      if(t.items[u].id===op.upd.id){
+        if(JSON.stringify(t.items[u])!==JSON.stringify(op.upd)){t.items[u]=op.upd;changed=true;}
+        break;
+      }
+    }
+  }
+  if(op.rerate){
+    t.items.forEach(function(i){
+      if(i.cur==='KRW'&&i.rate!==op.rerate.rate){i.rate=op.rerate.rate;changed=true;}
+    });
   }
   if(op.meta){
     if(op.meta.names&&(op.meta.names[0]!==t.names[0]||op.meta.names[1]!==t.names[1])){
@@ -958,7 +1063,20 @@ function loadLocal(){
   return null;
 }
 function sameDoc(a,b){return JSON.stringify(a)===JSON.stringify(b);}
-function goLocal(){mode='local';syncState='local';var l=loadLocal();if(l)state=l;}
+function goLocal(){mode='local';if(syncState!=='error')syncState='local';}
+/* This device was on its own and the server has just answered. Every item made
+   here that the server has never seen is replayed as an add, so the two lists
+   become the union - instead of the server silently winning, which is what
+   used to happen on the next reload. */
+function promote(serverDoc){
+  var have={};
+  serverDoc.items.forEach(function(i){have[i.id]=1;});
+  state.items.forEach(function(i){if(!have[i.id]&&!seen[i.id])enqueue({add:i});});
+  var ck=state.checks||{},sck=serverDoc.checks||{};
+  Object.keys(ck).forEach(function(k){if(ck[k]&&!sck[k])enqueue({check:{id:k,on:true}});});
+  if(state.rate!==40&&serverDoc.rate===40)enqueue({meta:{names:state.names.slice(),rate:state.rate}});
+  mode='sync';
+}
 
 async function api(method,body){
   var r=await fetch(API,{method:method,
@@ -971,71 +1089,114 @@ async function api(method,body){
 }
 
 var ready=(async function(){
-  var pend=unstash();
+  try{me=JSON.parse(localStorage.getItem(ME));}catch(e){me=null;}
+  if(me!==0&&me!==1)me=null;else view.f.payer=me;
+  loadSeen();
+  migrateStash();
+  queue=loadQueue();
+  var l=loadLocal();if(l)state=l;   /* show the last known list even with no signal */
   try{
     var res=await api('GET');
     if(res.status===200&&res.data&&res.data.ok){
-      state=normalise(res.data.doc);version=res.data.version|0;
-      mode='sync';syncState='ok';
-      if(applyOp(pend)){render();await push(pend);return;}
+      var doc=normalise(res.data.doc);
+      version=res.data.version|0;
+      if(queue.length||!sameDoc(doc,state))promote(doc);else mode='sync';
+      markSeen(doc);
+      state=doc;
+      applyQueue(state);
+      saveLocal();
+      syncState=queue.length?'busy':'ok';
+      if(queue.length){render();await flush();}
       return;
     }
     goLocal();
   }catch(e){goLocal();}
-  if(applyOp(pend))saveLocal();
+  applyQueue(state);
+  saveLocal();
 })();
 
-ready.then(function(){render();if(mode==='sync')startPolling();});
+/* Polling now runs in every mode: it is also what notices the signal came
+   back, promotes a device-only session to the shared one, and sends whatever
+   is still queued. */
+ready.then(function(){render();startPolling();});
 
 /* Send the whole document guarded by the version we last read. 409 means the
    other person wrote first: take their document, replay our op on top, retry. */
-async function push(op,depth){
+/* Send the whole document guarded by the version we last read, and drop from
+   the queue only the ops this PUT actually carried: anything enqueued while
+   the request was in the air is still owed and goes out on the next pass. */
+async function flush(depth){
   depth=depth||0;
   if(mode!=='sync'){saveLocal();render();return;}
+  if(inFlight||!queue.length)return;
   inFlight=true;syncState='busy';render();
-  if(op)stash(op);
+  var sent=queue.slice();
   try{
     var res=await api('PUT',{doc:state,version:version});
+    inFlight=false;
     if(res.status===409&&res.data&&res.data.doc){
+      /* the other phone wrote first: take their document, replay what we owe */
       state=normalise(res.data.doc);version=res.data.version|0;
-      if(applyOp(op)&&depth<4){inFlight=false;return push(op,depth+1);}
-      dropStash();syncState='ok';inFlight=false;render();return;
+      markSeen(state);applyQueue(state);saveLocal();
+      if(depth<5)return flush(depth+1);
+      syncState='error';render();return;
     }
     if(res.status===200&&res.data&&res.data.ok){
       state=normalise(res.data.doc);version=res.data.version|0;
-      dropStash();syncState='ok';inFlight=false;render();return;
+      markSeen(state);
+      queue=queue.filter(function(op){return sent.indexOf(op)<0;});
+      saveQueue();saveLocal();
+      if(queue.length)return flush(depth+1);
+      syncState='ok';render();return;
     }
-    if(res.status===404||res.status===501){
-      goLocal();saveLocal();dropStash();inFlight=false;render();return;
-    }
-    syncState=(res.status===429)?'slow':'error';saveLocal();inFlight=false;render();
+    if(res.status===404||res.status===501){goLocal();saveLocal();render();return;}
+    syncState=(res.status===429)?'slow':'error';saveLocal();render();
   }catch(e){
-    syncState='error';saveLocal();inFlight=false;render();
+    inFlight=false;syncState='error';saveLocal();render();
   }
 }
-function persist(op){return push(op);}
+/* A local change: it is already in `state`, so remember it, save it, send it. */
+function persist(op){
+  enqueue(op);
+  saveLocal();
+  fastUntil=Date.now()+FAST_FOR;
+  return flush();
+}
 
 var pollTimer=null;
 async function poll(){
-  if(mode!=='sync'||inFlight||document.hidden)return;
+  if(inFlight||document.hidden)return;
   try{
     var res=await api('GET');
     if(res.status===200&&res.data&&res.data.ok){
-      var v=res.data.version|0;
-      if(v!==version){
-        var incoming=normalise(res.data.doc);
+      var incoming=normalise(res.data.doc),v=res.data.version|0;
+      if(mode!=='sync')promote(incoming);      /* the signal came back */
+      if(v!==version||queue.length){
         version=v;
-        if(!sameDoc(incoming,state)){state=incoming;render();}
+        markSeen(incoming);
+        applyQueue(incoming);
+        if(!sameDoc(incoming,state)){state=incoming;saveLocal();render();}
       }
-      if(syncState==='error'||syncState==='slow'){syncState='ok';render();}
+      if(queue.length){await flush();return;}
+      if(syncState!=='ok'&&syncState!=='busy'){syncState='ok';render();}
+    }else if(res.status===404||res.status===501){
+      if(mode==='sync'){goLocal();render();}
     }
-  }catch(e){/* offline - keep showing what we have and retry next tick */}
+  }catch(e){
+    /* no signal: keep showing what we have, say so honestly, retry next tick */
+    if(mode==='sync'&&syncState==='ok'){syncState='error';render();}
+  }
 }
 function startPolling(){
   if(pollTimer)return;
-  pollTimer=setInterval(poll,POLL_MS);
+  function tick(){
+    poll();
+    var soon=queue.length>0||Date.now()<fastUntil;
+    pollTimer=setTimeout(tick,soon?POLL_FAST:POLL_SLOW);
+  }
+  pollTimer=setTimeout(tick,POLL_FAST);
   document.addEventListener('visibilitychange',function(){if(!document.hidden)poll();});
-  window.addEventListener('online',poll);
+  window.addEventListener('online',function(){fastUntil=Date.now()+FAST_FOR;poll();});
 }
 
 /* ================= renderers ================= */
@@ -1401,7 +1562,11 @@ function kstKey(ms){return kstFmt({year:'numeric',month:'2-digit',day:'2-digit'}
 function kstDay(ms){return kstFmt({weekday:'short',day:'numeric',month:'short'},'day').format(new Date(ms));}
 function kstClock(ms){return kstFmt({hour:'2-digit',minute:'2-digit',hour12:false},'clock').format(new Date(ms));}
 
-function toTHB(it){return it.cur==='THB'?it.amt:it.amt/state.rate;}
+/* A won receipt remembers the rate it was entered at, so correcting the rate
+   later no longer rewrites money already spent - and the settle-up figure
+   stops moving under whoever is reading it. Items saved before this change
+   have no rate of their own and fall back to the current one. */
+function toTHB(it){return it.cur==='THB'?it.amt:it.amt/(it.rate||state.rate);}
 function fmt(n){return n.toLocaleString('th-TH',{maximumFractionDigits:0});}
 
 /* Korea refunds VAT on Tax Free purchases of ₩30,000+ per receipt. The payout
@@ -1425,15 +1590,31 @@ function calc(){
 
 function expenseHTML(){
  var c=calc(),f=view.f;
+ var qn=queue.length;
  var sc=syncState==='busy'?'busy':((mode==='local'||syncState==='local'||syncState==='error'||syncState==='slow')?'off':'');
  var smsg=syncState==='init'?'กำลังเชื่อมต่อ…'
-   :syncState==='busy'?'กำลังบันทึก…'
-   :syncState==='slow'?'บันทึกถี่เกินไป — เก็บไว้ในเครื่องนี้ก่อน เดี๋ยวลองส่งใหม่ให้เอง'
-   :syncState==='error'?'เน็ตมีปัญหา เก็บไว้ในเครื่องนี้แล้ว กลับมาแล้วจะซิงค์ให้เอง'
-   :mode==='sync'?'ซิงค์สดอยู่ — อีกเครื่องจะเห็นเองใน ~4 วินาที ไม่ต้องรีเฟรช'
-   :'โหมดเครื่องนี้เท่านั้น — ยังไม่ได้ต่อฐานข้อมูล D1 (ดูวิธีใน README)';
+   :syncState==='busy'?'กำลังส่งขึ้นเซิร์ฟเวอร์…'
+   :syncState==='slow'?'ส่งถี่เกินไป — เก็บไว้ในเครื่องนี้ครบแล้ว เดี๋ยวส่งใหม่ให้เอง'
+   :syncState==='error'?(qn?'ยังส่งไม่ได้ '+qn+' รายการ — เก็บไว้ในเครื่องนี้ครบ จะส่งเองเมื่อเน็ตกลับมา'
+                           :'เน็ตมีปัญหา — กำลังลองใหม่เรื่อย ๆ ที่เห็นอยู่คือข้อมูลล่าสุดที่ได้มา')
+   :mode==='sync'?'ซิงค์สดอยู่ — อีกเครื่องจะเห็นเองไม่เกิน ~15 วินาที ไม่ต้องรีเฟรช'
+   :(qn?'ยังต่อเซิร์ฟเวอร์ไม่ได้ — เก็บไว้ในเครื่องนี้ '+qn+' รายการ จะส่งเองเมื่อต่อได้'
+      :'โหมดเครื่องนี้เท่านั้น — กำลังลองต่อเซิร์ฟเวอร์ให้เรื่อย ๆ');
 
- var h='<div class="syncbar '+sc+'"><span class="led"></span><span>'+esc(smsg)+'</span></div>';
+ var h='<div class="syncbar '+sc+'"><span class="led"></span><span>'+esc(smsg)+'</span>'
+  +(qn?'<span class="queuepill">ค้าง '+qn+'</span>':'')+'</div>';
+
+ /* Asked once, stored on this device only. Without it the "who paid" chip just
+    keeps whatever was used last, which is how an expense ends up under the
+    wrong name three days into the trip. */
+ if(me===null){
+  h+='<div class="mepick"><div class="q">เครื่องนี้ของใคร?</div>'
+   +'<div class="sm">ตั้งครั้งเดียว แล้วช่อง “ใครจ่าย” จะเลือกชื่อคุณไว้ให้เอง</div>'
+   +'<div class="chips">'
+   +'<button class="chip a" data-me="0">'+esc(state.names[0])+'</button>'
+   +'<button class="chip b" data-me="1">'+esc(state.names[1])+'</button>'
+   +'</div></div>';
+ }
 
  h+='<div class="mates">'
   +'<div class="mate a"><input id="n0" value="'+esc(state.names[0])+'" aria-label="ชื่อคนที่ 1" maxlength="14"><div class="amt money">฿'+fmt(c.paid[0])+'</div><div class="lbl">จ่ายไปแล้ว</div><div class="need money">ควรจ่าย ฿'+fmt(c.owe[0])+'</div></div>'
@@ -1452,7 +1633,9 @@ function expenseHTML(){
  h+='<div class="settle">'+settle+'</div>';
 
  // form
- h+='<div class="card"><h2><span class="ic" style="background:var(--seoul-bg);color:var(--seoul)">'+ic('plus',17)+'</span>เพิ่มรายการ</h2><div class="form">'
+ var editing=!!f.editId;
+ h+='<div class="card"><h2><span class="ic" style="background:var(--seoul-bg);color:var(--seoul)">'+ic(editing?'check':'plus',17)+'</span>'+(editing?'แก้รายการ':'เพิ่มรายการ')+'</h2><div class="form">'
+  +(editing?'<div class="editnote">'+ic('info',15)+'กำลังแก้รายการที่บันทึกไว้ — กดบันทึกแล้วอีกเครื่องจะเห็นตามด้วย</div>':'')
   +'<div class="fld"><label for="fl">จ่ายอะไร</label><input class="inp" id="fl" placeholder="เช่น ข้าวเที่ยงมยองดงเคียวจา" value="'+esc(f.label)+'"></div>'
   +'<div class="fld"><label for="fa">จำนวนเงิน</label><div class="amtrow">'
    +'<input class="inp" id="fa" type="number" inputmode="decimal" min="0" step="any" placeholder="0" value="'+esc(f.amt)+'">'
@@ -1470,16 +1653,18 @@ function expenseHTML(){
   +'<div class="fld"><label>หมวด</label><div class="chips">';
  for(var i=0;i<CATS.length;i++)h+='<button class="chip n" data-cat="'+CATS[i].id+'" aria-pressed="'+(f.cat===CATS[i].id)+'">'+esc(CATS[i].n)+'</button>';
  h+='</div></div>';
- if(f.cur==='KRW'){
-  var amtNow=parseFloat(f.amt);
-  var under=isFinite(amtNow)&&amtNow>0&&amtNow<TAX_MIN_WON;
-  h+='<div class="fld"><label>ใบเสร็จนี้ขอคืนภาษีได้ไหม</label><div class="chips">'
-   +'<button class="chip n" data-tax="1" aria-pressed="'+(!!f.tax)+'">🧾 ขอคืนภาษีได้</button>'
-   +'</div><div class="lead" style="margin:7px 0 0">ร้านที่มีป้าย <b>Tax Free</b> · ยอด <b>≥ ₩30,000 ต่อใบ</b> · ต้องใช้พาสปอร์ตตอนซื้อ'
-   +(under?'<br><b style="color:var(--seoul)">ยอดนี้ยังไม่ถึง ₩30,000 — ขอคืนไม่ได้</b>':'')
-   +'</div></div>';
- }
- h+='<button class="btn" id="add">'+ic('plus',18)+'บันทึกรายการ</button>'
+ /* Rendered whether or not the currency is won, and hidden instead: tapping a
+    chip must never rebuild the form, because that closes the keyboard and
+    drops the caret out of whatever was half-typed. */
+ var amtNow=parseFloat(f.amt);
+ var under=isFinite(amtNow)&&amtNow>0&&amtNow<TAX_MIN_WON;
+ h+='<div class="fld" id="taxfld"'+(f.cur==='KRW'?'':' hidden')+'><label>ใบเสร็จนี้ขอคืนภาษีได้ไหม</label><div class="chips">'
+  +'<button class="chip n" data-tax="1" aria-pressed="'+(!!f.tax)+'">🧾 ขอคืนภาษีได้</button>'
+  +'</div><div class="lead" style="margin:7px 0 0">ร้านที่มีป้าย <b>Tax Free</b> · ยอด <b>≥ ₩30,000 ต่อใบ</b> · ต้องใช้พาสปอร์ตตอนซื้อ'
+  +'<b id="taxwarn" style="color:var(--seoul);display:'+(under?'block':'none')+'">ยอดนี้ยังไม่ถึง ₩30,000 — ขอคืนไม่ได้</b>'
+  +'</div></div>';
+ h+='<button class="btn" id="add">'+ic(editing?'check':'plus',18)+(editing?'บันทึกการแก้ไข':'บันทึกรายการ')+'</button>'
+  +(editing?'<button class="btn ghost" id="canceledit">ยกเลิกการแก้ไข</button>':'')
   +'</div></div>';
 
  // list
@@ -1501,18 +1686,18 @@ function expenseHTML(){
    g.list.forEach(function(it){
     var ca=catOf(it.cat),thb=toTHB(it);
     var splitTxt=it.split==='both'?'หาร 50/50':('ของ '+state.names[it.split==='a'?0:1]);
-    h+='<div class="item"><span class="cdot" style="background:'+ca.c+'"></span>'
-     +'<div class="txt"><div class="t1">'+esc(it.label||'(ไม่มีชื่อ)')
+    h+='<div class="item'+(f.editId===it.id?' editing':'')+'"><span class="cdot" style="background:'+ca.c+'"></span>'
+     +'<button class="txt" data-edit="'+esc(it.id)+'" aria-label="แก้รายการนี้"><div class="t1">'+esc(it.label||'(ไม่มีชื่อ)')
      +(it.tax&&it.cur==='KRW'?'<span class="taxtag">🧾 คืนภาษี</span>':'')+'</div>'
      +'<div class="t2"><b class="money">'+esc(kstClock(itemTime(it)))+'</b> · '
-     +esc(state.names[it.payer])+' จ่าย · '+esc(splitTxt)+'</div></div>'
+     +esc(state.names[it.payer])+' จ่าย · '+esc(splitTxt)+'</div></button>'
      +'<div class="val"><div class="money">฿'+fmt(thb)+'</div>'
      +(it.cur==='KRW'?'<div class="sub money">₩'+fmt(it.amt)+'</div>':'')+'</div>'
      +'<button class="del" data-del="'+esc(it.id)+'" aria-label="ลบรายการ">'+ic('trash',16)+'</button></div>';
    });
    h+='</div>';
   });
-  h+='<div class="tzhint">เวลาที่แสดงเป็นเวลาเกาหลี (เร็วกว่าไทย 2 ชม.)</div>';
+  h+='<div class="tzhint">แตะที่รายการเพื่อแก้ · เวลาที่แสดงเป็นเวลาเกาหลี (เร็วกว่าไทย 2 ชม.)</div>';
   // category bars
   var maxv=0;for(var q in c.bycat){if(c.bycat[q]>maxv)maxv=c.bycat[q];}
   h+='<div class="sect-title">แยกตามหมวด</div><div class="bars">';
@@ -1539,11 +1724,27 @@ function expenseHTML(){
    +'</div></div>';
  }
 
+ var stale=0;
+ state.items.forEach(function(i){if(i.cur==='KRW'&&(i.rate||state.rate)!==state.rate)stale++;});
+ var onTrip=tripDayIndex();
+
  h+='<div class="card"><h2><span class="ic" style="background:var(--gold-bg);color:var(--gold)">'+ic('info',17)+'</span>ตั้งค่า</h2>'
   +'<div class="fld"><label for="rate">เรทแลกเงิน — ₩1,000 เท่ากับกี่บาท</label>'
   +'<div class="amtrow"><input class="inp" id="rate" type="number" inputmode="decimal" min="1" step="0.5" value="'+(1000/state.rate).toFixed(1)+'">'
   +'<button class="btn ghost" id="saveset" style="flex:0 0 auto">บันทึก</button></div></div>'
-  +'<div class="lead" style="margin:9px 0 0">ตอนนี้ ₩1,000 = '+ (1000/state.rate).toFixed(1) +' บาท · เปลี่ยนแล้วยอดทุกรายการจะคำนวณใหม่ทันที</div></div>';
+  +'<div class="lead" style="margin:9px 0 0">ตอนนี้ ₩1,000 = '+(1000/state.rate).toFixed(1)+' บาท · เรทนี้ใช้กับ<b>รายการที่บันทึกใหม่</b> — รายการเก่าจำเรทตอนที่ลงไว้ ยอดที่ใช้ไปแล้วจะไม่เปลี่ยนย้อนหลัง</div>'
+  +(stale?'<button class="btn ghost" id="rerate" style="margin-top:10px">ใช้เรทนี้กับทุกรายการย้อนหลัง ('+stale+' รายการ)</button>':'')
+  +(onTrip&&state.rate===40?'<div class="note warn" style="margin-top:10px">ยังใช้เรทตั้งต้น ₩1,000 = 25 บาท — <b>วันนี้แลกได้เท่าไหร่ แก้ที่ช่องข้างบนเลย</b></div>':'')
+  +'<div class="fld" style="margin-top:15px"><label>เครื่องนี้ของใคร</label><div class="chips">'
+  +'<button class="chip a" data-me="0" aria-pressed="'+(me===0)+'">'+esc(state.names[0])+'</button>'
+  +'<button class="chip b" data-me="1" aria-pressed="'+(me===1)+'">'+esc(state.names[1])+'</button>'
+  +'</div><div class="lead" style="margin:7px 0 0">เก็บไว้ในเครื่องนี้เท่านั้น ไม่ซิงค์ไปอีกเครื่อง · ใช้เลือกชื่อ “ใครจ่าย” ให้เอง</div></div>'
+  +'</div>';
+
+ if(undoItem){
+  h+='<div class="undobar"><div class="in"><span>ลบ “'+esc(undoItem.label||'ไม่มีชื่อ')+'” แล้ว</span>'
+   +'<button id="undo">เลิกทำ</button></div></div>';
+ }
 
  return h;
 }
@@ -1557,6 +1758,10 @@ function countdownHTML(){
 }
 
 function render(){
+ /* Anything typed keeps its caret across a rebuild: the poll can re-render at
+    any moment, including mid-word. */
+ var af=document.activeElement,fid=(af&&af.id)?af.id:null,ss=null,se=null;
+ if(fid&&af.tagName==='INPUT'){try{ss=af.selectionStart;se=af.selectionEnd;}catch(e){}}
  var body;
  if(view.tab==='plan')body=planHTML();
  else if(view.tab==='zonemap')body=zoneMapHTML();
@@ -1591,6 +1796,15 @@ function render(){
  document.querySelectorAll('.sheet').forEach(function(s){s.remove();});
  document.body.insertAdjacentHTML('beforeend',nav+sheetHTML()+immSheetHTML());
  wire();
+ if(fid){
+  var back=document.getElementById(fid);
+  if(back&&back.tagName==='INPUT'){
+   try{
+    back.focus({preventScroll:true});
+    if(ss!=null)back.setSelectionRange(ss,se);   /* throws on type=number in some browsers */
+   }catch(e){}
+  }
+ }
  jumpToNow();
 }
 
@@ -1688,13 +1902,39 @@ function wire(){
 
  var f=view.f;
  var fl=document.getElementById('fl'),fa=document.getElementById('fa');
+
+ /* Chip taps move an attribute, they do not re-render. Rebuilding the form on
+    every chip closed the on-screen keyboard and threw away the caret, which
+    made a three-field entry feel like a fight while standing at a till. */
+ function press(attr,val){
+  document.querySelectorAll('['+attr+']').forEach(function(b){
+    b.setAttribute('aria-pressed',String(b.getAttribute(attr)===String(val)));
+  });
+ }
+ function syncFormBits(){
+  var tf=document.getElementById('taxfld');
+  if(tf)tf.hidden=(f.cur!=='KRW');
+  var w=document.getElementById('taxwarn');
+  if(w){
+    var v=parseFloat(f.amt);
+    w.style.display=(f.cur==='KRW'&&isFinite(v)&&v>0&&v<TAX_MIN_WON)?'block':'none';
+  }
+ }
  if(fl)fl.oninput=function(){f.label=fl.value;};
- if(fa)fa.oninput=function(){f.amt=fa.value;};
- document.querySelectorAll('[data-cur]').forEach(function(b){b.onclick=function(){f.cur=b.dataset.cur;render();};});
- document.querySelectorAll('[data-payer]').forEach(function(b){b.onclick=function(){f.payer=+b.dataset.payer;render();};});
- document.querySelectorAll('[data-split]').forEach(function(b){b.onclick=function(){f.split=b.dataset.split;render();};});
- document.querySelectorAll('[data-cat]').forEach(function(b){b.onclick=function(){f.cat=b.dataset.cat;render();};});
- document.querySelectorAll('[data-tax]').forEach(function(b){b.onclick=function(){f.tax=!f.tax;render();};});
+ if(fa)fa.oninput=function(){f.amt=fa.value;fa.style.borderColor='';syncFormBits();};
+ document.querySelectorAll('[data-cur]').forEach(function(b){b.onclick=function(){f.cur=b.dataset.cur;press('data-cur',f.cur);syncFormBits();};});
+ document.querySelectorAll('[data-payer]').forEach(function(b){b.onclick=function(){f.payer=+b.dataset.payer;press('data-payer',f.payer);};});
+ document.querySelectorAll('[data-split]').forEach(function(b){b.onclick=function(){f.split=b.dataset.split;press('data-split',f.split);};});
+ document.querySelectorAll('[data-cat]').forEach(function(b){b.onclick=function(){f.cat=b.dataset.cat;press('data-cat',f.cat);};});
+ document.querySelectorAll('[data-tax]').forEach(function(b){b.onclick=function(){f.tax=!f.tax;b.setAttribute('aria-pressed',String(!!f.tax));};});
+ document.querySelectorAll('[data-me]').forEach(function(b){
+  b.onclick=function(){
+   me=+b.dataset.me;
+   try{localStorage.setItem(ME,JSON.stringify(me));}catch(e){}
+   if(!f.editId)f.payer=me;
+   render();
+  };
+ });
 
  var n0=document.getElementById('n0'),n1=document.getElementById('n1');
  if(n0)n0.onchange=function(){state.names[0]=n0.value.trim()||'OATT';persist({meta:{names:state.names.slice(),rate:state.rate}});};
@@ -1704,22 +1944,71 @@ function wire(){
  if(add)add.onclick=function(){
   var v=parseFloat(f.amt);
   if(!isFinite(v)||v<=0){if(fa){fa.focus();fa.style.borderColor='var(--seoul)';}return;}
-  var item={id:'e'+Date.now()+Math.random().toString(36).slice(2,6),ts:Date.now(),
-   label:f.label.trim(),amt:v,cur:f.cur,payer:f.payer,split:f.split,cat:f.cat};
   /* only meaningful on won receipts of ₩30,000+, so it is never stored on
      anything that could not actually be claimed at the airport */
-  if(f.tax&&f.cur==='KRW'&&v>=TAX_MIN_WON)item.tax=true;
+  var taxOK=(f.tax&&f.cur==='KRW'&&v>=TAX_MIN_WON);
+  var keep={cur:f.cur,payer:f.payer,cat:f.cat};
+
+  if(f.editId){
+   var was=null;
+   state.items.forEach(function(x){if(x.id===f.editId)was=x;});
+   if(was){
+    var upd={id:was.id,ts:was.ts,label:f.label.trim(),amt:v,cur:f.cur,
+      payer:f.payer,split:f.split,cat:f.cat};
+    /* an edited won receipt keeps the rate it was first entered at */
+    if(f.cur==='KRW')upd.rate=was.rate||state.rate;
+    if(taxOK)upd.tax=true;
+    applyOp({upd:upd});
+    view.f=blankForm(keep);
+    persist({upd:upd});
+    return;
+   }
+   f.editId=null;
+  }
+
+  var item={id:'e'+Date.now()+Math.random().toString(36).slice(2,6),ts:Date.now(),
+   label:f.label.trim(),amt:v,cur:f.cur,payer:f.payer,split:f.split,cat:f.cat};
+  if(f.cur==='KRW')item.rate=state.rate;
+  if(taxOK)item.tax=true;
   state.items.push(item);
-  view.f={label:'',amt:'',cur:f.cur,payer:f.payer,split:'both',cat:f.cat,tax:false};
+  view.f=blankForm(keep);
   persist({add:item});
  };
+ var ce=document.getElementById('canceledit');
+ if(ce)ce.onclick=function(){view.f=blankForm({cur:f.cur,payer:f.payer,cat:f.cat});render();};
+ document.querySelectorAll('[data-edit]').forEach(function(b){
+  b.onclick=function(){
+   var id=b.dataset.edit,it=null;
+   state.items.forEach(function(x){if(x.id===id)it=x;});
+   if(!it)return;
+   view.f={label:it.label||'',amt:String(it.amt),cur:it.cur,payer:it.payer,
+     split:it.split,cat:it.cat,tax:!!it.tax,editId:it.id};
+   render();
+   var el=document.getElementById('fl');
+   if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+  };
+ });
  document.querySelectorAll('[data-del]').forEach(function(b){
   b.onclick=function(){
-   var id=b.dataset.del;
+   var id=b.dataset.del,gone=null;
+   state.items.forEach(function(x){if(x.id===id)gone=x;});
    state.items=state.items.filter(function(x){return x.id!==id;});
+   if(view.f.editId===id)view.f=blankForm({cur:f.cur,payer:f.payer,cat:f.cat});
+   undoItem=gone;
+   if(undoTimer)clearTimeout(undoTimer);
+   undoTimer=setTimeout(function(){undoItem=null;render();},8000);
    persist({del:id});
   };
  });
+ var ub=document.getElementById('undo');
+ if(ub)ub.onclick=function(){
+  var back=undoItem;
+  undoItem=null;
+  if(undoTimer)clearTimeout(undoTimer);
+  if(!back){render();return;}
+  state.items.push(back);
+  persist({add:back});   /* queued after the del, so a replay ends up keeping it */
+ };
  var cl=document.getElementById('clear');
  if(cl)cl.onclick=function(){
   if(!window.confirm('ลบรายการทั้งหมด? กู้คืนไม่ได้นะ'))return;
@@ -1741,6 +2030,12 @@ function wire(){
  if(ss)ss.onclick=function(){
   var r=parseFloat(document.getElementById('rate').value);
   if(isFinite(r)&&r>0){state.rate=1000/r;persist({meta:{names:state.names.slice(),rate:state.rate}});}
+ };
+ var rr=document.getElementById('rerate');
+ if(rr)rr.onclick=function(){
+  if(!window.confirm('ใช้เรทปัจจุบันกับทุกรายการย้อนหลัง? ยอดบาทของรายการเก่าจะเปลี่ยนตาม'))return;
+  var op={rerate:{rate:state.rate}};
+  applyOp(op);persist(op);
  };
 }
 
