@@ -43,18 +43,59 @@ NEW = r"""/* ================= state + sync =================
    whole thing degrades to this-device-only storage. */
 var API='/api/state';
 var LS='sb-trip-2026';
-var PEND='sb-trip-pending';
-var POLL_MS=4000;
+var PEND='sb-trip-pending';   /* legacy single-slot stash - migrated once, then unused */
+var QK='sb-trip-queue';       /* ops written but not yet accepted by the server */
+var SEEN='sb-trip-seen';      /* item ids the server has confirmed at least once */
+var POLL_FAST=4000;           /* just after a change, so the other phone sees it quickly */
+var POLL_SLOW=15000;          /* idle: polling every 4s all day was a battery and data tax */
+var FAST_FOR=60000;
 
 var state={names:['OATT','POPP'],rate:40,items:[],checks:{}};
 var version=0;
 var mode='local';       /* local | sync */
 var syncState='init';   /* init | ok | busy | slow | error | local */
 var inFlight=false;
+var queue=[];
+var seen={};
+var fastUntil=0;
 
-function stash(op){try{sessionStorage.setItem(PEND,JSON.stringify(op));}catch(e){}}
-function dropStash(){try{sessionStorage.removeItem(PEND);}catch(e){}}
-function unstash(){var v=null;try{v=JSON.parse(sessionStorage.getItem(PEND)||'null');}catch(e){}dropStash();return v;}
+/* Unsent changes live in a QUEUE in localStorage, not one slot in
+   sessionStorage. Whatever is typed on a Seoul platform with no signal stays
+   here until a PUT actually succeeds - it survives a reload and a flat
+   battery, and is replayed on top of whatever the other phone wrote. */
+function loadQueue(){
+  try{var a=JSON.parse(localStorage.getItem(QK)||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}
+}
+function saveQueue(){try{localStorage.setItem(QK,JSON.stringify(queue));}catch(e){}}
+function enqueue(op){if(!op)return;queue.push(op);if(queue.length>300)queue=queue.slice(-300);saveQueue();}
+function applyQueue(target){
+  var ch=false;
+  for(var i=0;i<queue.length;i++){if(applyOp(queue[i],target))ch=true;}
+  return ch;
+}
+/* One-off: adopt the single pending op the previous version stashed. */
+function migrateStash(){
+  try{
+    var v=JSON.parse(sessionStorage.getItem(PEND)||'null');
+    sessionStorage.removeItem(PEND);
+    if(v)enqueue(v);
+  }catch(e){}
+}
+/* Ids the server has already shown us. An item missing from the server doc but
+   present in `seen` was deleted by the other phone - it must NOT be resurrected
+   when this device rejoins. An item never seen is ours, made offline, and must
+   be. Without this distinction one of the two is always wrong. */
+function loadSeen(){
+  try{
+    var a=JSON.parse(localStorage.getItem(SEEN)||'[]');
+    if(Array.isArray(a))a.forEach(function(id){seen[id]=1;});
+  }catch(e){}
+}
+function markSeen(doc){
+  var ch=false;
+  doc.items.forEach(function(i){if(!seen[i.id]){seen[i.id]=1;ch=true;}});
+  if(ch){try{localStorage.setItem(SEEN,JSON.stringify(Object.keys(seen).slice(-600)));}catch(e){}}
+}
 
 /* Ops are id-based and idempotent, so replaying one that already landed is a
    no-op. That is what makes the conflict retry below safe. */
@@ -62,8 +103,8 @@ function applyOp(op,target){
   if(!op)return false;
   var t=target||state,changed=false;
   if(op.add){
-    var seen={};t.items.forEach(function(i){seen[i.id]=1;});
-    if(!seen[op.add.id]){t.items.push(op.add);changed=true;}
+    var s2={};t.items.forEach(function(i){s2[i.id]=1;});
+    if(!s2[op.add.id]){t.items.push(op.add);changed=true;}
   }
   if(op.del){
     var kept=t.items.filter(function(i){return i.id!==op.del;});
@@ -74,6 +115,19 @@ function applyOp(op,target){
     t.checks=t.checks||{};
     var want=!!op.check.on;
     if(!!t.checks[op.check.id]!==want){t.checks[op.check.id]=want;changed=true;}
+  }
+  if(op.upd){
+    for(var u=0;u<t.items.length;u++){
+      if(t.items[u].id===op.upd.id){
+        if(JSON.stringify(t.items[u])!==JSON.stringify(op.upd)){t.items[u]=op.upd;changed=true;}
+        break;
+      }
+    }
+  }
+  if(op.rerate){
+    t.items.forEach(function(i){
+      if(i.cur==='KRW'&&i.rate!==op.rerate.rate){i.rate=op.rerate.rate;changed=true;}
+    });
   }
   if(op.meta){
     if(op.meta.names&&(op.meta.names[0]!==t.names[0]||op.meta.names[1]!==t.names[1])){
@@ -97,7 +151,20 @@ function loadLocal(){
   return null;
 }
 function sameDoc(a,b){return JSON.stringify(a)===JSON.stringify(b);}
-function goLocal(){mode='local';syncState='local';var l=loadLocal();if(l)state=l;}
+function goLocal(){mode='local';if(syncState!=='error')syncState='local';}
+/* This device was on its own and the server has just answered. Every item made
+   here that the server has never seen is replayed as an add, so the two lists
+   become the union - instead of the server silently winning, which is what
+   used to happen on the next reload. */
+function promote(serverDoc){
+  var have={};
+  serverDoc.items.forEach(function(i){have[i.id]=1;});
+  state.items.forEach(function(i){if(!have[i.id]&&!seen[i.id])enqueue({add:i});});
+  var ck=state.checks||{},sck=serverDoc.checks||{};
+  Object.keys(ck).forEach(function(k){if(ck[k]&&!sck[k])enqueue({check:{id:k,on:true}});});
+  if(state.rate!==40&&serverDoc.rate===40)enqueue({meta:{names:state.names.slice(),rate:state.rate}});
+  mode='sync';
+}
 
 async function api(method,body){
   var r=await fetch(API,{method:method,
@@ -110,71 +177,109 @@ async function api(method,body){
 }
 
 var ready=(async function(){
-  var pend=unstash();
+  loadSeen();
+  migrateStash();
+  queue=loadQueue();
+  var l=loadLocal();if(l)state=l;   /* show the last known list even with no signal */
   try{
     var res=await api('GET');
     if(res.status===200&&res.data&&res.data.ok){
-      state=normalise(res.data.doc);version=res.data.version|0;
-      mode='sync';syncState='ok';
-      if(applyOp(pend)){render();await push(pend);return;}
+      var doc=normalise(res.data.doc);
+      version=res.data.version|0;
+      if(queue.length||!sameDoc(doc,state))promote(doc);else mode='sync';
+      markSeen(doc);
+      state=doc;
+      applyQueue(state);
+      saveLocal();
+      syncState=queue.length?'busy':'ok';
+      if(queue.length){render();await flush();}
       return;
     }
     goLocal();
   }catch(e){goLocal();}
-  if(applyOp(pend))saveLocal();
+  applyQueue(state);
+  saveLocal();
 })();
 
-ready.then(function(){render();if(mode==='sync')startPolling();});
+/* Polling runs in every mode: it is also what notices the signal came back,
+   promotes a device-only session to the shared one, and sends what is queued. */
+ready.then(function(){render();startPolling();});
 
-/* Send the whole document guarded by the version we last read. 409 means the
-   other person wrote first: take their document, replay our op on top, retry. */
-async function push(op,depth){
+/* Send the whole document guarded by the version we last read, and drop from
+   the queue only the ops this PUT actually carried: anything enqueued while
+   the request was in the air is still owed and goes out on the next pass. */
+async function flush(depth){
   depth=depth||0;
   if(mode!=='sync'){saveLocal();render();return;}
+  if(inFlight||!queue.length)return;
   inFlight=true;syncState='busy';render();
-  if(op)stash(op);
+  var sent=queue.slice();
   try{
     var res=await api('PUT',{doc:state,version:version});
+    inFlight=false;
     if(res.status===409&&res.data&&res.data.doc){
+      /* the other phone wrote first: take their document, replay what we owe */
       state=normalise(res.data.doc);version=res.data.version|0;
-      if(applyOp(op)&&depth<4){inFlight=false;return push(op,depth+1);}
-      dropStash();syncState='ok';inFlight=false;render();return;
+      markSeen(state);applyQueue(state);saveLocal();
+      if(depth<5)return flush(depth+1);
+      syncState='error';render();return;
     }
     if(res.status===200&&res.data&&res.data.ok){
       state=normalise(res.data.doc);version=res.data.version|0;
-      dropStash();syncState='ok';inFlight=false;render();return;
+      markSeen(state);
+      queue=queue.filter(function(op){return sent.indexOf(op)<0;});
+      saveQueue();saveLocal();
+      if(queue.length)return flush(depth+1);
+      syncState='ok';render();return;
     }
-    if(res.status===404||res.status===501){
-      goLocal();saveLocal();dropStash();inFlight=false;render();return;
-    }
-    syncState=(res.status===429)?'slow':'error';saveLocal();inFlight=false;render();
+    if(res.status===404||res.status===501){goLocal();saveLocal();render();return;}
+    syncState=(res.status===429)?'slow':'error';saveLocal();render();
   }catch(e){
-    syncState='error';saveLocal();inFlight=false;render();
+    inFlight=false;syncState='error';saveLocal();render();
   }
 }
-function persist(op){return push(op);}
+/* A local change: it is already in `state`, so remember it, save it, send it. */
+function persist(op){
+  enqueue(op);
+  saveLocal();
+  fastUntil=Date.now()+FAST_FOR;
+  return flush();
+}
 
 var pollTimer=null;
 async function poll(){
-  if(mode!=='sync'||inFlight||document.hidden)return;
+  if(inFlight||document.hidden)return;
   try{
     var res=await api('GET');
     if(res.status===200&&res.data&&res.data.ok){
-      var v=res.data.version|0;
-      if(v!==version){
-        var incoming=normalise(res.data.doc);
+      var incoming=normalise(res.data.doc),v=res.data.version|0;
+      if(mode!=='sync')promote(incoming);      /* the signal came back */
+      if(v!==version||queue.length){
         version=v;
-        if(!sameDoc(incoming,state)){state=incoming;render();}
+        markSeen(incoming);
+        applyQueue(incoming);
+        if(!sameDoc(incoming,state)){state=incoming;saveLocal();render();}
       }
-      if(syncState==='error'||syncState==='slow'){syncState='ok';render();}
+      if(queue.length){await flush();return;}
+      if(syncState!=='ok'&&syncState!=='busy'){syncState='ok';render();}
+    }else if(res.status===404||res.status===501){
+      if(mode==='sync'){goLocal();render();}
     }
-  }catch(e){/* offline - keep showing what we have and retry next tick */}
+  }catch(e){
+    /* no signal: keep showing what we have, say so honestly, retry next tick */
+    if(mode==='sync'&&syncState==='ok'){syncState='error';render();}
+  }
 }
 function startPolling(){
   if(pollTimer)return;
-  pollTimer=setInterval(poll,POLL_MS);
+  function tick(){
+    poll();
+    var soon=queue.length>0||Date.now()<fastUntil;
+    pollTimer=setTimeout(tick,soon?POLL_FAST:POLL_SLOW);
+  }
+  pollTimer=setTimeout(tick,POLL_FAST);
   document.addEventListener('visibilitychange',function(){if(!document.hidden)poll();});
-  window.addEventListener('online',poll);
+  window.addEventListener('online',function(){fastUntil=Date.now()+FAST_FOR;poll();});
 }
 
 """
@@ -183,16 +288,18 @@ app = app[:start] + NEW + app[end:]
 
 # --- status copy tuned for the REST build ---
 reps = [
- ("""   :syncState==='busy'?'\u0e01\u0e33\u0e25\u0e31\u0e07\u0e0b\u0e34\u0e07\u0e04\u0e4c\u0e44\u0e1b\u0e2d\u0e35\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u2026 (\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e30\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e40\u0e2d\u0e07)'""",
-  """   :syncState==='busy'?'\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u2026'"""),
- ("""   :syncState==='slow'?'\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e16\u0e35\u0e48\u0e40\u0e01\u0e34\u0e19\u0e44\u0e1b \u2014 \u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e43\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e19\u0e35\u0e49\u0e01\u0e48\u0e2d\u0e19 \u0e40\u0e1e\u0e34\u0e48\u0e21\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e16\u0e31\u0e14\u0e44\u0e1b\u0e08\u0e30\u0e0b\u0e34\u0e07\u0e04\u0e4c\u0e43\u0e2b\u0e49\u0e40\u0e2d\u0e07'
-   :syncState==='error'?'\u0e0b\u0e34\u0e07\u0e04\u0e4c\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 \u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e43\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e19\u0e35\u0e49\u0e41\u0e25\u0e49\u0e27 \u0e40\u0e1e\u0e34\u0e48\u0e21\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e16\u0e31\u0e14\u0e44\u0e1b\u0e08\u0e30\u0e25\u0e2d\u0e07\u0e2a\u0e48\u0e07\u0e43\u0e2b\u0e21\u0e48'""",
-  """   :syncState==='slow'?'\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e16\u0e35\u0e48\u0e40\u0e01\u0e34\u0e19\u0e44\u0e1b \u2014 \u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e43\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e19\u0e35\u0e49\u0e01\u0e48\u0e2d\u0e19 \u0e40\u0e14\u0e35\u0e4b\u0e22\u0e27\u0e25\u0e2d\u0e07\u0e2a\u0e48\u0e07\u0e43\u0e2b\u0e21\u0e48\u0e43\u0e2b\u0e49\u0e40\u0e2d\u0e07'
-   :syncState==='error'?'\u0e40\u0e19\u0e47\u0e15\u0e21\u0e35\u0e1b\u0e31\u0e0d\u0e2b\u0e32 \u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e43\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e19\u0e35\u0e49\u0e41\u0e25\u0e49\u0e27 \u0e01\u0e25\u0e31\u0e1a\u0e21\u0e32\u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e0b\u0e34\u0e07\u0e04\u0e4c\u0e43\u0e2b\u0e49\u0e40\u0e2d\u0e07'"""),
- ("""   :mode==='sync'?'\u0e0b\u0e34\u0e07\u0e04\u0e4c\u0e2a\u0e14\u0e2d\u0e22\u0e39\u0e48 \u2014 \u0e2d\u0e35\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e08\u0e30\u0e40\u0e2b\u0e47\u0e19\u0e40\u0e2d\u0e07\u0e20\u0e32\u0e22\u0e43\u0e19\u0e44\u0e21\u0e48\u0e01\u0e35\u0e48\u0e27\u0e34\u0e19\u0e32\u0e17\u0e35 \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a'
-   :'\u0e42\u0e2b\u0e21\u0e14\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e19\u0e35\u0e49\u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19 (\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e43\u0e19\u0e40\u0e1a\u0e23\u0e32\u0e27\u0e4c\u0e40\u0e0b\u0e2d\u0e23\u0e4c) \u2014 \u0e16\u0e49\u0e32\u0e2d\u0e22\u0e32\u0e01\u0e0b\u0e34\u0e07\u0e04\u0e4c 2 \u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 \u0e40\u0e08\u0e49\u0e32\u0e02\u0e2d\u0e07\u0e15\u0e49\u0e2d\u0e07\u0e41\u0e0a\u0e23\u0e4c\u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49\u0e41\u0e1a\u0e1a\u0e41\u0e01\u0e49\u0e44\u0e02\u0e44\u0e14\u0e49';""",
-  """   :mode==='sync'?'\u0e0b\u0e34\u0e07\u0e04\u0e4c\u0e2a\u0e14\u0e2d\u0e22\u0e39\u0e48 \u2014 \u0e2d\u0e35\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e08\u0e30\u0e40\u0e2b\u0e47\u0e19\u0e40\u0e2d\u0e07\u0e43\u0e19 ~4 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35 \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a'
-   :'\u0e42\u0e2b\u0e21\u0e14\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e19\u0e35\u0e49\u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19 \u2014 \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e15\u0e48\u0e2d\u0e10\u0e32\u0e19\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25 D1 (\u0e14\u0e39\u0e27\u0e34\u0e18\u0e35\u0e43\u0e19 README)';"""),
+ ("""   :syncState==='busy'?'กำลังซิงค์ไปอีกเครื่อง… (หน้าจะรีเฟรชเอง)'""",
+  """   :syncState==='busy'?'กำลังส่งขึ้นเซิร์ฟเวอร์…'"""),
+ ("""   :syncState==='slow'?'บันทึกถี่เกินไป — เก็บไว้ในเครื่องนี้ก่อน เพิ่มรายการถัดไปจะซิงค์ให้เอง'
+   :syncState==='error'?'ซิงค์ไม่สำเร็จ เก็บไว้ในเครื่องนี้แล้ว เพิ่มรายการถัดไปจะลองส่งใหม่'""",
+  """   :syncState==='slow'?'ส่งถี่เกินไป — เก็บไว้ในเครื่องนี้ครบแล้ว เดี๋ยวส่งใหม่ให้เอง'
+   :syncState==='error'?(qn?'ยังส่งไม่ได้ '+qn+' รายการ — เก็บไว้ในเครื่องนี้ครบ จะส่งเองเมื่อเน็ตกลับมา'
+                           :'เน็ตมีปัญหา — กำลังลองใหม่เรื่อย ๆ ที่เห็นอยู่คือข้อมูลล่าสุดที่ได้มา')"""),
+ ("""   :mode==='sync'?'ซิงค์สดอยู่ — อีกเครื่องจะเห็นเองภายในไม่กี่วินาที ไม่ต้องรีเฟรช'
+   :'โหมดเครื่องนี้เท่านั้น (บันทึกในเบราว์เซอร์) — ถ้าอยากซิงค์ 2 เครื่อง เจ้าของต้องแชร์หน้านี้แบบแก้ไขได้';""",
+  """   :mode==='sync'?'ซิงค์สดอยู่ — อีกเครื่องจะเห็นเองไม่เกิน ~15 วินาที ไม่ต้องรีเฟรช'
+   :(qn?'ยังต่อเซิร์ฟเวอร์ไม่ได้ — เก็บไว้ในเครื่องนี้ '+qn+' รายการ จะส่งเองเมื่อต่อได้'
+      :'โหมดเครื่องนี้เท่านั้น — กำลังลองต่อเซิร์ฟเวอร์ให้เรื่อย ๆ');"""),
 ]
 for a, b in reps:
     assert app.count(a) == 1, ("copy replacement missed", a[:50], app.count(a))
