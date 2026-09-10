@@ -459,6 +459,16 @@ svg{display:block}
   font-size:11px;font-weight:500;padding:3px 9px 2px;border-radius:999px;border:1.5px solid var(--zc);
 }
 
+/* ---------- photo sheet ---------- */
+.pic-in{max-width:460px;text-align:left;padding:16px 16px 14px}
+.pic-title{font-family:'Mali',cursive;font-weight:700;font-size:17px;line-height:1.3;margin-bottom:10px}
+.pic-frame{
+  border-radius:14px;overflow:hidden;background:var(--card2);
+  border:2px solid var(--line-2);line-height:0;
+}
+.pic-frame img{width:100%;height:auto;display:block}
+.pic-credit{font-size:10.5px;color:var(--ink-faint);margin:8px 0 14px;line-height:1.5}
+
 /* ---------- which card pays for this leg ---------- */
 .paywith{
   display:flex;flex-wrap:wrap;align-items:center;gap:5px 7px;width:100%;
@@ -1038,6 +1048,24 @@ var PAY={
  walk :{t:'เดิน ไม่ต้องจ่าย',c:'busan',ic:'walk'}
 };
 
+/* Landmarks with a photo we are allowed to ship: tapping ดูรูป opens it in
+   the app and works offline. Everywhere else keeps the Naver link - those
+   photos belong to their shops and bloggers, and for a Seongsu pop-up a live
+   search is more accurate than anything frozen into this file anyway.
+   Author and licence travel with each photo because CC-BY requires it. */
+var PHOTOS={
+ 'N서울타워':{f:'namsan-tower.jpg',lic:'CC0',by:'lumoplank'},
+ '경복궁':{f:'gyeongbokgung.jpg',lic:'CC BY-SA 4.0',by:'Gage Skidmore'},
+ '광장시장':{f:'gwangjang.jpg',lic:'CC0',by:'Bgag'},
+ '동대문디자인플라자':{f:'ddp.jpg',lic:'CC0',by:'Tycho Atsma tychoa'},
+ '북촌한옥마을':{f:'bukchon.jpg',lic:'CC BY-SA 4.0',by:'Basile Morin'},
+ '삼청동':{f:'samcheongdong.jpg',lic:'CC BY-SA 2.0',by:'hojusaram'},
+ '서울숲':{f:'seoul-forest.jpg',lic:'Public domain',by:'J. R. Harding'},
+ '여의도한강공원':{f:'yeouido-park.jpg',lic:'CC BY-SA 4.0',by:'kallerna'},
+ '익선동':{f:'ikseondong.jpg',lic:'Public domain',by:'ไม่ระบุผู้ถ่าย'},
+ '인천국제공항':{f:'incheon-airport.jpg',lic:'CC BY-SA 3.0 de',by:'Arne Müseler'}
+};
+
 var CATS=[
  {id:'food',n:'อาหาร',c:'var(--gold)'},
  {id:'move',n:'เดินทาง',c:'var(--busan)'},
@@ -1438,7 +1466,7 @@ function evHTML(e,isNow,done,key,openRoute){
   h+='<div class="acts">'
    +'<button class="act go" data-nav="'+esc(e.map)+'">'+ic('nav',14)+'นำทาง</button>'
    +'<button class="act say" data-say="'+esc(e.map)+'" data-sayth="'+esc(e.h)+'">'+ic('say',14)+'โชว์คนขับ</button>'
-   +'<button class="act pic" data-pic="'+esc(e.map)+'">'+ic('cam',14)+'ดูรูป</button>'
+   +'<button class="act pic" data-pic="'+esc(e.map)+'" data-picth="'+esc(e.h)+'">'+ic('cam',14)+'ดูรูป</button>'
    +'</div>';
  }
  return h+'</div>';
@@ -1738,6 +1766,17 @@ function sheetHTML(){
 
 /* English, not Korean - the officer asks in English, and IMM_FACTS above is
    the single source both this card and the Q&A prep card read from. */
+function picSheetHTML(){
+ return '<div class="sheet" id="picSheet" hidden><div class="sheet-in pic-in">'
+  +'<div class="pic-title" id="picTitle"></div>'
+  +'<div class="pic-frame"><img id="picImg" alt=""></div>'
+  +'<div class="pic-credit" id="picCredit"></div>'
+  +'<div class="sheet-btns">'
+  +'<button class="btn ghost" id="picNaver">'+ic('cam',15)+'ดูใน Naver</button>'
+  +'<button class="btn" id="picClose">ปิด</button>'
+  +'</div></div></div>';
+}
+
 function immSheetHTML(){
  var f=IMM_FACTS;
  var row=function(label,val,sub){
@@ -2039,7 +2078,7 @@ function render(){
  document.getElementById('root').innerHTML=hero+body;
  var old=document.querySelector('nav.nav');if(old)old.remove();
  document.querySelectorAll('.sheet').forEach(function(s){s.remove();});
- document.body.insertAdjacentHTML('beforeend',nav+sheetHTML()+immSheetHTML());
+ document.body.insertAdjacentHTML('beforeend',nav+sheetHTML()+immSheetHTML()+picSheetHTML());
  wire();
  if(fid){
   var back=document.getElementById(fid);
@@ -2088,9 +2127,26 @@ function wire(){
     images would cost megabytes, break the offline-first goal, and go stale -
     Seongsu pop-ups change weekly. Naver also indexes Korean places far better
     than Google does. Needs a connection, same as the map button. */
+ function naverImages(q){
+  window.open('https://search.naver.com/search.naver?where=image&query='+encodeURIComponent(q),'_blank','noopener');
+ }
  document.querySelectorAll('[data-pic]').forEach(function(b){
   b.onclick=function(){
-   window.open('https://search.naver.com/search.naver?where=image&query='+encodeURIComponent(b.dataset.pic),'_blank','noopener');
+   var q=b.dataset.pic, p=PHOTOS[q], box=document.getElementById('picSheet');
+   /* no photo we may ship, or no sheet in this build: fall back to the search */
+   if(!p||!box){naverImages(q);return;}
+   var img=document.getElementById('picImg');
+   document.getElementById('picTitle').textContent=b.dataset.picth||q;
+   document.getElementById('picCredit').textContent='ภาพ: '+p.by+' · '+p.lic+' · Wikimedia Commons';
+   /* if the file is missing (the artifact build ships no photos folder) do not
+      leave an empty box on screen - go where the photos actually are */
+   img.onerror=function(){box.hidden=true;naverImages(q);};
+   img.alt=b.dataset.picth||q;
+   img.src='photos/'+p.f;
+   document.getElementById('picNaver').onclick=function(){naverImages(q);};
+   document.getElementById('picClose').onclick=closeSheet;
+   box.onclick=function(e){if(e.target===box)closeSheet();};
+   box.hidden=false;
   };
  });
 
@@ -2103,7 +2159,12 @@ function wire(){
 
  var sheet=document.getElementById('sheet');
  var immSheet=document.getElementById('immSheet');
- function closeSheet(){if(sheet)sheet.hidden=true;if(immSheet)immSheet.hidden=true;}
+ var picSheet=document.getElementById('picSheet');
+ function closeSheet(){
+  if(sheet)sheet.hidden=true;
+  if(immSheet)immSheet.hidden=true;
+  if(picSheet)picSheet.hidden=true;
+ }
  var openImmBtn=document.getElementById('openImm');
  if(openImmBtn)openImmBtn.onclick=function(){if(immSheet)immSheet.hidden=false;};
  if(immSheet){

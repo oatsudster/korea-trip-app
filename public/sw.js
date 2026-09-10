@@ -10,8 +10,20 @@
    version, and the one after that is current. Google Fonts are cached too, so
    offline no longer falls back to system fonts and reflows the Thai text.
    /api/state is never cached - shared expenses must never be served stale. */
-var CACHE = 'korea-trip-v3';
-var SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+var CACHE = 'korea-trip-v4';
+var SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png']
+  .concat([
+    './photos/bukchon.jpg',
+    './photos/ddp.jpg',
+    './photos/gwangjang.jpg',
+    './photos/gyeongbokgung.jpg',
+    './photos/ikseondong.jpg',
+    './photos/incheon-airport.jpg',
+    './photos/namsan-tower.jpg',
+    './photos/samcheongdong.jpg',
+    './photos/seoul-forest.jpg',
+    './photos/yeouido-park.jpg'
+  ]);
 var FONT_ORIGINS = ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'];
 
 self.addEventListener('install', function (e) {
